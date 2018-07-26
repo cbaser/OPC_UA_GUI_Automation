@@ -1,4 +1,4 @@
-package UserInterface;
+package userInterface;
 
 import java.awt.EventQueue;
 import javax.swing.GroupLayout;

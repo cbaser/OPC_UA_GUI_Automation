@@ -1,12 +1,17 @@
-package Reporting;
+package reporting;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.print.attribute.standard.DateTimeAtCompleted;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtils;
@@ -36,26 +41,35 @@ import com.itextpdf.text.pdf.PdfPage;
 import com.itextpdf.text.pdf.PdfWriter;
 
 
-public class ReporterParser {
+public class PdfParser {
 	private ArrayList<String> titles,contents;
 	private Document document;
 	private PdfWriter writer;
+	private String path;
 	  private  Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
 	            Font.BOLD);
-	  private  Font redFont = new Font(Font.FontFamily.TIMES_ROMAN, 12,
-	            Font.NORMAL, BaseColor.RED);
 	  private  Font subFont = new Font(Font.FontFamily.TIMES_ROMAN, 16,
 	            Font.BOLD);
 	 private  Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,
 	            Font.BOLD);
-	private String dest = System.getProperty("user.dir")+File.separator+"output/result.pdf";
-	private String output=System.getProperty("user.dir")+File.separator+"output/";
+//	private String dest = System.getProperty("user.dir")+File.separator+"output/result.pdf";
+//	private String output=System.getProperty("user.dir")+File.separator+"output/";
+
+		
+	 private String dest = path+File.separator+
+			 "OPC_UA_Testing_"+LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"))
+			 +".pdf";
+	 
+	 
 	public void startReporting() {
 		startCreatingPdf();
 		addMetaData();
 		addTitle();
 		addContent();
 		document.close();
+	}
+	public void setPath(String path) {
+		this.path = path;
 	}
 	
 private void startCreatingPdf() {
@@ -186,7 +200,7 @@ private void startCreatingPdf() {
 	}
 	private void addChartToPdf(JFreeChart chart,String chartname) {
 		try {
-			File file = new File(output+"/"+chartname+".jpg");
+			File file = new File(path+File.separator+chartname+".jpg");
 			ChartUtils.saveChartAsJPEG(file, chart, 500, 300);	
 			Image image = Image.getInstance(file.getAbsolutePath());
 			document.add(image);

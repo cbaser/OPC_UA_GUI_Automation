@@ -1,4 +1,4 @@
-package Reporting;
+package reporting;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -11,7 +11,7 @@ public class TxtParser {
 	
 	private ArrayList<String> titles;
 	private ArrayList<String> contents;
-	private ReporterParser reporter;
+	private PdfParser reporter;
 	
 	public TxtParser(String path) {
 		this.path=path;
@@ -35,7 +35,8 @@ public class TxtParser {
 		    bufferedReader.close();
 		    findTitles(everything);
 		    findContent(everything);
-		    reporter = new ReporterParser();
+		    reporter = new PdfParser();
+		    reporter.setPath(path);
 		    reporter.setTitles(titles);
 		    reporter.setContents(contents);
 		    reporter.startReporting();

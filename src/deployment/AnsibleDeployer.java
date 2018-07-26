@@ -1,10 +1,10 @@
-package Deployment;
+package deployment;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
 
-import Controller.ResultMaker;
+import controller.ResultMaker;
 
 public class AnsibleDeployer {
 	private String ansiblePath;

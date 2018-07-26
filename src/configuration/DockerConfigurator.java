@@ -1,4 +1,4 @@
-package Configuration;
+package configuration;
 
 import java.io.BufferedWriter;
 import java.io.File;

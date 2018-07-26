@@ -1,4 +1,4 @@
-package Controller;
+package controller;
 
 import java.io.File;
 import javax.swing.JOptionPane;
@@ -6,10 +6,11 @@ import javax.swing.SwingUtilities;
 
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
-import Configuration.ConfigurationMaker;
-import Deployment.DeployerMaker;
-import Reporting.ReportingMaker;
-import UserInterface.GUI;
+
+import configuration.ConfigurationMaker;
+import deployment.DeployerMaker;
+import reporting.ReportingMaker;
+import userInterface.GUI;
 
 import org.usb4java.*;
 

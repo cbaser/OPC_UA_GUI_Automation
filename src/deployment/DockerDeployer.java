@@ -1,4 +1,4 @@
-package Deployment;
+package deployment;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -19,7 +19,7 @@ import com.github.dockerjava.core.DockerClientConfig;
 import com.github.dockerjava.core.command.BuildImageResultCallback;
 import com.github.dockerjava.core.command.ExecStartResultCallback;
 
-import Controller.ResultMaker;
+import controller.ResultMaker;
 
 public class DockerDeployer {
 	private String dockerPath;

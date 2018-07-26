@@ -1,20 +1,18 @@
-package UserInterface;
+package userInterface;
 
 import java.awt.BorderLayout;
-import com.fazecast.jSerialComm.*;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.InputStream;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileSystemView;
 
-import Controller.MainController;
-import Deployment.MakefileDeployer;
+import controller.MainController;
+import deployment.MakefileDeployer;
+import reporting.ReportingMaker;
 
 import javax.swing.JTabbedPane;
 import java.awt.Color;
@@ -329,9 +327,9 @@ public class GUI extends JFrame {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						String reportType=String.valueOf(reportTypeBoxDeployable.getSelectedIndex());
-						
+						controller.setReportType(reportType);
+						controller.startReporting();
 					}
-					
 				});
 				
 				
@@ -498,17 +496,6 @@ public class GUI extends JFrame {
 		btnSelectMakefile.addActionListener(new ActionListener() {
 			
 				public void actionPerformed(ActionEvent arg0) {
-					SerialPort comPort = SerialPort.getCommPorts()[0];
-					comPort.openPort();
-					comPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_SEMI_BLOCKING, 100, 0);
-					InputStream in = comPort.getInputStream();
-					try
-					{
-					   for (int j = 0; j < 1000; ++j)
-					      System.out.print((char)in.read());
-					   in.close();
-					} catch (Exception e) { e.printStackTrace(); }
-					comPort.closePort();
 					JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 					fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 					int returnValue = fileChooser.showOpenDialog(null);

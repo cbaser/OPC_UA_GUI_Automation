@@ -1,4 +1,4 @@
-package Deployment;
+package deployment;
 
 public class DeployerMaker {
 	private AnsibleDeployer ansibleDeployer;

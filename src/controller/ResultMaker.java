@@ -1,4 +1,4 @@
-package Controller;
+package controller;
 
 
 import java.io.File;
@@ -6,7 +6,7 @@ import java.io.FileWriter;
 
 import javax.swing.SwingUtilities;
 
-import UserInterface.GUI;
+import userInterface.GUI;
 
 
 public class ResultMaker {
