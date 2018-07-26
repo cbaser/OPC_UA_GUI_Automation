@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/cakin/.m2/repository/com/fazecast/jSerialComm/2.0.2/jSerialComm-2.0.2.jar" sourcepath="C:/Users/cakin/.m2/repository/com/fazecast/jSerialComm/2.0.2/jSerialComm-2.0.2-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="com.fazecast"/>
+			<attribute name="maven.artifactId" value="jSerialComm"/>
+			<attribute name="maven.version" value="2.0.2"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/cakin/.m2/repository/com/itextpdf/itextpdf/5.5.13/itextpdf-5.5.13.jar" sourcepath="C:/Users/cakin/.m2/repository/com/itextpdf/itextpdf/5.5.13/itextpdf-5.5.13-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="com.itextpdf"/>
+			<attribute name="maven.artifactId" value="itextpdf"/>
+			<attribute name="maven.version" value="5.5.13"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/cakin/.m2/repository/org/jfree/jfreechart/1.5.0/jfreechart-1.5.0.jar" sourcepath="C:/Users/cakin/.m2/repository/org/jfree/jfreechart/1.5.0/jfreechart-1.5.0-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="org.jfree"/>
+			<attribute name="maven.artifactId" value="jfreechart"/>
+			<attribute name="maven.version" value="1.5.0"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" path="/OpcAutomatedDeployment"/>
+	<classpathentry kind="lib" path="C:/Users/cakin/.m2/repository/com/jcraft/jsch/0.1.54/jsch-0.1.54.jar" sourcepath="C:/Users/cakin/.m2/repository/com/jcraft/jsch/0.1.54/jsch-0.1.54-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="com.jcraft"/>
+			<attribute name="maven.artifactId" value="jsch"/>
+			<attribute name="maven.version" value="0.1.54"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/cakin/.m2/repository/com/github/docker-java/docker-java/3.1.0-rc-2/docker-java-3.1.0-rc-2.jar" sourcepath="C:/Users/cakin/.m2/repository/com/github/docker-java/docker-java/3.1.0-rc-2/docker-java-3.1.0-rc-2-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="com.github.docker-java"/>
+			<attribute name="maven.artifactId" value="docker-java"/>
+			<attribute name="maven.version" value="3.1.0-rc-2"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/cakin/.m2/repository/org/usb4java/usb4java/1.2.0/usb4java-1.2.0.jar" sourcepath="C:/Users/cakin/.m2/repository/org/usb4java/usb4java/1.2.0/usb4java-1.2.0-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="org.usb4java"/>
+			<attribute name="maven.artifactId" value="usb4java"/>
+			<attribute name="maven.version" value="1.2.0"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
