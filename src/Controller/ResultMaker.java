@@ -1,35 +1,41 @@
 package Controller;
 
 
+import java.io.File;
+import java.io.FileWriter;
+
 import javax.swing.SwingUtilities;
 
 import UserInterface.GUI;
 
 
 public class ResultMaker {
-//	private JTextArea textArea;
-//	
-//	public void setTextArea(JTextArea textArea) {
-//		this.textArea = textArea;
-//	}
+	private MainController controller;
+	private String outputFilePath;
+
 	
 	public ResultMaker() {
+		controller = new MainController();
+		outputFilePath = controller.getOutputFilePath().getAbsolutePath()+File.separator+"output.txt";
+		File file =new File(outputFilePath);
+		file.mkdirs();
 		
 	}
-	public void writeToFile() {
+	public void writeToFile(String line) {
 		
+		try {
+			FileWriter writer = new FileWriter(outputFilePath);
+			writer.write(line);
+			writer.close();
+	}catch(Exception e) {
+		e.printStackTrace();
 	}
+		
+		
+		}
 	
 	public void showResults(String line) {
-		new Thread() {
-			public void run() {
-				SwingUtilities.invokeLater(new Runnable() {
-	                public void run() {
-	                    GUI.textArea.append(line);
-	                }
-				});
-			}
-		}.start();
+		controller.appendToTextArea(line);
 	}
 //	public void elapsedTime(String time) {
 //		new Thread() {

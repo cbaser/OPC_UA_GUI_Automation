@@ -36,12 +36,9 @@ public class AnsibleDeployer {
         	process = pb.start();
 			BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
 			while((outputline= br.readLine()) != null) {
-				resultMaker.showResults(outputline+"\n");
-				
+				resultMaker.showResults(outputline+"\n");	
 			}
-			
-			
-			
+
            process.destroy();
             
 			

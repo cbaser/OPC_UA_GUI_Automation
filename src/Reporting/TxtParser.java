@@ -7,16 +7,20 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TxtParser {
+	private String path;
 	
 	private ArrayList<String> titles;
 	private ArrayList<String> contents;
 	private ReporterParser reporter;
 	
+	public TxtParser(String path) {
+		this.path=path;
+	}
 	
 	public void startReadingFile() {
 		try {
 			ClassLoader classLoader = this.getClass().getClassLoader();
-			File file = new File(classLoader.getResource("input/omega2plus.txt").getFile());
+			File file = new File(classLoader.getResource(path).getFile());
 			BufferedReader	bufferedReader = new BufferedReader(new FileReader(file));
 			StringBuilder stringBuilder = new StringBuilder();
 			

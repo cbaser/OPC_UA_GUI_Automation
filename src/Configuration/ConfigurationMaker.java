@@ -1,5 +1,4 @@
 package Configuration;
-
 public class ConfigurationMaker {
 	
 

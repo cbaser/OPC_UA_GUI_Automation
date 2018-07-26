@@ -1,34 +1,42 @@
 package Controller;
+
 import java.io.File;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
 import Configuration.ConfigurationMaker;
 import Deployment.DeployerMaker;
-
+import Reporting.ReportingMaker;
+import UserInterface.GUI;
 
 import org.usb4java.*;
 
-
 public class MainController {
-	private File ansibleFilePath,dockerFilePath,makeFilePath,outputFilePath;
+	private File ansibleFilePath, dockerFilePath, makeFilePath, outputFilePath;
 
-	private String username,password,connectionAddress;
-	private boolean connected=false,hasAnsibleFile=false,hasDockerFile=false,hasMakeFile=false;
+	private String username, password, connectionAddress;
+	private boolean connected = false, hasAnsibleFile = false, hasDockerFile = false, hasMakeFile = false,
+			firstOrSecondOutputArea = false;
 	private Session session;
-	private String testingType;
+	private String testingType,reportType;
 
 	public MainController() {
-			
+
 	}
+
 	public File getMakeFilePath() {
 		return makeFilePath;
+	}
+	public void setReportType(String reportType) {
+		this.reportType = reportType;
 	}
 
 	public void setMakeFilePath(File makeFilePath) {
 		this.makeFilePath = makeFilePath;
 	}
-	
+
 	public String getTestingType() {
 		return testingType;
 	}
@@ -48,158 +56,156 @@ public class MainController {
 	public void setUsername(String username) {
 		this.username = username;
 	}
+
 	public String getUsername() {
 		return username;
 	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 	public String getPassword() {
 		return password;
 	}
-	
+
 	public File getAnsibleFilePath() {
 		return ansibleFilePath;
 	}
+
 	public void setAnsibleFilePath(File ansibleFilePath) {
 		this.ansibleFilePath = ansibleFilePath;
 	}
+
 	public File getDockerFilePath() {
 		return dockerFilePath;
 	}
+
 	public void setDockerFilePath(File dockerFilePath) {
 		this.dockerFilePath = dockerFilePath;
 	}
+
 	public String getConnectionAddress() {
 		return connectionAddress;
 	}
+
 	public void setConnectionAddress(String connectionAddress) {
 		this.connectionAddress = connectionAddress;
 	}
-	/*
-	public void setTextArea(JTextArea textArea) {
-		this.textArea = textArea;
-	}
-	*/
+
 	public boolean controlFields() {
-		if(username.isEmpty()||password.isEmpty()||connectionAddress.isEmpty())
-		return false;
-		else 
-		return true;
+		if (username.isEmpty() || password.isEmpty() || connectionAddress.isEmpty())
+			return false;
+		else
+			return true;
 	}
 
+	public void setOutputOrder(boolean firstOrSecondOutputArea) {
+		this.firstOrSecondOutputArea = firstOrSecondOutputArea;
+	}
 
-	public boolean checkConnection()
-	{
+	public boolean checkConnection() {
 		JSch jsch = new JSch();
 		try {
-			//192.168.178.59
+			// 192.168.178.59
 			session = jsch.getSession(username, connectionAddress, 22);
-			java.util.Properties config = new java.util.Properties(); 
+			java.util.Properties config = new java.util.Properties();
 			config.put("StrictHostKeyChecking", "no");
 			session.setConfig(config);
 			session.setPassword(password);
 			session.connect();
-			connected=session.isConnected();
-			
-		}catch(Exception e) {
+			connected = session.isConnected();
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		return connected;
-		
+
 	}
-	public boolean controlAnsibleFiles(File incomingFile){	
-		hasAnsibleFile = checkFolder(incomingFile,".yml");
+
+	public boolean controlAnsibleFiles(File incomingFile) {
+		hasAnsibleFile = checkFolder(incomingFile, ".yml");
 		return hasAnsibleFile;
 	}
+
 	public boolean controlDockerFiles(File incomingFile) {
-		
-	//	hasDockerFile = checkFolder(incomingFile,"Dockerfile");
-		hasDockerFile = checkFolder(incomingFile,".c");
+
+		// hasDockerFile = checkFolder(incomingFile,"Dockerfile");
+		hasDockerFile = checkFolder(incomingFile, ".cpp");
 		return hasDockerFile;
 	}
+
 	public boolean controlMakeFiles(File incomingFile) {
-		hasMakeFile = checkFolder(incomingFile,"CMakeLists.txt");
+		hasMakeFile = checkFolder(incomingFile, "CMakeLists.txt");
 		return hasMakeFile;
 	}
-	
-	
-	public boolean checkFolder(File file,String fileExtension) {
-		if(file.isDirectory()) {
-			File [] listOfFiles = file.listFiles();
-			for (int i=0;i<listOfFiles.length;i++) {
-				if(listOfFiles[i].isFile() && listOfFiles[i].getName().contains(fileExtension)){
+
+	public boolean checkFolder(File file, String fileExtension) {
+		if (file.isDirectory()) {
+			File[] listOfFiles = file.listFiles();
+			for (int i = 0; i < listOfFiles.length; i++) {
+				if (listOfFiles[i].isFile() && listOfFiles[i].getName().contains(fileExtension)) {
 					return true;
 				}
 			}
 		}
-		
+
 		return false;
 	}
-	/*
-	public void showOutput() {
-		try {
-			String line;
-			BufferedReader in = new BufferedReader(new InputStreamReader(
-			        inputStream));             
-			while ((line = in.readLine()) != null) {
-			    textArea.append(line);
+
+	public void appendToTextArea(String line) {
+		new Thread() {
+			public void run() {
+				SwingUtilities.invokeLater(new Runnable() {
+					public void run() {
+						if (firstOrSecondOutputArea)
+							GUI.deployableTextArea.append(line);
+						else
+							GUI.nonDeployableTextArea.append(line);
+					}
+				});
 			}
-			
-					
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		
+		}.start();
 	}
-*/	
-	   public boolean startConfiguration() {
 
-		   
-		   if(connected&&hasAnsibleFile&&hasDockerFile) {
-		    ConfigurationMaker configurationMaker = new ConfigurationMaker(username,connectionAddress,ansibleFilePath.getAbsolutePath(),dockerFilePath.getAbsolutePath(),testingType);
-		    JOptionPane.showMessageDialog(null, "Configuration started", "Configuration", JOptionPane.INFORMATION_MESSAGE);
-		    if(configurationMaker.startConfiguration()) 		
-		    	return true;
-		    else {
-		    	JOptionPane.showMessageDialog(null, "Error at Configuration", "Error", JOptionPane.ERROR_MESSAGE);
-		    	return false;
-		    }
-				
-		   }
-		 
-		   else {
-			   JOptionPane.showMessageDialog(null, "Please check your credentials", "Error", JOptionPane.ERROR_MESSAGE);
-			   return false;
-		   }
-	
-		   
+
+	public boolean startConfiguration() {
+
+		if (connected && hasAnsibleFile && hasDockerFile) {
+			ConfigurationMaker configurationMaker = new ConfigurationMaker(username, connectionAddress,
+					ansibleFilePath.getAbsolutePath(), dockerFilePath.getAbsolutePath(), testingType);
+			JOptionPane.showMessageDialog(null, "Configuration started", "Configuration",
+					JOptionPane.INFORMATION_MESSAGE);
+			if (configurationMaker.startConfiguration())
+				return true;
+			else {
+				JOptionPane.showMessageDialog(null, "Error at Configuration", "Error", JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
+
 		}
-		
-		  
-//	   ,configurationFinished=false
-//	   public boolean getConfigurationFinished() {
-//		   return configurationFinished;
-//	   }
-	
-	   public void startDeployment(String selectedTestType) {
-		   DeployerMaker deployermaker = new DeployerMaker(connectionAddress,ansibleFilePath.getAbsolutePath(),dockerFilePath.getAbsolutePath());
-		   deployermaker.startDeployment();
-		   
-	   }
-	   public void startReporting() {
-//		   ReportingMaker reportingmaker= new ReportingMaker();
-//		   reportingmaker.startReporting();
-		   
-	   }
-	
-	
 
-	
-	
-	
-	
+		else {
+			JOptionPane.showMessageDialog(null, "Please check your credentials", "Error", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
 
+	}
+
+
+
+	public void startDeployment(String selectedTestType) {
+		DeployerMaker deployermaker = new DeployerMaker(connectionAddress, ansibleFilePath.getAbsolutePath(),
+				dockerFilePath.getAbsolutePath(),selectedTestType);
+		deployermaker.startDeployment();
+
+	}
+
+	public void startReporting() {
+		   ReportingMaker reportingmaker= new ReportingMaker(outputFilePath.getAbsolutePath(),reportType);
+		   reportingmaker.startReporting();
+
+	}
 
 }

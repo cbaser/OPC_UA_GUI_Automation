@@ -24,14 +24,16 @@ import Controller.ResultMaker;
 public class DockerDeployer {
 	private String dockerPath;
 	private String hostIP;
+	private String testingType;
 	private ResultMaker resultMaker;
 	private ProcessBuilder pb;
 	private Process compile,execute;
 	private String args[];
 	private String outputline;
-	public DockerDeployer(String hostIP,String dockerPath) {
+	public DockerDeployer(String hostIP,String dockerPath,String testingType) {
 		this.hostIP = hostIP;
 		this.dockerPath = dockerPath;
+		this.testingType= testingType;
 		resultMaker =new ResultMaker();
 	}
 	
@@ -55,7 +57,7 @@ public class DockerDeployer {
 			compile.waitFor();
 			int exitValue = compile.exitValue();
 			System.out.println(exitValue);
-			Process execute = Runtime.getRuntime().exec(new String[] {"./MainClient",hostIP},null,baseDir);
+			Process execute = Runtime.getRuntime().exec(new String[] {"./MainClient",hostIP,testingType},null,baseDir);
 		//	Process execute = new ProcessBuilder("./MainClient").directory(baseDir).start();
 
 			BufferedReader compileRead = new BufferedReader(new InputStreamReader(compile.getInputStream()));
@@ -69,8 +71,9 @@ public class DockerDeployer {
 			BufferedReader read = new BufferedReader(new InputStreamReader(execute.getInputStream()));
 			outputline = read.readLine();
 			while(outputline != null) {
-				resultMaker.showResults(outputline+"\n");
+				resultMaker.showResults(outputline+System.getProperty("line.separator"));
 				outputline = read.readLine();
+				resultMaker.writeToFile(outputline+System.getProperty("line.separator"));
 			}
 			
 //			DockerClientConfig config = DefaultDockerClientConfig.createDefaultConfigBuilder()

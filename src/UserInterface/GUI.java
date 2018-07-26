@@ -34,7 +34,7 @@ import java.awt.Component;
 import javax.swing.JTextArea;
 import java.awt.Font;
 
-public class SecondGUI extends JFrame {
+public class GUI extends JFrame {
 
 	/**
 	 * 
@@ -47,7 +47,7 @@ public class SecondGUI extends JFrame {
 	private JTextField ansiblePathField;
 	private JTextField dockerPathField;
 	private MainController controller;
-	public static JTextArea textArea;
+	public static JTextArea deployableTextArea,nonDeployableTextArea;
 	private static JFrame mainFrame;
 	private JTextField makeFileDirectoryField;
 	private JTextField additionalParameters;
@@ -66,7 +66,7 @@ public class SecondGUI extends JFrame {
 			public void run() {
 				try {
 					
-					mainFrame = new SecondGUI();
+					mainFrame = new GUI();
 					mainFrame.setVisible(true);
 
 				} catch (Exception e) {
@@ -79,7 +79,7 @@ public class SecondGUI extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public SecondGUI() {
+	public GUI() {
 		controller = new MainController();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 900, 900);
@@ -230,7 +230,7 @@ public class SecondGUI extends JFrame {
 				chckbxDeploymentOfAnsible.setFont(new Font("Tahoma", Font.PLAIN, 14));
 				chckbxDeploymentOfAnsible.setEnabled(false);
 				
-				JCheckBox chckbxDeploymentOfDocker = new JCheckBox("Configuration of Docker Files");
+				JCheckBox chckbxDeploymentOfDocker = new JCheckBox("Configuration of Client Files");
 				chckbxDeploymentOfDocker.setFont(new Font("Tahoma", Font.PLAIN, 14));
 				chckbxDeploymentOfDocker.setEnabled(false);
 				
@@ -246,25 +246,33 @@ public class SecondGUI extends JFrame {
 				testTypeBox.addItem("Encryption Tests");
 				testTypeBox.addItem("PubSub Tests");
 				
-				JButton btnStartTesting = new JButton("Start Testing");
-				btnStartTesting.setForeground(Color.WHITE);
-				btnStartTesting.setBackground(new Color(0, 128, 0));
-				btnStartTesting.setFont(new Font("Tahoma", Font.PLAIN, 14));
-				btnStartTesting.addActionListener(new ActionListener() {
-
+				JButton btnStartTestingDeployable = new JButton("Start Testing");
+				btnStartTestingDeployable.setForeground(Color.WHITE);
+				btnStartTestingDeployable.setBackground(new Color(0, 128, 0));
+				btnStartTestingDeployable.setFont(new Font("Tahoma", Font.PLAIN, 14));
+				outputPathDeployable = new JTextField();
+				outputPathDeployable.setColumns(10);
+				btnStartTestingDeployable.addActionListener(new ActionListener() {	
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						controller.setTestingType(String.valueOf(testTypeBox.getSelectedItem()));
-						if(controller.startConfiguration())
-						{
-							chckbxDeploymentOfAnsible.setSelected(true);
-							chckbxDeploymentOfDocker.setSelected(true);
-							
+						if(outputPathDeployable.getText().isEmpty()|| outputPathDeployable.getText().equals("")) {
+							JOptionPane.showMessageDialog(mainFrame, "Please Select Output Path");
 						}
-						if(chckbxDeploymentOfAnsible.isSelected() && chckbxDeploymentOfDocker.isSelected()) {
-							JOptionPane.showMessageDialog(mainFrame, "Deployment Started");	
-							controller.startDeployment(testTypeBox.getSelectedItem().toString());
+						else {
+							controller.setTestingType(String.valueOf(testTypeBox.getSelectedItem()));
+							if(controller.startConfiguration())
+							{
+								chckbxDeploymentOfAnsible.setSelected(true);
+								chckbxDeploymentOfDocker.setSelected(true);
+								
+							}
+							if(chckbxDeploymentOfAnsible.isSelected() && chckbxDeploymentOfDocker.isSelected()) {
+								controller.setOutputOrder(false);
+								JOptionPane.showMessageDialog(mainFrame, "Deployment Started");	
+								controller.startDeployment(testTypeBox.getSelectedItem().toString());
+							}
 						}
+					
 						
 					}
 					
@@ -284,8 +292,7 @@ public class SecondGUI extends JFrame {
 				JLabel label_5 = new JLabel("Select Report Path");
 				label_5.setFont(new Font("Tahoma", Font.PLAIN, 14));
 				
-				outputPathDeployable = new JTextField();
-				outputPathDeployable.setColumns(10);
+				
 				
 				JButton selectReportPathBtn = new JButton("Select");
 				selectReportPathBtn.addActionListener(new ActionListener() {
@@ -297,7 +304,7 @@ public class SecondGUI extends JFrame {
 						if (returnValue == JFileChooser.APPROVE_OPTION) {
 							File selectedFile = fileChooser.getSelectedFile();		
 							outputPathDeployable.setText(selectedFile.getAbsolutePath());
-								controller.setOutputFilePath(selectedFile);
+							controller.setOutputFilePath(selectedFile);
 							}
 					}
 				});
@@ -386,7 +393,7 @@ public class SecondGUI extends JFrame {
 															.addComponent(bthSelectAnsible)
 															.addPreferredGap(ComponentPlacement.UNRELATED)
 															.addComponent(chckbxHasAnsibleFiles, GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE))
-														.addComponent(btnStartTesting, GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
+														.addComponent(btnStartTestingDeployable, GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
 														.addComponent(selectReportPathBtn, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 														.addComponent(getReportDeployable, GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)))
 												.addGroup(gl_SSHdeployablePanel.createSequentialGroup()
@@ -445,7 +452,7 @@ public class SecondGUI extends JFrame {
 									.addGap(39)
 									.addGroup(gl_SSHdeployablePanel.createParallelGroup(Alignment.BASELINE)
 										.addComponent(label_6)
-										.addComponent(btnStartTesting)
+										.addComponent(btnStartTestingDeployable)
 										.addComponent(testTypeBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 								.addGroup(gl_SSHdeployablePanel.createParallelGroup(Alignment.BASELINE)
 									.addComponent(btnSelectDocker)
@@ -471,10 +478,10 @@ public class SecondGUI extends JFrame {
 							.addContainerGap())
 				);
 				
-				 textArea = new JTextArea();
-				 textArea.setEditable(false);
-				 textArea.setBackground(Color.LIGHT_GRAY);
-				 scrollPane.setViewportView(textArea);
+				 deployableTextArea = new JTextArea();
+				 deployableTextArea.setEditable(false);
+				 deployableTextArea.setBackground(Color.LIGHT_GRAY);
+				 scrollPane.setViewportView(deployableTextArea);
 				 SSHdeployablePanel.setLayout(gl_SSHdeployablePanel);
 		
 		JPanel nonDeployablePanel = new JPanel();
@@ -552,9 +559,9 @@ public class SecondGUI extends JFrame {
 		JLabel lblSelectClientFiles = new JLabel("Select Client Files");
 		lblSelectClientFiles.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		JTextArea textArea_1 = new JTextArea();
-		textArea_1.setEditable(false);
-		textArea_1.setBackground(Color.LIGHT_GRAY);
+		nonDeployableTextArea = new JTextArea();
+		nonDeployableTextArea.setEditable(false);
+		nonDeployableTextArea.setBackground(Color.LIGHT_GRAY);
 		
 		additionalParameters = new JTextField();
 		additionalParameters.setColumns(10);
@@ -568,8 +575,10 @@ public class SecondGUI extends JFrame {
 					return;
 				}
 				else {
+					controller.setOutputOrder(true);
 					MakefileDeployer makefileDeployer = new MakefileDeployer(makeFileDirectoryField.getText(),additionalParameters.getText());
 					makefileDeployer.startDeployment();	
+					
 				}
 				
 			}
@@ -653,25 +662,28 @@ public class SecondGUI extends JFrame {
 		testTypeBoxNonDeployable.addItem("Encryption Tests");
 		testTypeBoxNonDeployable.addItem("PubSub Tests");
 		
-		JButton testingNonDeployable = new JButton("Start Testing");
-		testingNonDeployable.addActionListener(new ActionListener() {
+		JButton btnStartTestingNonDeployable = new JButton("Start Testing");
+		btnStartTestingNonDeployable.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if(outputPathNonDeployable.getText().isEmpty()|| outputPathNonDeployable.getText().equals("")) {
+					JOptionPane.showMessageDialog(mainFrame, "Please Select Output Path");
+				}
 				controller.setTestingType(String.valueOf(testTypeBox.getSelectedItem()));
 	
 				
-			
+				    controller.setOutputOrder(true);
 					JOptionPane.showMessageDialog(mainFrame, "Deployment Started");	
 					controller.startDeployment(testTypeBox.getSelectedItem().toString());
-				
+					
 				
 			}
 	
 		});
-		testingNonDeployable.setForeground(Color.WHITE);
-		testingNonDeployable.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		testingNonDeployable.setBackground(Color.BLUE);
+		btnStartTestingNonDeployable.setForeground(Color.WHITE);
+		btnStartTestingNonDeployable.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		btnStartTestingNonDeployable.setBackground(Color.BLUE);
 		
 		JLabel label_10 = new JLabel("Output");
 		label_10.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -679,8 +691,8 @@ public class SecondGUI extends JFrame {
 		gl_nonDeployablePanel.setHorizontalGroup(
 			gl_nonDeployablePanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_nonDeployablePanel.createSequentialGroup()
-					.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_nonDeployablePanel.createSequentialGroup()
+					.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.LEADING)
+						.addGroup(Alignment.TRAILING, gl_nonDeployablePanel.createSequentialGroup()
 							.addGap(83)
 							.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.LEADING, false)
@@ -690,9 +702,9 @@ public class SecondGUI extends JFrame {
 									.addComponent(lblMakefileDirectoryPath, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 									.addComponent(lblAdditionalParameters, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 								.addComponent(lblAvailableDevices, GroupLayout.PREFERRED_SIZE, 155, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblSelectClientFiles, GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-								.addComponent(label_9, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblSelectReportPath))
+								.addComponent(lblSelectClientFiles, GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+								.addComponent(lblSelectReportPath)
+								.addComponent(label_9, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.LEADING)
 								.addComponent(availableDevicesBox, 0, 259, Short.MAX_VALUE)
@@ -704,7 +716,7 @@ public class SecondGUI extends JFrame {
 										.addComponent(clientFilesNonDeployablePath, Alignment.TRAILING, 155, 155, Short.MAX_VALUE))
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.LEADING)
-										.addComponent(testingNonDeployable, GroupLayout.PREFERRED_SIZE, 98, Short.MAX_VALUE)
+										.addComponent(btnStartTestingNonDeployable, GroupLayout.PREFERRED_SIZE, 98, Short.MAX_VALUE)
 										.addComponent(btnSelectClientNonDeployable, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE)
 										.addComponent(btnSelectReportPathNonDeployable, GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
 										.addComponent(btnGetReportNonDeployable, GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)))
@@ -716,11 +728,13 @@ public class SecondGUI extends JFrame {
 								.addComponent(btnSelectMakefile, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addComponent(btnAddNewDevice, GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
 							.addGap(325))
+						.addGroup(Alignment.TRAILING, gl_nonDeployablePanel.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(label_10, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+							.addGap(888))
 						.addGroup(gl_nonDeployablePanel.createSequentialGroup()
 							.addContainerGap()
-							.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.LEADING)
-								.addComponent(label_10, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textArea_1, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 938, GroupLayout.PREFERRED_SIZE))))
+							.addComponent(nonDeployableTextArea, GroupLayout.PREFERRED_SIZE, 938, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap())
 		);
 		gl_nonDeployablePanel.setVerticalGroup(
@@ -749,7 +763,7 @@ public class SecondGUI extends JFrame {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_nonDeployablePanel.createSequentialGroup()
-							.addComponent(testingNonDeployable, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnStartTestingNonDeployable, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.BASELINE)
 								.addComponent(outputPathNonDeployable, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -765,8 +779,9 @@ public class SecondGUI extends JFrame {
 							.addComponent(label_9, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)))
 					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addComponent(label_10, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addComponent(textArea_1, GroupLayout.PREFERRED_SIZE, 438, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(nonDeployableTextArea, GroupLayout.PREFERRED_SIZE, 438, GroupLayout.PREFERRED_SIZE)
+					.addGap(8))
 		);
 		nonDeployablePanel.setLayout(gl_nonDeployablePanel);
 		

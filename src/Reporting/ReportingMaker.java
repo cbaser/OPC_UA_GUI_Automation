@@ -6,17 +6,15 @@ package Reporting;
 public class ReportingMaker{
 
 private String inputPath;
-private String reportPath;
 private String reportType;
 
-public ReportingMaker(String inputPath,String reportPath,String reportType) {
-	this.reportPath = reportPath;
+public ReportingMaker(String inputPath,String reportType) {
 	this.inputPath= inputPath;
 	this.reportType = reportType;
 }
 
 	public void startReporting() {
-		TxtParser txtFile = new TxtParser();
+		TxtParser txtFile = new TxtParser(inputPath);
 		txtFile.startReadingFile();
 	}
 	
