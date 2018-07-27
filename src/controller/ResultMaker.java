@@ -6,7 +6,7 @@ import java.io.FileWriter;
 
 import javax.swing.SwingUtilities;
 
-import userInterface.GUI;
+import userInterface.Gui;
 
 
 public class ResultMaker {

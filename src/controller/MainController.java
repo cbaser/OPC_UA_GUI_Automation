@@ -10,7 +10,7 @@ import com.jcraft.jsch.Session;
 import configuration.ConfigurationMaker;
 import deployment.DeployerMaker;
 import reporting.ReportingMaker;
-import userInterface.GUI;
+import userInterface.Gui;
 
 import org.usb4java.*;
 
@@ -161,9 +161,9 @@ public class MainController {
 				SwingUtilities.invokeLater(new Runnable() {
 					public void run() {
 						if (firstOrSecondOutputArea)
-							GUI.deployableTextArea.append(line);
+							Gui.deployableTextArea.append(line);
 						else
-							GUI.nonDeployableTextArea.append(line);
+							Gui.nonDeployableTextArea.append(line);
 					}
 				});
 			}

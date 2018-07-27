@@ -16,14 +16,5 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/cakin/.m2/repository/com/jcraft/jsch/0.1.54/jsch-0.1.54.jar" sourcepath="C:/Users/cakin/.m2/repository/com/jcraft/jsch/0.1.54/jsch-0.1.54-sources.jar">
-		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
-			<attribute name="maven.groupId" value="com.jcraft"/>
-			<attribute name="maven.artifactId" value="jsch"/>
-			<attribute name="maven.version" value="0.1.54"/>
-			<attribute name="maven.scope" value="compile"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

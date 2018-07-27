@@ -120,7 +120,7 @@ public class AnsibleConfigurator {
 			text+= 	
 					"    - AccessControlServerClass.h\n"+
 					"    - commonServerMethods.h\n"+	
-					"    - MainServer.c\n" + 
+					"    - MainServer.cpp\n" + 
 					"    - CpuServerClass.h\n" +
 					"    - EncryptionServerClass.h\n"+
 					"    - MonitoredItemsServerClass.h\n"+
@@ -128,7 +128,7 @@ public class AnsibleConfigurator {
 					"    - open62541.c\n" + 
 					"    - open62541.h\n" + 
 					"\n" 									
-					+testStringBuilder("MainServer.c");
+					+testStringBuilder("MainServer.cpp");
 			break;
 		case "Networking Tests":
 			text+= 	"    - NetworkingTestingServer.c\n" + 

@@ -1,8 +1,16 @@
 package deployment;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+
+import com.google.common.io.Files;
 
 import controller.ResultMaker;
 
@@ -21,6 +29,11 @@ public class MakefileDeployer {
 		try {
 			File file = new File(path+File.separator+"\build");
 			file.getParentFile().mkdirs();
+			
+			changeFileCommand();
+			
+			
+			
 			String command = "cmake "+additionalParameters+" ..";
 			Process proc = Runtime.getRuntime().exec(command,null,file);
 			proc.waitFor();
@@ -41,6 +54,52 @@ public class MakefileDeployer {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
+		
+	}
+	public void changeFileCommand() {
+		File file = new File(path+File.separator+"CMakeLists.txt");
+		FileWriter fw = null;
+		BufferedWriter bw=null;
+		PrintWriter out=null;
+		
+		try {
+				 fw = new FileWriter(file.getAbsolutePath(), true);
+			     bw = new BufferedWriter(fw);
+			     out = new PrintWriter(bw);
+			    out.println("the text");
+			 //   String text = "target_compile_options(${PROJECT_NAME} PRIVATE -fno-exceptions -DWIFI_SSID=\"${WIFI_SSID}\" -DWIFI_PWD=\"${WIFI_PWD}\")";
+			    String text = "target_compile_options(${PROJECT_NAME} PRIVATE -fno-exceptions";
+		
+			    if(additionalParameters.contains(" ")) {
+			    	// Multiple Parameters 
+			    	String parameters [] = text.split("\\s+");
+			    	for(String parameter : parameters) {
+			    		String []parts = parameter.split("=");
+			    		text += "-D"+parts[0]+"${"+parts[1]+"}";
+			    	}
+			    }
+			    else {
+			    	//Single Parameter
+			    	String parts[] = additionalParameters.split("=");
+			    	text += "-D"+parts[0]+"${"+parts[1]+"}";
+			    	
+			    }
+			    out.println(text);
+			} catch (IOException e) {
+			    e.printStackTrace();
+			}
+			finally {
+				try {
+					fw.close();
+					bw.close();
+					out.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+			}
+
+
 		
 	}
 
