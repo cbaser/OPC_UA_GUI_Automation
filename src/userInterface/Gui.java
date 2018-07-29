@@ -15,6 +15,7 @@ import deployment.MakefileDeployer;
 import javax.swing.JTabbedPane;
 import java.awt.Color;
 import javax.swing.JButton;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -520,10 +521,7 @@ public class Gui extends JFrame {
 		lblAvailableDevices.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JComboBox<String> availableDevicesBox = new JComboBox<String>();
-		File files = new File(System.getProperty("user.dir")+File.separator+"devices");
-		for(File file : files.listFiles()) {
-			availableDevicesBox.addItem(file.getName().substring(0, file.getName().length()-4).toUpperCase());
-		}
+		getDevices(availableDevicesBox);
 		
 		
 		
@@ -532,8 +530,12 @@ public class Gui extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				AdditionalDeviceFrame frame = new AdditionalDeviceFrame();
 				frame.showDeviceFrame();
+				getDevices(availableDevicesBox);
 				contentPane.revalidate();
 				contentPane.repaint();
+				availableDevicesBox.revalidate();
+				availableDevicesBox.repaint();
+				
 			}
 		});
 		btnAddNewDevice.setForeground(Color.WHITE);
@@ -860,5 +862,15 @@ public class Gui extends JFrame {
 					.addContainerGap(538, Short.MAX_VALUE))
 		);
 		comparePanel.setLayout(gl_comparePanel);
+	}
+	public void getDevices(JComboBox<String> box) {
+		File files = new File(System.getProperty("user.dir")+File.separator+"devices");
+		for(File file : files.listFiles()) {
+			String deviceName = file.getName().substring(0, file.getName().length()-4).toUpperCase();
+			if(((DefaultComboBoxModel<String>)box.getModel()).getIndexOf(deviceName) == -1) {
+				  box.addItem(deviceName );
+				}
+		}
+		
 	}
 }

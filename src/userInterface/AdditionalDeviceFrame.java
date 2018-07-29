@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -99,8 +101,14 @@ public class AdditionalDeviceFrame extends JFrame {
 					filewriter.write("\nRAM : "+memorySize);
 					filewriter.write("\nENCRYPTION SUPPORT : "+ encryptionSupport);
 					filewriter.close();
+					JOptionPane.showMessageDialog(mainFrame, "New Device added!");	
+					
 				}catch(Exception e) {
 					e.printStackTrace();
+					JOptionPane.showMessageDialog(mainFrame, "Adding new device is failed");	
+				}
+				finally {
+					mainFrame.dispose();
 				}
 				
 			
