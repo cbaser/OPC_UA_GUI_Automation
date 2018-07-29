@@ -33,12 +33,7 @@ public class ResultMaker {
 		        try
 		        {
 		            if (!directory.exists())
-		            {
 		                directory.mkdir();
-		            }
-		            String username = System.getProperty("user.name");
-		            String filename = " path/" + username + ".txt"; //extension if you need one
-
 		        }
 		        catch (Exception e)
 		        {

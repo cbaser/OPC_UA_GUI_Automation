@@ -12,8 +12,6 @@ import deployment.DeployerMaker;
 import reporting.ReportingMaker;
 import userInterface.Gui;
 
-import org.usb4java.*;
-
 public class MainController {
 	private File ansibleFilePath, dockerFilePath, makeFilePath, outputFilePath;
 
