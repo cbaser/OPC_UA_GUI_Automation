@@ -9,6 +9,9 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.google.common.io.Files;
 
@@ -19,12 +22,48 @@ public class MakefileDeployer {
 	private ResultMaker resultMaker;
 	private String path;
 	private String additionalParameters;
-	
-	public MakefileDeployer(String path,String additionalParameters) {
+	private String deviceName;
+	private String testing_type,memory_size;
+	public MakefileDeployer(String path,String additionalParameters,String deviceName) {
 		this.path = path;
 		this.additionalParameters= additionalParameters;
+		this.deviceName = deviceName;
 		this.resultMaker = new ResultMaker();
 	}
+	
+	
+	public void setDeviceMemory() throws Exception {
+		File file = new File(System.getProperty("user.dir")+File.separator+"devices"+File.separator+deviceName+".txt");
+		String contents = new Scanner(file).useDelimiter("\\Z").next();
+		//CPU : (\d+)(\s+)(\w+)
+		//String regex = "(echo|ack)_str\\s+(?<size>\\d+)\\s+average rtt\\/request=(?<val>.*)";
+		String regex = "CPU : (?<size>\\d+)(\\s+)(?<val>\\w+)";
+		Pattern titlePattern = Pattern.compile(regex);
+		Matcher matcher = titlePattern.matcher(contents);
+		while(matcher.find()) {
+		//	dataset.addValue(Double.valueOf(matcher.group("size")), "rtt", matcher.group("val"));,
+			this.testing_type ="r";
+			switch(matcher.group("val")) {
+			case "KB":
+				memory_size="s";
+				break;
+			case "MB":
+				memory_size="m";
+				break;
+			case "GB":
+				memory_size="l";
+				break;
+			
+			}
+		
+		
+		}
+
+		
+		
+		
+	}
+	
 	
 	public void startDeployment() {
 		try {
@@ -35,8 +74,12 @@ public class MakefileDeployer {
 			changeFileCommand();
 			
 			String command;
+			
+			setDeviceMemory();
+			
+			
 			if(!additionalParameters.isEmpty()||additionalParameters.equals(""))
-				command = "cmake "+additionalParameters+" ..";
+				command = "cmake "+"-DTESTING_TYPE="+testing_type+"-DMEMORY_SIZE="+memory_size+additionalParameters+" ..";
 			else
 				command = "cmake ..";
 			Process proc = Runtime.getRuntime().exec(command,null,file);

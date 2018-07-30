@@ -564,7 +564,7 @@ public class Gui extends JFrame {
 				}
 				else {
 					controller.setOutputOrder(true);
-					MakefileDeployer makefileDeployer = new MakefileDeployer(makeFileDirectoryField.getText(),additionalParameters.getText());
+					MakefileDeployer makefileDeployer = new MakefileDeployer(makeFileDirectoryField.getText(),additionalParameters.getText(),String.valueOf(availableDevicesBox.getSelectedItem()));
 					makefileDeployer.startDeployment();	
 					
 				}
