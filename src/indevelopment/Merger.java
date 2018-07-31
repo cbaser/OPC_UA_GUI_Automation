@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -26,14 +27,16 @@ import com.itextpdf.text.pdf.draw.DottedLineSeparator;
 public class Merger {
 
 	private String firstFile = System.getProperty("user.dir")+File.separator+"output"+File.separator+"result_omega.pdf";
-	private String secondFile = System.getProperty("user.dir")+File.separator+"output"+File.separator+"result_raspberrypi.pdf";
-	private String mergedFile = System.getProperty("user.dir")+File.separator+"output"+File.separator+"result_merged.pdf";
+	private String secondFile = System.getProperty("user.dir")+File.separator+"output"+File.separator+"result_second.pdf";
+	private String todaysDate;
+	private String mergedFile = System.getProperty("user.dir")+File.separator+"output"+File.separator+"result_"+todaysDate+".pdf";
 	
 	public Map<String,PdfReader> filesToMerge;
 	
+	
 	public void startMerging() {
-		File file = new File(mergedFile);
-		file.getParentFile().mkdirs();
+		setTodaysDate();
+		createResultFile();
 		try {
 			setDocuments();
 			createPdf(mergedFile);
@@ -43,6 +46,18 @@ public class Merger {
 		
 		
 	}
+	public void setTodaysDate() {
+		Calendar today = Calendar.getInstance();
+		today.clear(Calendar.HOUR); today.clear(Calendar.MINUTE); today.clear(Calendar.SECOND);
+		todaysDate = today.getTime().toString();
+		
+	}
+	
+	public void createResultFile() {
+		File file = new File(mergedFile);
+		file.getParentFile().mkdirs();
+	}
+	
 	public void setDocuments() throws IOException {
 		filesToMerge = new TreeMap<String,PdfReader>();
 		filesToMerge.put("First", new PdfReader(firstFile));

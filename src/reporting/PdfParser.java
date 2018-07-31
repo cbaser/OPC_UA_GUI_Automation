@@ -31,10 +31,12 @@ import com.itextpdf.text.Font.FontFamily;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfDestination;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfDocument;
 import com.itextpdf.text.pdf.PdfImage;
 import com.itextpdf.text.pdf.PdfName;
+import com.itextpdf.text.pdf.PdfOutline;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfPage;
@@ -67,6 +69,7 @@ public class PdfParser {
 		addTitle();
 		addContent();
 		document.close();
+		cleanUp();
 	}
 	public void setPath(String path) {
 		this.path = path;
@@ -119,6 +122,11 @@ private void startCreatingPdf() {
 			paragraph.add(new Paragraph(titles.get(i),subFont));
 			addEmptyLine(paragraph, 1);
 			document.add(paragraph);
+			PdfOutline root = writer.getRootOutline();
+			PdfOutline bookmarks = new PdfOutline(root, 
+				    new PdfDestination(
+				        PdfDestination.FITH, writer.getVerticalPosition(true)),
+				        titles.get(i), true);
 			createGraphics(titles.get(i),contents.get(i));
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -204,7 +212,7 @@ private void startCreatingPdf() {
 			ChartUtils.saveChartAsJPEG(file, chart, 500, 300);	
 			Image image = Image.getInstance(file.getAbsolutePath());
 			document.add(image);
-			file.delete();
+		//	file.delete();
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -236,6 +244,13 @@ private void startCreatingPdf() {
 		
 	}
 	
+	private void cleanUp() {
+		File file= new File(path+File.separator+"rtt.jpg");
+		file.delete();
+		file = new File(path+File.separator+"bandwidth.jpg");
+		file.delete();
+		
+	}
 	
 	public ArrayList<String> getTitles() {
 		return titles;
