@@ -237,7 +237,7 @@ private void startCreatingPdf() {
 		Pattern titlePattern = Pattern.compile(regex);
 		Matcher matcher = titlePattern.matcher(content);
 		while(matcher.find()) {
-			dataset.addValue(Double.valueOf(matcher.group("size")), "bandwidth", matcher.group("size"));
+			dataset.addValue(Double.valueOf(matcher.group("size")), "bandwidth", matcher.group("val"));
 		}
 		
 		return dataset;

@@ -27,8 +27,8 @@ import com.itextpdf.text.pdf.draw.DottedLineSeparator;
 public class Merger {
 
 	private String firstFile = System.getProperty("user.dir")+File.separator+"output"+File.separator+"result_omega.pdf";
-	private String secondFile = System.getProperty("user.dir")+File.separator+"output"+File.separator+"result_second.pdf";
-	private String todaysDate;
+	private String secondFile = System.getProperty("user.dir")+File.separator+"output"+File.separator+"result_raspberry.pdf";
+	private String todaysDate="";
 	private String mergedFile = System.getProperty("user.dir")+File.separator+"output"+File.separator+"result_"+todaysDate+".pdf";
 	
 	public Map<String,PdfReader> filesToMerge;
