@@ -55,6 +55,7 @@ public class Gui extends JFrame {
 	private JTextField secondPDFField;
 	private JTextField firstPDFField;
 	private JTextField thirdPDFField;
+	private JTextField deviceNameField;
 	/**
 	 * Launch the application.
 	 */
@@ -311,10 +312,11 @@ public class Gui extends JFrame {
 				selectReportPathBtn.setBackground(new Color(0, 100, 0));
 				
 				JLabel label_8 = new JLabel("Report Output Type");
-				label_8.setFont(new Font("Dialog", Font.PLAIN, 12));
+				label_8.setFont(new Font("Tahoma", Font.PLAIN, 14));
 				
 				JComboBox<String> reportTypeBoxDeployable = new JComboBox<String>();
 				reportTypeBoxDeployable.addItem(".pdf");
+				reportTypeBoxDeployable.addItem(".csv");
 				
 				JButton getReportDeployable = new JButton("Get Report");
 				getReportDeployable.setEnabled(false);
@@ -327,10 +329,23 @@ public class Gui extends JFrame {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						String reportType=String.valueOf(reportTypeBoxDeployable.getSelectedIndex());
+						
 						controller.setReportType(reportType);
+						if(deviceNameField.getText().equals("")|| deviceNameField.getText().isEmpty())
+						{
+							JOptionPane.showMessageDialog(mainFrame, "Please Write Device Name");
+							return;
+						}
+						controller.setDeviceName(deviceNameField.getText().toString());
 						controller.startReporting();
 					}
 				});
+				
+				JLabel lblDeviceName = new JLabel("Device Name");
+				lblDeviceName.setFont(new Font("Tahoma", Font.PLAIN, 14));
+				
+				deviceNameField = new JTextField();
+				deviceNameField.setColumns(10);
 				
 				
 				
@@ -342,7 +357,7 @@ public class Gui extends JFrame {
 							.addGroup(gl_SSHdeployablePanel.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_SSHdeployablePanel.createSequentialGroup()
 									.addContainerGap()
-									.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE))
+									.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 849, Short.MAX_VALUE))
 								.addGroup(gl_SSHdeployablePanel.createSequentialGroup()
 									.addGap(32)
 									.addGroup(gl_SSHdeployablePanel.createParallelGroup(Alignment.LEADING)
@@ -358,7 +373,7 @@ public class Gui extends JFrame {
 															.addComponent(usernameField, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE)
 															.addPreferredGap(ComponentPlacement.RELATED)
 															.addComponent(label_1))
-														.addComponent(label_3, GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
+														.addComponent(label_3, GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
 														.addComponent(label_4))
 													.addPreferredGap(ComponentPlacement.RELATED)
 													.addGroup(gl_SSHdeployablePanel.createParallelGroup(Alignment.LEADING)
@@ -369,15 +384,18 @@ public class Gui extends JFrame {
 												.addGroup(gl_SSHdeployablePanel.createSequentialGroup()
 													.addComponent(label_8, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
 													.addPreferredGap(ComponentPlacement.RELATED)
-													.addComponent(reportTypeBoxDeployable, 0, 239, Short.MAX_VALUE))
+													.addComponent(reportTypeBoxDeployable, 0, 227, Short.MAX_VALUE))
 												.addGroup(gl_SSHdeployablePanel.createSequentialGroup()
 													.addGroup(gl_SSHdeployablePanel.createParallelGroup(Alignment.LEADING)
-														.addComponent(label_6)
-														.addComponent(label_5))
+														.addComponent(label_5)
+														.addGroup(gl_SSHdeployablePanel.createParallelGroup(Alignment.TRAILING)
+															.addComponent(lblDeviceName, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+															.addComponent(label_6, Alignment.LEADING)))
 													.addPreferredGap(ComponentPlacement.RELATED)
 													.addGroup(gl_SSHdeployablePanel.createParallelGroup(Alignment.LEADING)
-														.addComponent(testTypeBox, 0, 249, Short.MAX_VALUE)
-														.addComponent(outputPathDeployable, GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE))))
+														.addComponent(deviceNameField, GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+														.addComponent(testTypeBox, 0, 243, Short.MAX_VALUE)
+														.addComponent(outputPathDeployable, GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE))))
 											.addPreferredGap(ComponentPlacement.RELATED)
 											.addGroup(gl_SSHdeployablePanel.createParallelGroup(Alignment.LEADING)
 												.addGroup(gl_SSHdeployablePanel.createSequentialGroup()
@@ -386,14 +404,14 @@ public class Gui extends JFrame {
 														.addGroup(gl_SSHdeployablePanel.createSequentialGroup()
 															.addComponent(btnSelectDocker)
 															.addPreferredGap(ComponentPlacement.UNRELATED)
-															.addComponent(chckbxHasDockerFile, GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE))
+															.addComponent(chckbxHasDockerFile, GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))
 														.addGroup(gl_SSHdeployablePanel.createSequentialGroup()
 															.addComponent(bthSelectAnsible)
 															.addPreferredGap(ComponentPlacement.UNRELATED)
-															.addComponent(chckbxHasAnsibleFiles, GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE))
-														.addComponent(btnStartTestingDeployable, GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
-														.addComponent(selectReportPathBtn, GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
-														.addComponent(getReportDeployable, GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)))
+															.addComponent(chckbxHasAnsibleFiles, GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))
+														.addComponent(btnStartTestingDeployable, GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
+														.addComponent(selectReportPathBtn, GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
+														.addComponent(getReportDeployable, GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)))
 												.addGroup(gl_SSHdeployablePanel.createSequentialGroup()
 													.addComponent(label_2)
 													.addPreferredGap(ComponentPlacement.RELATED)
@@ -405,7 +423,7 @@ public class Gui extends JFrame {
 											.addGap(57)))))
 							.addContainerGap())
 						.addGroup(gl_SSHdeployablePanel.createSequentialGroup()
-							.addContainerGap(434, Short.MAX_VALUE)
+							.addContainerGap(413, Short.MAX_VALUE)
 							.addGroup(gl_SSHdeployablePanel.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblNotePleaseEnable)
 								.addComponent(lblNotepleaseDownloadAnd))
@@ -413,7 +431,7 @@ public class Gui extends JFrame {
 						.addGroup(gl_SSHdeployablePanel.createSequentialGroup()
 							.addContainerGap()
 							.addComponent(label_12, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(862, Short.MAX_VALUE))
+							.addContainerGap(809, Short.MAX_VALUE))
 				);
 				gl_SSHdeployablePanel.setVerticalGroup(
 					gl_SSHdeployablePanel.createParallelGroup(Alignment.LEADING)
@@ -447,7 +465,7 @@ public class Gui extends JFrame {
 									.addComponent(chckbxDeploymentOfAnsible)
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addComponent(chckbxDeploymentOfDocker)
-									.addGap(39)
+									.addGap(43)
 									.addGroup(gl_SSHdeployablePanel.createParallelGroup(Alignment.BASELINE)
 										.addComponent(label_6)
 										.addComponent(btnStartTestingDeployable)
@@ -455,7 +473,11 @@ public class Gui extends JFrame {
 								.addGroup(gl_SSHdeployablePanel.createParallelGroup(Alignment.BASELINE)
 									.addComponent(btnSelectDocker)
 									.addComponent(chckbxHasDockerFile)))
-							.addGap(27)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_SSHdeployablePanel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblDeviceName)
+								.addComponent(deviceNameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(gl_SSHdeployablePanel.createParallelGroup(Alignment.BASELINE)
 								.addComponent(label_5, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 								.addComponent(outputPathDeployable, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -465,14 +487,14 @@ public class Gui extends JFrame {
 								.addComponent(label_8, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 								.addComponent(reportTypeBoxDeployable, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(getReportDeployable))
-							.addPreferredGap(ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
 							.addComponent(lblNotepleaseDownloadAnd)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(lblNotePleaseEnable)
 							.addGap(25)
 							.addComponent(label_12)
 							.addGap(18)
-							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE)
+							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
 							.addContainerGap())
 				);
 				
@@ -546,11 +568,11 @@ public class Gui extends JFrame {
 		
 		JLabel lblSelectClientFiles = new JLabel("Select Client Files");
 		lblSelectClientFiles.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
+		JScrollPane scrollPaneNonDeployable = new JScrollPane((Component) null);
 		nonDeployableTextArea = new JTextArea();
 		nonDeployableTextArea.setEditable(false);
 		nonDeployableTextArea.setBackground(Color.LIGHT_GRAY);
-		
+		scrollPaneNonDeployable.setViewportView(nonDeployableTextArea);
 		additionalParameters = new JTextField();
 		additionalParameters.setColumns(10);
 		
@@ -629,6 +651,7 @@ public class Gui extends JFrame {
 		
 		JComboBox<String> outputTypeNonDeployable = new JComboBox<String>();
 		outputTypeNonDeployable.addItem(".pdf");
+		outputTypeNonDeployable.addItem(".csv");
 		
 		JLabel lblOutputType = new JLabel("Report Output Type");
 		lblOutputType.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -639,7 +662,7 @@ public class Gui extends JFrame {
 		btnGetReportNonDeployable.setBackground(Color.BLUE);
 		
 		JLabel label_9 = new JLabel("Select test type");
-		label_9.setFont(new Font("Dialog", Font.PLAIN, 12));
+		label_9.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JComboBox<String> testTypeBoxNonDeployable = new JComboBox<String>();
 		testTypeBoxNonDeployable.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -673,6 +696,8 @@ public class Gui extends JFrame {
 		
 		JLabel label_10 = new JLabel("Output");
 		label_10.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		
+		JLabel lblExampleUsageType = new JLabel("Example Additional Parameter Type : VAR_NAME=var");
 		GroupLayout gl_nonDeployablePanel = new GroupLayout(nonDeployablePanel);
 		gl_nonDeployablePanel.setHorizontalGroup(
 			gl_nonDeployablePanel.createParallelGroup(Alignment.LEADING)
@@ -707,20 +732,18 @@ public class Gui extends JFrame {
 										.addComponent(btnSelectReportPathNonDeployable, GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
 										.addComponent(btnGetReportNonDeployable, GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)))
 								.addComponent(additionalParameters, 259, 259, Short.MAX_VALUE)
-								.addComponent(makeFileDirectoryField, GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE))
+								.addComponent(makeFileDirectoryField, GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
+								.addComponent(lblExampleUsageType, GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.LEADING, false)
 								.addComponent(btnDeployToDevice, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addComponent(btnSelectMakefile, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addComponent(btnAddNewDevice, GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
 							.addGap(325))
-						.addGroup(Alignment.TRAILING, gl_nonDeployablePanel.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(label_10, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-							.addGap(888))
 						.addGroup(gl_nonDeployablePanel.createSequentialGroup()
 							.addContainerGap()
-							.addComponent(nonDeployableTextArea, GroupLayout.PREFERRED_SIZE, 938, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(label_10, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
+						.addComponent(nonDeployableTextArea, GroupLayout.PREFERRED_SIZE, 938, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
 		gl_nonDeployablePanel.setVerticalGroup(
@@ -741,7 +764,9 @@ public class Gui extends JFrame {
 						.addComponent(lblAdditionalParameters)
 						.addComponent(additionalParameters, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnDeployToDevice))
-					.addGap(121)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblExampleUsageType)
+					.addGap(102)
 					.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(clientFilesNonDeployablePath, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnSelectClientNonDeployable)
@@ -765,9 +790,9 @@ public class Gui extends JFrame {
 							.addComponent(label_9, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)))
 					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addComponent(label_10, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(nonDeployableTextArea, GroupLayout.PREFERRED_SIZE, 438, GroupLayout.PREFERRED_SIZE)
-					.addGap(8))
+					.addGap(12))
 		);
 		nonDeployablePanel.setLayout(gl_nonDeployablePanel);
 		
@@ -783,7 +808,7 @@ public class Gui extends JFrame {
 		
 		JButton button_2 = new JButton("Select");
 		button_2.setForeground(Color.WHITE);
-		button_2.setBackground(new Color(255, 165, 0));
+		button_2.setBackground(Color.RED);
 		
 		secondPDFField = new JTextField();
 		secondPDFField.setColumns(10);
@@ -793,22 +818,22 @@ public class Gui extends JFrame {
 		
 		JButton btnChooseFile = new JButton("Choose File");
 		btnChooseFile.setForeground(Color.WHITE);
-		btnChooseFile.setBackground(new Color(255, 165, 0));
+		btnChooseFile.setBackground(Color.RED);
 		
 		JButton btnChooseFile_1 = new JButton("Choose File");
 		btnChooseFile_1.setForeground(Color.WHITE);
-		btnChooseFile_1.setBackground(new Color(255, 165, 0));
+		btnChooseFile_1.setBackground(Color.RED);
 		
 		JButton button = new JButton("Choose File");
 		button.setForeground(Color.WHITE);
-		button.setBackground(new Color(255, 165, 0));
+		button.setBackground(Color.RED);
 		
 		thirdPDFField = new JTextField();
 		thirdPDFField.setColumns(10);
 		
 		JButton btnNewButton = new JButton("Merge Results!");
 		btnNewButton.setForeground(Color.WHITE);
-		btnNewButton.setBackground(new Color(255, 165, 0));
+		btnNewButton.setBackground(Color.RED);
 		GroupLayout gl_comparePanel = new GroupLayout(comparePanel);
 		gl_comparePanel.setHorizontalGroup(
 			gl_comparePanel.createParallelGroup(Alignment.LEADING)

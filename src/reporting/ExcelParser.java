@@ -1,8 +1,11 @@
-package Excel;
+package reporting;
+
+
 
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URI;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -16,17 +19,36 @@ import java.util.stream.Stream;
 
 public class ExcelParser {
 	private static List<String> formats = Arrays.asList(new String[] { "csv", "xml", "xlsx-single", "xlsx-multiple" });
-	private String txtFile = System.getProperty("user.dir")+File.separator+"input"+File.separator+"omega2plus.txt";
-	private String csvFile=  System.getProperty("user.dir")+File.separator+"output"+File.separator+"omega2plus.csv";
+	//private String txtFile = System.getProperty("user.dir")+File.separator+"input"+File.separator+"omega2plus.txt";
+	private File txtFile;
+	//private String csvFile=  System.getProperty("user.dir")+File.separator+"output"+File.separator+"omega2plus.csv";
+	private String csvFile;
+	private String filePath;
+	public void setTxtFile(File txtFile) {
+		this.txtFile = txtFile;
+	}
+	public void setPath(String filePath) {
+		this.filePath = filePath;
+	}
+	
+	public void createCsvFile() {
+		  csvFile = txtFile.getAbsolutePath().substring(0, txtFile.getAbsolutePath().lastIndexOf('.'));
+		  csvFile += "." + ".csv";	
+	}
+
+	
+	
+	
 	public void startExcelParsing() {
-		final Path path = Paths.get(System.getProperty("user.dir")+File.separator+"output");
-	    final Path txt = path.resolve(txtFile);
+		//final Path path = Paths.get(System.getProperty("user.dir")+File.separator+"output");
+		final Path path = Paths.get(filePath);
+	    final Path txt = path.resolve(txtFile.getAbsolutePath());
 	    final Path csv = path.resolve(csvFile);
 	    final Charset utf8 = Charset.forName("UTF-8");
 		 
-		    try (Stream<String> stream = Files.lines(Paths.get(txtFile))) {
+		    try (Stream<String> stream = Files.lines(Paths.get(txtFile.getAbsolutePath()))) {
 		        String result = stream.map(s -> s.split("\\s+"))
-		                              .map(s -> Arrays.stream(s).collect(Collectors.joining(","))+"\n")
+		                              .map(s -> Arrays.stream(s).collect(Collectors.joining(" "))+"\n")
 		                              .collect(Collectors.joining());
 		        
 		    //    final PrintWriter pw = new PrintWriter(Files.newBufferedWriter(csv, Charset.forName("UTF-8"), StandardOpenOption.CREATE_NEW));

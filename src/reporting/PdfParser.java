@@ -5,41 +5,26 @@ import java.io.FileOutputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.print.attribute.standard.DateTimeAtCompleted;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.xy.XYDataset;
-import org.jfree.data.xy.XYSeriesCollection;
 
-import com.itextpdf.text.Rectangle;
-import com.itextpdf.text.Anchor;
-import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
-import com.itextpdf.text.Font.FontFamily;
 import com.itextpdf.text.Image;
-import com.itextpdf.text.Phrase;
-import com.itextpdf.text.pdf.PdfContentByte;
-import com.itextpdf.text.pdf.PdfDestination;
 import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfDocument;
-import com.itextpdf.text.pdf.PdfImage;
-import com.itextpdf.text.pdf.PdfName;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfDestination;
 import com.itextpdf.text.pdf.PdfOutline;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfPage;
 import com.itextpdf.text.pdf.PdfWriter;
 
 
@@ -47,7 +32,7 @@ public class PdfParser {
 	private ArrayList<String> titles,contents;
 	private Document document;
 	private PdfWriter writer;
-	private String path;
+	private String path,deviceName;
 	  private  Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
 	            Font.BOLD);
 	  private  Font subFont = new Font(Font.FontFamily.TIMES_ROMAN, 16,
@@ -58,10 +43,11 @@ public class PdfParser {
 //	private String output=System.getProperty("user.dir")+File.separator+"output/";
 
 		
-	 private String dest = path+File.separator+
-			 "OPC_UA_Testing_"+LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"))
-			 +".pdf";
 	 
+	 
+	 public void setDeviceName(String deviceName) {
+		 this.deviceName = deviceName;
+	 }
 	 
 	public void startReporting() {
 		startCreatingPdf();
@@ -77,6 +63,10 @@ public class PdfParser {
 	
 private void startCreatingPdf() {
 		 try {
+			 String dest = path+File.separator+
+					// "OPC_UA_Testing_"+LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"))
+					 deviceName+LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"))
+					 +".pdf";
 		File file = new File(dest);
 		file.getParentFile().mkdirs();
 		document = new Document();

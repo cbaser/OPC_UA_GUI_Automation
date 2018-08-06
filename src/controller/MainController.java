@@ -15,7 +15,8 @@ import userInterface.Gui;
 public class MainController {
 	private File ansibleFilePath, dockerFilePath, makeFilePath, outputFilePath;
 
-	private String username, password, connectionAddress;
+	private String username, password, connectionAddress,deviceName;
+
 	private boolean connected = false, hasAnsibleFile = false, hasDockerFile = false, hasMakeFile = false,
 			firstOrSecondOutputArea = false;
 	private Session session;
@@ -23,6 +24,13 @@ public class MainController {
 
 	public MainController() {
 
+	}
+	public String getDeviceName() {
+		return deviceName;
+	}
+
+	public void setDeviceName(String deviceName) {
+		this.deviceName = deviceName;
 	}
 
 	public File getMakeFilePath() {
@@ -202,7 +210,7 @@ public class MainController {
 	}
 
 	public void startReporting() {
-		   ReportingMaker reportingmaker= new ReportingMaker(outputFilePath.getAbsolutePath(),reportType);
+		   ReportingMaker reportingmaker= new ReportingMaker(outputFilePath.getAbsolutePath(),reportType,deviceName);
 		   reportingmaker.startReporting();
 
 	}

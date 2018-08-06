@@ -7,21 +7,25 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TxtParser {
-	private String path;
+	private String path,deviceName,reportType;
 	
 	private ArrayList<String> titles;
 	private ArrayList<String> contents;
-	private PdfParser reporter;
+	private PdfParser pdfParser;
+	private ExcelParser excelParser;
+	private File txtFile;
 	
-	public TxtParser(String path) {
+	public TxtParser(String path,String deviceName,String reportType) {
 		this.path=path;
+		this.deviceName = deviceName;
+		this.reportType = reportType;
 	}
 	
 	public void startReadingFile() {
 		try {
 			ClassLoader classLoader = this.getClass().getClassLoader();
-			File file = new File(classLoader.getResource(path).getFile());
-			BufferedReader	bufferedReader = new BufferedReader(new FileReader(file));
+			txtFile= new File(classLoader.getResource(path).getFile());
+			BufferedReader	bufferedReader = new BufferedReader(new FileReader(txtFile));
 			StringBuilder stringBuilder = new StringBuilder();
 			
 			String line = bufferedReader.readLine();
@@ -35,11 +39,8 @@ public class TxtParser {
 		    bufferedReader.close();
 		    findTitles(everything);
 		    findContent(everything);
-		    reporter = new PdfParser();
-		    reporter.setPath(path);
-		    reporter.setTitles(titles);
-		    reporter.setContents(contents);
-		    reporter.startReporting();
+		    startParsing();
+		   
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -69,6 +70,28 @@ public class TxtParser {
 			contents.add(content);			
 		}
 		}
+	public void startParsing() {
+		switch(reportType) {
+		case ".pdf" :
+			 pdfParser = new PdfParser();
+			    pdfParser.setPath(path);
+			    pdfParser.setTitles(titles);
+			    pdfParser.setContents(contents);
+			    pdfParser.setDeviceName(deviceName);
+			    pdfParser.startReporting();
+			break;
+		case ".csv" :
+			excelParser = new ExcelParser();
+			excelParser.setTxtFile(txtFile);
+			excelParser.setPath(path);
+			excelParser.startExcelParsing();
+			break;
+			
+		}
+	}
+	
+	
+	
 	}
 
 	
