@@ -810,6 +810,26 @@ public class Gui extends JFrame {
 		button_2.setForeground(Color.WHITE);
 		button_2.setBackground(Color.RED);
 		
+		button_2.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+				fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+				int returnValue = fileChooser.showOpenDialog(null);
+				
+				if (returnValue == JFileChooser.APPROVE_OPTION) {
+					File selectedFile = fileChooser.getSelectedFile();		
+					outputMergeField.setText(selectedFile.getAbsolutePath());
+					controller.setOutputFilePath(selectedFile);
+					}
+				
+			}
+			
+			
+			
+		});
+		
 		secondPDFField = new JTextField();
 		secondPDFField.setColumns(10);
 		
@@ -819,10 +839,50 @@ public class Gui extends JFrame {
 		JButton btnChooseFile = new JButton("Choose File");
 		btnChooseFile.setForeground(Color.WHITE);
 		btnChooseFile.setBackground(Color.RED);
+		btnChooseFile.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+				int returnValue = fileChooser.showOpenDialog(null);
+				
+				if (returnValue == JFileChooser.APPROVE_OPTION) {
+					File selectedFile = fileChooser.getSelectedFile();	
+					if(!controller.checkFileExtension(selectedFile, ".pdf")) {
+						JOptionPane.showMessageDialog(mainFrame, "Please Select a Pdf File ");
+						return;
+					}
+					secondPDFField.setText(selectedFile.getAbsolutePath());
+					}
+				
+			}
+			
+			
+		});
 		
 		JButton btnChooseFile_1 = new JButton("Choose File");
 		btnChooseFile_1.setForeground(Color.WHITE);
 		btnChooseFile_1.setBackground(Color.RED);
+		btnChooseFile_1.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+				int returnValue = fileChooser.showOpenDialog(null);
+				
+				if (returnValue == JFileChooser.APPROVE_OPTION) {
+					File selectedFile = fileChooser.getSelectedFile();	
+					if(!controller.checkFileExtension(selectedFile, ".pdf")) {
+						JOptionPane.showMessageDialog(mainFrame, "Please Select a Pdf File ");
+						return;
+					}
+					firstPDFField.setText(selectedFile.getAbsolutePath());
+					}
+				
+			}
+			
+			
+		});
 		
 		JButton button = new JButton("Choose File");
 		button.setForeground(Color.WHITE);
@@ -830,10 +890,50 @@ public class Gui extends JFrame {
 		
 		thirdPDFField = new JTextField();
 		thirdPDFField.setColumns(10);
+		button.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+				int returnValue = fileChooser.showOpenDialog(null);
+				
+				if (returnValue == JFileChooser.APPROVE_OPTION) {
+					File selectedFile = fileChooser.getSelectedFile();	
+					if(!controller.checkFileExtension(selectedFile, ".pdf")) {
+						JOptionPane.showMessageDialog(mainFrame, "Please Select a Pdf File ");
+						return;
+					}
+					thirdPDFField.setText(selectedFile.getAbsolutePath());
+					}
+				
+			}
+			
+			
+		});
 		
-		JButton btnNewButton = new JButton("Merge Results!");
-		btnNewButton.setForeground(Color.WHITE);
-		btnNewButton.setBackground(Color.RED);
+		JButton btnMerge = new JButton("Merge Results!");
+		btnMerge.setForeground(Color.WHITE);
+		btnMerge.setBackground(Color.RED);
+		btnMerge.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				if(     (firstPDFField.getText().equals("") && secondPDFField.getText().equals("")  ) || (firstPDFField.getText().equals("") && thirdPDFField.getText().equals("")  )  ||
+						(thirdPDFField.getText().equals("") && secondPDFField.getText().equals("")  )
+						)
+				{
+					
+						JOptionPane.showMessageDialog(mainFrame, "Please Select a Pdf Files to Merge ");
+						return;
+					
+				}
+				
+				
+				controller.startMerging(firstPDFField.getText(),secondPDFField.getText(),thirdPDFField.getText());
+			}
+		});
+		
+		
+		
 		GroupLayout gl_comparePanel = new GroupLayout(comparePanel);
 		gl_comparePanel.setHorizontalGroup(
 			gl_comparePanel.createParallelGroup(Alignment.LEADING)
@@ -847,7 +947,7 @@ public class Gui extends JFrame {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_comparePanel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_comparePanel.createSequentialGroup()
-							.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 152, GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnMerge, GroupLayout.PREFERRED_SIZE, 152, GroupLayout.PREFERRED_SIZE)
 							.addContainerGap())
 						.addGroup(gl_comparePanel.createParallelGroup(Alignment.LEADING)
 							.addGroup(gl_comparePanel.createSequentialGroup()
@@ -883,7 +983,7 @@ public class Gui extends JFrame {
 						.addComponent(button)
 						.addComponent(thirdPDFField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(64)
-					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
+					.addComponent(btnMerge, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(538, Short.MAX_VALUE))
 		);
 		comparePanel.setLayout(gl_comparePanel);

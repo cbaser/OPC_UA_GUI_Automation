@@ -9,6 +9,7 @@ import com.jcraft.jsch.Session;
 
 import configuration.ConfigurationMaker;
 import deployment.DeployerMaker;
+import merging.Merger;
 import reporting.ReportingMaker;
 import userInterface.Gui;
 
@@ -160,6 +161,14 @@ public class MainController {
 
 		return false;
 	}
+	public boolean checkFileExtension(File file, String fileExtension) {
+
+				if (file.isFile() && file.getName().contains(fileExtension)) 
+					return true;
+		return false;
+	}
+	
+	
 
 	public void appendToTextArea(String line) {
 		new Thread() {
@@ -213,6 +222,14 @@ public class MainController {
 		   ReportingMaker reportingmaker= new ReportingMaker(outputFilePath.getAbsolutePath(),reportType,deviceName);
 		   reportingmaker.startReporting();
 
+	}
+	public void startMerging(String text, String text2, String text3) {
+		Merger merger = new Merger();
+		merger.setFiles(text,text2,text3);
+		merger.setPath(outputFilePath.getAbsolutePath());
+		merger.startMerging();
+		
+		
 	}
 
 }
