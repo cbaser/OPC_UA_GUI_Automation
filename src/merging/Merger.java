@@ -124,7 +124,7 @@ public class Merger {
 	
 	public void createResultFile() {
 		//mergedFile= System.getProperty("user.dir")+File.separator+"output"+File.separator+"result_"+todaysDate+".pdf";
-		mergedFile = path+File.separator+"merged_result"+todaysDate+".pdf";
+		mergedFile = path+File.separator+"merged_result_of"+String.join("_", fileNames)+todaysDate+".pdf";
 		File file = new File(mergedFile);
 		file.getParentFile().mkdirs();
 	}
