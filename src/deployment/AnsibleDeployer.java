@@ -1,8 +1,12 @@
 package deployment;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 
 import controller.ResultMaker;
 
@@ -13,10 +17,12 @@ public class AnsibleDeployer {
 	private Process process;
 	private ResultMaker resultMaker;
 	private String outputline;
+	private String password;
 	
 	
-	public  AnsibleDeployer(String ansiblePath) {
+	public  AnsibleDeployer(String ansiblePath,String password) {
 		this.ansiblePath = ansiblePath;
+		this.password = password;
 		resultMaker = new ResultMaker();
 	}
 	
@@ -24,22 +30,42 @@ public class AnsibleDeployer {
 
 	
 	public void startDeployment() {
-		args = new String[2];
+		args = new String[5];
 		resultMaker.showResults("---------------ANSIBLE---------------\n");
 		//Process p;
         try {
         	args[0] = "ansible-playbook";
         	args[1] = "deploy_opc_ua.yml";
+        	args[2] = "--ask-pass";
+        	args[3] = "--extra-vars";
+        	args[4] = "ansible_become_pass="+password;
         	pb = new ProcessBuilder(args);
         	pb.redirectErrorStream(true);
         	pb.directory(new File(ansiblePath));
         	process = pb.start();
-			BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        	InputStream errStream = process.getErrorStream();
+        	InputStream inStream = process.getInputStream();
+        	OutputStream outStream = process.getOutputStream();
+        	
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outStream));
+            
+            writer.write(password);
+            writer.flush();
+            writer.close();
+            
+            
+		//	BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            BufferedReader br = new BufferedReader(new InputStreamReader(inStream));
 			while((outputline= br.readLine()) != null) {
 				resultMaker.showResults(outputline+"\n");	
 			}
+			if(errStream!=null) {
+				BufferedReader errorReader = new BufferedReader(new InputStreamReader(errStream));
+				while((outputline = errorReader.readLine())!= null)
+					resultMaker.showResults(outputline+"\n");
+			}
 
-           process.destroy();
+        //   process.destroy();
             
 			
 			

@@ -1,0 +1,311 @@
+Adding 50000 single variable nodes took about 383.82865 seconds
+Deleting 50000 single variable nodes took about 86.39955 seconds
+Adding 50000 batch nodes took about 192.17935 seconds
+Deleting 50000 batch nodes took about 43.12902 seconds
+
+
+Establishing Encryption 128rsa15 Server Time took 0.05567 seconds
+Establishing Encryption 256sha256 Server Time took 0.02762 seconds
+Adding certificate took about 0.00010 seconds
+
+Establishing Encryption 128rsa15 Server Time took 0.02856 seconds
+Establishing Encryption 256sha256 Server Time took 0.02803 seconds
+Adding certificate took about 0.00009 seconds
+Time : 270026596 
+Average milliseconds of Accessing 100000 References : 2700 
+Time : 264555074 
+Average milliseconds of Deleting 100000 References : 2645 
+
+Time : 385025503 
+Average milliseconds of Connecting 100000 Clients : 3850 
+
+[2018-07-02 16:47:20.089 (UTC+0200)] info/client	-----Starting CPU Buffer Method Test-------------------
+Time : 73472273 
+Average milliseconds of Getting Batch 100000 Values : 734 
+[2018-07-02 16:48:33.562 (UTC+0200)] info/client	-----Ending CPU Buffer Method Test-------------------
+
+
+
+[2018-06-20 01:15:54.987 (UTC+0200)] [32minfo/client[0m	----Encryption Type---
+[2018-06-20 01:15:54.987 (UTC+0200)] [32minfo/client[0m	None
+[2018-06-20 01:15:54.987 (UTC+0200)] [32minfo/client[0m	-----Starting CPU Single Value Read Test-------------------
+Time : 277215110 
+Average milliseconds of Getting Single 100000 Values : 2772 
+[2018-06-20 01:20:32.203 (UTC+0200)] [32minfo/client[0m	-----Ending CPU Single Value Read Test-------------------
+[2018-06-20 01:20:32.203 (UTC+0200)] [32minfo/client[0m	-----Starting CPU Page Variable Read Test-------------------
+Time : 333076116 
+Average milliseconds of Getting Page 100000 Values : 3330 
+[2018-06-20 01:26:05.281 (UTC+0200)] [32minfo/client[0m	-----Ending CPU Page Variable Read Test-------------------
+[2018-07-01 11:16:25.861 (UTC+0200)] info/client	-----Starting CPU Buffer Variable Read Test-------------------
+Time : 389206499 
+Average milliseconds of Getting Page 100000 Values : 3892 
+[2018-07-01 11:22:55.069 (UTC+0200)] info/client	-----Ending CPU Buffer Variable Read Test-------------------
+[2018-06-20 01:26:05.282 (UTC+0200)] [32minfo/client[0m	-----Starting CPU Image Variable Read Test-------------------
+Time : 932832381 
+Average milliseconds of Getting Image 50000 Values : 18656 
+[2018-06-20 01:41:38.118 (UTC+0200)] [32minfo/client[0m	-----Ending CPU Image Variable Read Test-------------------
+Time : 1313021 
+Average milliseconds of Connecting 20 Clients : 65651 
+[2018-06-20 01:41:39.431 (UTC+0200)] [32minfo/client[0m	-----Starting CPU Single Value Node Test-------------------
+Time : 279985282 
+Average milliseconds of Getting Single 100000 Values : 2799 
+[2018-06-20 01:46:19.417 (UTC+0200)] [32minfo/client[0m	-----Ending CPU Single Value Node Test-------------------
+[2018-06-20 01:46:19.417 (UTC+0200)] [32minfo/client[0m	-----Starting CPU Multiple Value Test-------------------
+Time : 283431713 
+Average milliseconds of Getting Batch 100000 Values : 2834 
+[2018-06-20 01:51:02.849 (UTC+0200)] [32minfo/client[0m	-----Ending CPU Multiple Value Test-------------------
+[2018-06-20 01:51:02.850 (UTC+0200)] [32minfo/client[0m	-----Starting CPU Getting 65535 Byte Array Test-------------------
+Time : 1256675287 
+Average milliseconds of Getting Image 50000 Values : 25133 
+[2018-06-20 02:11:59.531 (UTC+0200)] [32minfo/client[0m	-----Ending CPU Getting 65535 Byte Array Test-------------------
+[2018-06-20 02:11:59.531 (UTC+0200)] [32minfo/client[0m	-----Starting CPU Sorting Test-------------------
+Time : 274142 
+Average milliseconds of Sorting 100000 Values : 2 
+[2018-06-20 02:11:59.809 (UTC+0200)] [32minfo/client[0m	-----Ending CPU Sorting Test-------------------
+[2018-06-20 02:11:59.809 (UTC+0200)] [32minfo/client[0m	-----Starting Writing Value Test-------------------
+Time : 321028250 
+Average milliseconds of Writing 100000 Values : 3210 
+[2018-06-20 02:17:20.839 (UTC+0200)] [32minfo/client[0m	-----Ending CPU Writing Value Test-------------------
+[2018-06-20 02:17:20.839 (UTC+0200)] [32minfo/client[0m	-----Starting Updating Value Test-------------------
+Time : 644006425 
+Average milliseconds of Updating Same Node from 100000 Cycles : 6440 
+
+
+
+[2018-06-22 00:35:53.752 (UTC+0200)] [32minfo/client[0m	----Encryption Type---
+[2018-06-22 00:35:53.752 (UTC+0200)] [32minfo/client[0m	None
+[2018-06-22 00:35:53.752 (UTC+0200)] [32minfo/client[0m	-----Starting Networking Test-------------------
+testing...................... (22 requests made)
+variable requests average rtt/request=28.61
+
+testing************************ (23202 requests made)
+echo_str      2 average rtt/request=2.57
+echo_str      2 messages/s=389.07
+echo_str      2 1.56 kB/s (bidirectional sum)
+
+testing***************** (16597 requests made)
+echo_str      4 average rtt/request=3.61
+echo_str      4 messages/s=277.02
+echo_str      4 2.22 kB/s (bidirectional sum)
+
+testing******************** (19729 requests made)
+echo_str      8 average rtt/request=3.04
+echo_str      8 messages/s=329.32
+echo_str      8 5.27 kB/s (bidirectional sum)
+
+testing************************ (23400 requests made)
+echo_str     16 average rtt/request=2.56
+echo_str     16 messages/s=390.77
+echo_str     16 12.50 kB/s (bidirectional sum)
+
+testing***************** (16852 requests made)
+echo_str     32 average rtt/request=3.56
+echo_str     32 messages/s=281.26
+echo_str     32 18.00 kB/s (bidirectional sum)
+
+testing****************** (17214 requests made)
+echo_str     64 average rtt/request=3.48
+echo_str     64 messages/s=287.29
+echo_str     64 36.77 kB/s (bidirectional sum)
+
+testing****************** (17142 requests made)
+echo_str    128 average rtt/request=3.49
+echo_str    128 messages/s=286.13
+echo_str    128 73.25 kB/s (bidirectional sum)
+
+testing**************** (15758 requests made)
+echo_str    256 average rtt/request=3.80
+echo_str    256 messages/s=262.99
+echo_str    256 134.65 kB/s (bidirectional sum)
+
+testing******************* (18604 requests made)
+echo_str    512 average rtt/request=3.22
+echo_str    512 messages/s=310.59
+echo_str    512 318.05 kB/s (bidirectional sum)
+
+testing******************* (18690 requests made)
+echo_str   1024 average rtt/request=3.21
+echo_str   1024 messages/s=311.07
+echo_str   1024 637.07 kB/s (bidirectional sum)
+
+testing************** (13233 requests made)
+echo_str   2048 average rtt/request=4.51
+echo_str   2048 messages/s=221.57
+echo_str   2048 907.56 kB/s (bidirectional sum)
+
+testing************ (11754 requests made)
+echo_str   4096 average rtt/request=5.16
+echo_str   4096 messages/s=193.67
+echo_str   4096 1586.52 kB/s (bidirectional sum)
+
+testing******** (7839 requests made)
+echo_str   8192 average rtt/request=7.55
+echo_str   8192 messages/s=132.45
+echo_str   8192 2170.13 kB/s (bidirectional sum)
+
+testing****** (5101 requests made)
+echo_str  16384 average rtt/request=11.75
+echo_str  16384 messages/s=85.09
+echo_str  16384 2788.13 kB/s (bidirectional sum)
+
+testing*** (2877 requests made)
+echo_str  32768 average rtt/request=20.83
+echo_str  32768 messages/s=48.02
+echo_str  32768 3146.85 kB/s (bidirectional sum)
+
+testing** (1589 requests made)
+echo_str  65536 average rtt/request=37.70
+echo_str  65536 messages/s=26.53
+echo_str  65536 3477.08 kB/s (bidirectional sum)
+
+testing* (798 requests made)
+echo_str 131072 average rtt/request=75.14
+echo_str 131072 messages/s=13.31
+echo_str 131072 3488.55 kB/s (bidirectional sum)
+
+testing* (400 requests made)
+echo_str 262144 average rtt/request=149.96
+echo_str 262144 messages/s=6.67
+echo_str 262144 3496.12 kB/s (bidirectional sum)
+
+testing* (206 requests made)
+echo_str 524288 average rtt/request=290.74
+echo_str 524288 messages/s=3.44
+echo_str 524288 3606.52 kB/s (bidirectional sum)
+
+testing....................... (22572 requests made)
+ack_str      2 average rtt/request=2.65
+ack_str      2 messages/s=376.87
+ack_str      2 0.75 kB/s (one direction)
+
+testing.................... (19782 requests made)
+ack_str      4 average rtt/request=3.03
+ack_str      4 messages/s=330.23
+ack_str      4 1.32 kB/s (one direction)
+
+testing.................... (19568 requests made)
+ack_str      8 average rtt/request=3.06
+ack_str      8 messages/s=326.73
+ack_str      8 2.61 kB/s (one direction)
+
+testing........... (10891 requests made)
+ack_str     16 average rtt/request=5.50
+ack_str     16 messages/s=181.67
+ack_str     16 2.91 kB/s (one direction)
+
+testing.............. (13461 requests made)
+ack_str     32 average rtt/request=4.45
+ack_str     32 messages/s=224.60
+ack_str     32 7.19 kB/s (one direction)
+
+testing............... (14644 requests made)
+ack_str     64 average rtt/request=4.09
+ack_str     64 messages/s=244.36
+ack_str     64 15.64 kB/s (one direction)
+
+testing.............. (13293 requests made)
+ack_str    128 average rtt/request=4.51
+ack_str    128 messages/s=221.84
+ack_str    128 28.40 kB/s (one direction)
+
+testing....................... (22080 requests made)
+ack_str    256 average rtt/request=2.71
+ack_str    256 messages/s=368.75
+ack_str    256 94.40 kB/s (one direction)
+
+testing........... (10475 requests made)
+ack_str    512 average rtt/request=5.73
+ack_str    512 messages/s=174.55
+ack_str    512 89.37 kB/s (one direction)
+
+testing.................. (17203 requests made)
+ack_str   1024 average rtt/request=3.48
+ack_str   1024 messages/s=287.69
+ack_str   1024 294.60 kB/s (one direction)
+
+testing............ (11627 requests made)
+ack_str   2048 average rtt/request=5.16
+ack_str   2048 messages/s=193.67
+ack_str   2048 396.64 kB/s (one direction)
+
+testing......... (8192 requests made)
+ack_str   4096 average rtt/request=7.31
+ack_str   4096 messages/s=136.87
+ack_str   4096 560.63 kB/s (one direction)
+
+testing....... (6683 requests made)
+ack_str   8192 average rtt/request=9.04
+ack_str   8192 messages/s=110.65
+ack_str   8192 906.43 kB/s (one direction)
+
+testing..... (4169 requests made)
+ack_str  16384 average rtt/request=14.27
+ack_str  16384 messages/s=70.10
+ack_str  16384 1148.51 kB/s (one direction)
+
+testing.... (3289 requests made)
+ack_str  32768 average rtt/request=18.23
+ack_str  32768 messages/s=54.86
+ack_str  32768 1797.69 kB/s (one direction)
+
+testing.. (1614 requests made)
+ack_str  65536 average rtt/request=37.15
+ack_str  65536 messages/s=26.92
+ack_str  65536 1763.98 kB/s (one direction)
+
+testing. (840 requests made)
+ack_str 131072 average rtt/request=71.45
+ack_str 131072 messages/s=14.00
+ack_str 131072 1834.53 kB/s (one direction)
+
+testing. (604 requests made)
+ack_str 262144 average rtt/request=99.32
+ack_str 262144 messages/s=10.07
+ack_str 262144 2639.41 kB/s (one direction)
+
+testing. (395 requests made)
+ack_str 524288 average rtt/request=151.64
+ack_str 524288 messages/s=6.59
+ack_str 524288 3457.53 kB/s (one direction)
+
+
+//Interval 100ms
+[2018-06-22 01:14:53.952 (UTC+0200)] [32minfo/client[0m	-----Ending Networking Test-------------------
+[2018-07-10 14:43:09.089 (UTC+0200)] info/client	-----Starting Monitoring Items Test-------------------
+Total duration of Monitored 10000 Items takes 7920  
+Minimum milliseconds of Monitored one Item Value takes 0  
+Maximum milliseconds of Monitored one Item Value takes 121  
+Average milliseconds of Monitored 10000 Items takes 0  
+[2018-07-10 14:43:17.011 (UTC+0200)] info/client	-----Ending Monitoring Items Test-------------------
+
+//Interval 50ms
+[2018-07-10 14:44:32.539 (UTC+0200)] info/client	-----Starting Monitoring Items Test-------------------
+Total duration of Monitored 10000 Items takes 7498  
+Minimum milliseconds of Monitored one Item Value takes 0  
+Maximum milliseconds of Monitored one Item Value takes 124  
+Average milliseconds of Monitored 10000 Items takes 0  
+[2018-07-10 14:44:40.037 (UTC+0200)] info/client	-----Ending Monitoring Items Test-------------------
+
+//Interval 10ms
+[2018-07-10 14:45:58.448 (UTC+0200)] info/client	-----Starting Monitoring Items Test-------------------
+Total duration of Monitored 10000 Items takes 7386  
+Minimum milliseconds of Monitored one Item Value takes 0  
+Maximum milliseconds of Monitored one Item Value takes 139  
+Average milliseconds of Monitored 10000 Items takes 0  
+[2018-07-10 14:46:05.835 (UTC+0200)] info/client	-----Ending Monitoring Items Test-------------------
+Total duration of getting 10000 endpoints takes 152339 
+Minimum milliseconds of getting one endpoint takes 9 
+Maximum milliseconds of getting one endpoint takes 1102 
+Average milliseconds of getting 10000 endpoints takes 15 
+Coefficient of this operations variation 381 
+Standard deviation of Total execution time 38130853 endpoints found
+URL of endpoint 0 is opc.tcp://192.168.178.59:4840 / http://opcfoundation.org/UA/SecurityPolicy#None
+URL of endpoint 1 is opc.tcp://192.168.178.59:4840 / http://opcfoundation.org/UA/SecurityPolicy#Basic128Rsa15
+URL of endpoint 2 is opc.tcp://192.168.178.59:4840 / http://opcfoundation.org/UA/SecurityPolicy#Basic128Rsa15
+[2018-07-16 00:45:53.198 (UTC+0200)] warn/securitypolicy	No PKI plugin set. Accepting all certificates
+Total duration of encrypted connecting 10000 to server takes 308 
+Minimum milliseconds of encrypted connecting to server takes 0 
+Maximum milliseconds of encrypted connecting  to server takes 307 
+Average milliseconds of encrypted connecting  10000 to server takes 0 
+Coefficient of this operations variation 9 
+

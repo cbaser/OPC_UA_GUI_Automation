@@ -1,0 +1,251 @@
+/home/cgtybsr/Desktop/MyThesis/Master-s-Thesis/Code/Testing_Platform/cmake-build-debug/bin/Testing_Platform 192.168.178.60
+[2018-07-17 22:15:37.138 (UTC+0200)] info/client	-----Starting CPU Single Value Read Test-------------------
+Total duration of reading Single 10000 Value takes 39023  
+Minimum milliseconds of reading one Single Value takes 2  
+Maximum milliseconds of reading one Single Value takes 53  
+Average milliseconds of reading Single 10000 Value takes 3  
+Coefficient of this operations variation 4 
+Standard deviation of Total execution time 43763
+[2018-07-17 22:16:16.166 (UTC+0200)] info/client	-----Ending CPU Single Value Read Test-------------------
+[2018-07-17 22:16:16.166 (UTC+0200)] info/client	-----Starting CPU Page Variable Read Test-------------------
+Total duration of reading Page 10000 Value takes 52365  
+Minimum milliseconds of reading one Page Value takes 3  
+Maximum milliseconds of reading one Page Value takes 67  
+Average milliseconds of reading Page 10000 Value takes 5  
+Coefficient of this operations variation 8 
+Standard deviation of Total execution time 88783[2018-07-17 22:17:08.537 (UTC+0200)] info/client	-----Ending CPU Page Variable Read Test-------------------
+[2018-07-17 22:17:08.537 (UTC+0200)] info/client	-----Starting CPU Buffer Variable Read Test-------------------
+Total duration of reading Buffer 10000 Value takes 69979 
+Minimum milliseconds of reading one Buffer Value takes 4  
+Maximum milliseconds of reading one Buffer Value takes 85 
+Average milliseconds of reading Buffer 10000 Value takes 6 
+Coefficient of this operations variation 15 
+Standard deviation of Total execution time 156471[2018-07-17 22:18:18.526 (UTC+0200)] info/client	-----Ending CPU Buffer Variable Read Test-------------------
+[2018-07-17 22:18:18.526 (UTC+0200)] info/client	-----Starting CPU Image Variable Read Test-------------------
+Total duration of reading Image 10000 Value takes 855216 
+Minimum milliseconds of reading one Image Value takes 53 
+Maximum milliseconds of reading one Image Value takes 505 
+Average milliseconds of reading Image 10000 Value takes 85 
+Coefficient of this operations variation 1548 
+Standard deviation of Total execution time 15480340[2018-07-17 22:32:33.747 (UTC+0200)] info/client	-----Ending CPU Image Variable Read Test-------------------
+[2018-07-17 22:32:33.747 (UTC+0200)] info/client	-----Starting CPU Single Value from Node Test-------------------
+Total duration of reading Single 10000 Value from Node takes 40588 
+Minimum milliseconds of reading one Single Value from Node takes 2 
+Maximum milliseconds of reading one Single Value from Node takes 120 
+Average milliseconds of reading Single 10000 Value from Node takes 4 
+Coefficient of this operations variation 6 
+Standard deviation of Total execution time 66218[2018-07-17 22:33:14.271 (UTC+0200)] info/client	-----Ending CPU Single Value Node from Node Test-------------------
+[2018-07-17 22:33:14.271 (UTC+0200)] info/client	-----Starting CPU Page Value from Node Test-------------------
+Total duration of reading Page 10000 Value from Node takes 44564 
+Minimum milliseconds of reading one Page Value from Node takes 2 
+Maximum milliseconds of reading one Page Value from Node takes 104 
+Average milliseconds of reading Page 10000 Value from Node takes 4 
+Coefficient of this operations variation 10 
+Standard deviation of Total execution time 106436[2018-07-17 22:33:58.772 (UTC+0200)] info/client	-----Ending CPU Page Value from Test-------------------
+[2018-07-17 22:33:58.772 (UTC+0200)] info/client	-----Starting CPU Buffer Value from Node Test-------------------
+Total duration of reading Buffer 10000 Value from Node takes 42984 
+Minimum milliseconds of reading one Buffer Value from Node takes 3 
+Maximum milliseconds of reading one Buffer Value from Node takes 90 
+Average milliseconds of reading Buffer 10000 Value from Node takes 4 
+Coefficient of this operations variation 5 
+Standard deviation of Total execution time 52496[2018-07-17 22:34:41.764 (UTC+0200)] info/client	-----Ending CPU Buffer Value from Node Test-------------------
+[2018-07-17 22:34:41.764 (UTC+0200)] info/client	-----Starting CPU Image Value from Node Test-------------------
+Total duration of reading Image 10000 Value from Node takes 949931 
+Minimum milliseconds of reading one Image Value from Node takes 59 
+Maximum milliseconds of reading one Image Value from Node takes 1039 
+Average milliseconds of reading Image 10000 Value from Node takes 94 
+Coefficient of this operations variation 1965 
+Standard deviation of Total execution time 19652819[2018-07-17 22:50:31.701 (UTC+0200)] info/client	-----Ending CPU Image Value from Node Test-------------------
+[2018-07-17 22:51:16.318 (UTC+0200)] info/client	-----Starting Writing Value Test-------------------
+Total duration of writing 10000 Value to Server takes 49639 
+Minimum milliseconds of writing one Value to Server takes 0 
+Maximum milliseconds of writing one Value to Server takes 86 
+Average milliseconds of writing one 10000 Value to Server takes 4 
+Coefficient of this operations variation 12 
+Standard deviation of Total execution time 123735[2018-07-17 22:52:05.960 (UTC+0200)] info/client	-----Ending CPU Writing Value Test-------------------
+[2018-07-17 22:52:05.960 (UTC+0200)] info/client	-----Starting Updating Value Test-------------------
+Total duration of updating 10000 Value to Server takes 103012 
+Minimum milliseconds of updating one Value to Server takes 6 
+Maximum milliseconds of updating one Value to Server takes 197 
+Average milliseconds of updating one 10000 Value to Server takes 10 
+Coefficient of this operations variation 32 
+
+[2018-07-17 22:54:34.185 (UTC+0200)] info/client	-----Starting Networking Test-------------------
+testing............. (13 requests made)
+variable requests average rtt/request=0.06
+
+testing**** (3227 requests made)
+echo_str      2 average rtt/request=0.01
+echo_str      2 messages/s=111226.00
+echo_str      2 444.90 kB/s (bidirectional sum)
+
+testing**** (3519 requests made)
+echo_str      4 average rtt/request=0.01
+echo_str      4 messages/s=117378.25
+echo_str      4 939.03 kB/s (bidirectional sum)
+
+testing**** (3478 requests made)
+echo_str      8 average rtt/request=0.01
+echo_str      8 messages/s=116002.94
+echo_str      8 1856.05 kB/s (bidirectional sum)
+
+testing**** (3238 requests made)
+echo_str     16 average rtt/request=0.01
+echo_str     16 messages/s=108008.94
+echo_str     16 3456.29 kB/s (bidirectional sum)
+
+testing*** (2808 requests made)
+echo_str     32 average rtt/request=0.01
+echo_str     32 messages/s=93665.57
+echo_str     32 5994.60 kB/s (bidirectional sum)
+
+testing*** (2507 requests made)
+echo_str     64 average rtt/request=0.01
+echo_str     64 messages/s=83611.26
+echo_str     64 10702.24 kB/s (bidirectional sum)
+
+testing**** (3084 requests made)
+echo_str    128 average rtt/request=0.01
+echo_str    128 messages/s=102882.31
+echo_str    128 26337.87 kB/s (bidirectional sum)
+
+testing**** (3176 requests made)
+echo_str    256 average rtt/request=0.01
+echo_str    256 messages/s=105909.03
+echo_str    256 54225.42 kB/s (bidirectional sum)
+
+testing*** (2190 requests made)
+echo_str    512 average rtt/request=0.01
+echo_str    512 messages/s=72571.83
+echo_str    512 74313.55 kB/s (bidirectional sum)
+
+testing*** (2149 requests made)
+echo_str   1024 average rtt/request=0.01
+echo_str   1024 messages/s=72138.30
+echo_str   1024 147739.24 kB/s (bidirectional sum)
+
+testing** (1628 requests made)
+echo_str   2048 average rtt/request=0.02
+echo_str   2048 messages/s=54273.90
+echo_str   2048 222305.91 kB/s (bidirectional sum)
+
+testing** (1134 requests made)
+echo_str   4096 average rtt/request=0.03
+echo_str   4096 messages/s=37817.65
+echo_str   4096 309802.17 kB/s (bidirectional sum)
+
+testing* (683 requests made)
+echo_str   8192 average rtt/request=0.04
+echo_str   8192 messages/s=22764.39
+echo_str   8192 372971.77 kB/s (bidirectional sum)
+
+testing* (377 requests made)
+echo_str  16384 average rtt/request=0.08
+echo_str  16384 messages/s=12567.09
+echo_str  16384 411798.26 kB/s (bidirectional sum)
+
+testing* (200 requests made)
+echo_str  32768 average rtt/request=0.15
+echo_str  32768 messages/s=6660.01
+echo_str  32768 436470.20 kB/s (bidirectional sum)
+
+testing... (2604 requests made)
+ack_str      2 average rtt/request=0.01
+ack_str      2 messages/s=86904.29
+ack_str      2 173.81 kB/s (one direction)
+
+testing... (2851 requests made)
+ack_str      4 average rtt/request=0.01
+ack_str      4 messages/s=95182.45
+ack_str      4 380.73 kB/s (one direction)
+
+testing... (2755 requests made)
+ack_str      8 average rtt/request=0.01
+ack_str      8 messages/s=91870.08
+ack_str      8 734.96 kB/s (one direction)
+
+testing.... (3391 requests made)
+ack_str     16 average rtt/request=0.01
+ack_str     16 messages/s=113131.38
+ack_str     16 1810.10 kB/s (one direction)
+
+testing.... (3306 requests made)
+ack_str     32 average rtt/request=0.01
+ack_str     32 messages/s=110273.52
+ack_str     32 3528.75 kB/s (one direction)
+
+testing.... (3488 requests made)
+ack_str     64 average rtt/request=0.01
+ack_str     64 messages/s=116367.52
+ack_str     64 7447.52 kB/s (one direction)
+
+testing.... (3281 requests made)
+ack_str    128 average rtt/request=0.01
+ack_str    128 messages/s=109435.98
+ack_str    128 14007.80 kB/s (one direction)
+
+testing.... (3207 requests made)
+ack_str    256 average rtt/request=0.01
+ack_str    256 messages/s=106967.75
+ack_str    256 27383.74 kB/s (one direction)
+
+testing.... (3123 requests made)
+ack_str    512 average rtt/request=0.01
+ack_str    512 messages/s=104162.50
+ack_str    512 53331.20 kB/s (one direction)
+
+testing... (2847 requests made)
+ack_str   1024 average rtt/request=0.01
+ack_str   1024 messages/s=94846.25
+ack_str   1024 97122.56 kB/s (one direction)
+
+testing... (2118 requests made)
+ack_str   2048 average rtt/request=0.01
+ack_str   2048 messages/s=70741.48
+ack_str   2048 144878.56 kB/s (one direction)
+
+testing.. (1860 requests made)
+ack_str   4096 average rtt/request=0.02
+ack_str   4096 messages/s=62031.02
+ack_str   4096 254079.04 kB/s (one direction)
+
+testing.. (1231 requests made)
+ack_str   8192 average rtt/request=0.02
+ack_str   8192 messages/s=41056.60
+ack_str   8192 336335.66 kB/s (one direction)
+
+testing. (725 requests made)
+ack_str  16384 average rtt/request=0.04
+ack_str  16384 messages/s=24173.11
+ack_str  16384 396052.28 kB/s (one direction)
+
+testing. (410 requests made)
+ack_str  32768 average rtt/request=0.07
+ack_str  32768 messages/s=13664.39
+ack_str  32768 447754.71 kB/s (one direction)
+
+[2018-07-17 23:10:06.201 (UTC+0200)] info/client	-----Ending Networking Test-------------------
+[2018-07-17 23:18:40.316 (UTC+0200)] info/client	-----Starting Connection Time Test-------------------
+Total duration of Connecting 10000 Client takes 365803 
+Minimum milliseconds of Connecting one Client takes 23 
+Maximum milliseconds of Connecting one Client takes 1524 
+Average milliseconds of Connecting 10000 Client takes 36 
+Coefficient of this operations variation 2620 
+Standard deviation of Total execution time 26205975[2018-07-17 23:25:44.423 (UTC+0200)] info/client	-----Ending Connection Time Test-------------------
+Total duration of Accessing 10000 References takes 37772
+Minimum milliseconds of Accessing one Reference Value takes 2
+Maximum milliseconds of Accessing one Reference Value takes 77
+Average milliseconds of Accessing 10000 References takes 3
+Coefficient of this operations variation 4 
+Standard deviation of Total execution time 41048
+Total duration of Deleting 10000 References takes 39687
+Minimum milliseconds of Deleting one Reference Value takes 2
+Maximum milliseconds of Deleting one Reference Value takes 102
+Average milliseconds of Deleting 10000 References takes 3
+Coefficient of this operations variation 10 
+Standard deviation of Total execution time 108459
+
+
+
+
+

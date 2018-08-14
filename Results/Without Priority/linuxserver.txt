@@ -1,0 +1,260 @@
+10.200.2.82
+Adding 50000 single variable nodes took about 26.92395 seconds
+Deleting 50000 single variable nodes took about 5.59477 seconds
+Adding 50000 batch nodes took about 13.42541 seconds
+Deleting 50000 batch nodes took about 2.81544 seconds
+
+
+Establishing Encryption 128rsa15 Server Time took 0.00522 seconds
+Establishing Encryption 256sha256 Server Time took 0.00218 seconds
+Adding certificate took about 0.00001 seconds
+
+
+Time : 282458028 
+Average milliseconds of Connecting 100000 Clients : 2824
+
+Time : 27066679 
+Average milliseconds of Accessing 100000 References : 270 
+Time : 28972017 
+Average milliseconds of Deleting 100000 References : 289 
+
+[2018-07-02 14:53:51.560 (UTC+0200)] info/client	-----Starting CPU Buffer Method Test-------------------
+Time : 31859471 
+Average milliseconds of Getting Batch 100000 Values : 318 
+[2018-07-02 14:54:23.420 (UTC+0200)] info/client	-----Ending CPU Buffer Value Test-------------------
+
+[2018-07-02 14:56:33.370 (UTC+0200)] info/client	-----Starting CPU Buffer Variable Read Test-------------------
+Time : 42731014 
+Average milliseconds of Getting Page 100000 Values : 427 
+[2018-07-02 14:57:16.101 (UTC+0200)] info/client	-----Ending CPU Buffer Variable Read Test-------------------
+
+
+[2018-06-25 14:53:37.778 (UTC+0200)] info/client	----Encryption Type---
+[2018-06-25 14:53:37.778 (UTC+0200)] info/client	None
+[2018-06-25 14:53:37.778 (UTC+0200)] info/client	-----Starting CPU Single Value Read Test-------------------
+Time : 29360517 
+Average milliseconds of Getting Single 100000 Values : 293 
+[2018-06-25 14:54:07.139 (UTC+0200)] info/client	-----Ending CPU Single Value Read Test-------------------
+[2018-06-25 14:54:07.139 (UTC+0200)] info/client	-----Starting CPU Page Variable Read Test-------------------
+Time : 51557850 
+Average milliseconds of Getting Page 100000 Values : 515 
+[2018-06-25 14:54:58.696 (UTC+0200)] info/client	-----Ending CPU Page Variable Read Test-------------------
+[2018-07-02 15:00:12.608 (UTC+0200)] info/client	-----Starting CPU Image Variable Read Test-------------------
+Time : 610203352 
+Average milliseconds of Getting Image 100000 Values : 6102 
+[2018-07-02 15:10:22.813 (UTC+0200)] info/client	-----Ending CPU Image Variable Read Test-------------------
+[2018-06-25 15:00:02.071 (UTC+0200)] info/client	-----Starting CPU Single Value Node Test-------------------
+Time : 28766376 
+Average milliseconds of Getting Single 100000 Values : 287 
+[2018-06-25 15:00:30.838 (UTC+0200)] info/client	-----Ending CPU Single Value Node Test-------------------
+[2018-06-25 15:00:30.838 (UTC+0200)] info/client	-----Starting CPU Multiple Value Test-------------------
+Time : 31725058 
+Average milliseconds of Getting Batch 100000 Values : 317 
+[2018-06-25 15:01:02.563 (UTC+0200)] info/client	-----Ending CPU Multiple Value Test-------------------
+[2018-06-25 15:01:02.563 (UTC+0200)] info/client	-----Starting CPU Getting 65535 Byte Array Test-------------------
+Time : 391978017 
+Average milliseconds of Getting Image 50000 Values : 7839 
+[2018-06-25 15:07:34.544 (UTC+0200)] info/client	-----Ending CPU Getting 65535 Byte Array Test-------------------
+[2018-06-25 15:07:34.544 (UTC+0200)] info/client	-----Starting CPU Sorting Test-------------------
+Time : 92140 
+Average milliseconds of Sorting 100000 Values : 0 
+[2018-06-25 15:56:22.230 (UTC+0200)] info/client	-----Starting Writing Value Test-------------------
+Time : 34867678 
+Average milliseconds of Writing 100000 Values : 348 
+[2018-06-25 15:56:57.098 (UTC+0200)] info/client	-----Ending CPU Writing Value Test-------------------
+[2018-06-25 15:56:57.098 (UTC+0200)] info/client	-----Starting Updating Value Test-------------------
+Time : 56970757 
+Average milliseconds of Updating Same Node from 100000 Cycles : 569 
+
+
+testing...................... (22 requests made)
+variable requests average rtt/request=0.66
+
+testing******************************************************************************************************************************************************************************************************* (198386 requests made)
+echo_str      2 average rtt/request=0.30
+echo_str      2 messages/s=3328.65
+echo_str      2 13.31 kB/s (bidirectional sum)
+
+testing*************************************************************************************************************************************************************************************************************** (206927 requests made)
+echo_str      4 average rtt/request=0.29
+echo_str      4 messages/s=3467.78
+echo_str      4 27.74 kB/s (bidirectional sum)
+
+testing******************************************************************************************************************************************************************************************************************* (210500 requests made)
+echo_str      8 average rtt/request=0.28
+echo_str      8 messages/s=3523.24
+echo_str      8 56.37 kB/s (bidirectional sum)
+
+testing********************************************************************************************************************************************************************************************************* (200875 requests made)
+echo_str     16 average rtt/request=0.30
+echo_str     16 messages/s=3362.86
+echo_str     16 107.61 kB/s (bidirectional sum)
+
+testing*********************************************************************************************************************************************************************************************************** (202510 requests made)
+echo_str     32 average rtt/request=0.30
+echo_str     32 messages/s=3388.27
+echo_str     32 216.85 kB/s (bidirectional sum)
+
+testing***************************************************************************************************************************************************************************************************** (196282 requests made)
+echo_str     64 average rtt/request=0.30
+echo_str     64 messages/s=3283.35
+echo_str     64 420.27 kB/s (bidirectional sum)
+
+testing***************************************************************************************************************************************************************************************** (184971 requests made)
+echo_str    128 average rtt/request=0.32
+echo_str    128 messages/s=3094.12
+echo_str    128 792.09 kB/s (bidirectional sum)
+
+testing***************************************************************************************************************************************************************************** (172069 requests made)
+echo_str    256 average rtt/request=0.35
+echo_str    256 messages/s=2879.09
+echo_str    256 1474.09 kB/s (bidirectional sum)
+
+testing******************************************************************************************************************** (115047 requests made)
+echo_str    512 average rtt/request=0.52
+echo_str    512 messages/s=1931.77
+echo_str    512 1978.14 kB/s (bidirectional sum)
+
+testing********************************************************************************************* (92336 requests made)
+echo_str   1024 average rtt/request=0.64
+echo_str   1024 messages/s=1550.58
+echo_str   1024 3175.59 kB/s (bidirectional sum)
+
+testing**************************************************************************************** (87333 requests made)
+echo_str   2048 average rtt/request=0.68
+echo_str   2048 messages/s=1461.56
+echo_str   2048 5986.56 kB/s (bidirectional sum)
+
+testing*************************************** (38589 requests made)
+echo_str   4096 average rtt/request=1.55
+echo_str   4096 messages/s=645.37
+echo_str   4096 5286.91 kB/s (bidirectional sum)
+
+testing******************************* (30432 requests made)
+echo_str   8192 average rtt/request=1.97
+echo_str   8192 messages/s=508.03
+echo_str   8192 8323.63 kB/s (bidirectional sum)
+
+testing******************** (19192 requests made)
+echo_str  16384 average rtt/request=3.12
+echo_str  16384 messages/s=320.56
+echo_str  16384 10504.00 kB/s (bidirectional sum)
+
+testing******** (7345 requests made)
+echo_str  32768 average rtt/request=8.16
+echo_str  32768 messages/s=122.57
+echo_str  32768 8032.92 kB/s (bidirectional sum)
+
+testing****** (5180 requests made)
+echo_str  65536 average rtt/request=11.57
+echo_str  65536 messages/s=86.46
+echo_str  65536 11332.35 kB/s (bidirectional sum)
+
+testing*** (2450 requests made)
+echo_str 131072 average rtt/request=24.46
+echo_str 131072 messages/s=40.89
+echo_str 131072 10718.24 kB/s (bidirectional sum)
+
+testing** (1319 requests made)
+echo_str 262144 average rtt/request=45.39
+echo_str 262144 messages/s=22.03
+echo_str 262144 11551.18 kB/s (bidirectional sum)
+
+testing.............................................................................................................................................................................................................. (205727 requests made)
+ack_str      2 average rtt/request=0.29
+ack_str      2 messages/s=3446.17
+ack_str      2 6.89 kB/s (one direction)
+
+testing........................................................................................................................................................................................................ (199076 requests made)
+ack_str      4 average rtt/request=0.30
+ack_str      4 messages/s=3333.86
+ack_str      4 13.34 kB/s (one direction)
+
+testing.............................................................................................................................................................................................................. (205831 requests made)
+ack_str      8 average rtt/request=0.29
+ack_str      8 messages/s=3445.28
+ack_str      8 27.56 kB/s (one direction)
+
+testing.................................................................................................................................................................................................................. (209114 requests made)
+ack_str     16 average rtt/request=0.29
+ack_str     16 messages/s=3498.90
+ack_str     16 55.98 kB/s (one direction)
+
+testing.................................................................................................................................................................................................................. (209374 requests made)
+ack_str     32 average rtt/request=0.29
+ack_str     32 messages/s=3502.38
+ack_str     32 112.08 kB/s (one direction)
+
+testing......................................................................................................................................................................................................... (200731 requests made)
+ack_str     64 average rtt/request=0.30
+ack_str     64 messages/s=3359.19
+ack_str     64 214.99 kB/s (one direction)
+
+testing................................................................................................................................................................................................ (191591 requests made)
+ack_str    128 average rtt/request=0.31
+ack_str    128 messages/s=3207.93
+ack_str    128 410.61 kB/s (one direction)
+
+testing......................................................................................................................................................................................... (184051 requests made)
+ack_str    256 average rtt/request=0.32
+ack_str    256 messages/s=3079.23
+ack_str    256 788.28 kB/s (one direction)
+
+testing..................................................................................................................................................................... (164146 requests made)
+ack_str    512 average rtt/request=0.36
+ack_str    512 messages/s=2748.20
+ack_str    512 1407.08 kB/s (one direction)
+
+testing............................................................................................................... (110869 requests made)
+ack_str   1024 average rtt/request=0.54
+ack_str   1024 messages/s=1864.66
+ack_str   1024 1909.41 kB/s (one direction)
+
+testing.......................................................................................................................... (121891 requests made)
+ack_str   2048 average rtt/request=0.49
+ack_str   2048 messages/s=2040.60
+ack_str   2048 4179.16 kB/s (one direction)
+
+testing.................................................................................... (83003 requests made)
+ack_str   4096 average rtt/request=0.72
+ack_str   4096 messages/s=1390.87
+ack_str   4096 5697.00 kB/s (one direction)
+
+testing........................................................... (58592 requests made)
+ack_str   8192 average rtt/request=1.02
+ack_str   8192 messages/s=980.71
+ack_str   8192 8033.99 kB/s (one direction)
+
+testing................................... (34615 requests made)
+ack_str  16384 average rtt/request=1.73
+ack_str  16384 messages/s=579.53
+ack_str  16384 9495.10 kB/s (one direction)
+
+testing................... (18798 requests made)
+ack_str  32768 average rtt/request=3.18
+ack_str  32768 messages/s=314.37
+ack_str  32768 10301.21 kB/s (one direction)
+
+testing........... (10056 requests made)
+ack_str  65536 average rtt/request=5.95
+ack_str  65536 messages/s=168.06
+ack_str  65536 11013.85 kB/s (one direction)
+
+testing...... (5179 requests made)
+ack_str 131072 average rtt/request=11.56
+ack_str 131072 messages/s=86.50
+ack_str 131072 11337.97 kB/s (one direction)
+
+testing... (2636 requests made)
+ack_str 262144 average rtt/request=22.70
+ack_str 262144 messages/s=44.04
+ack_str 262144 11545.73 kB/s (one direction)
+
+testing.. (1329 requests made)
+ack_str 524288 average rtt/request=45.07
+ack_str 524288 messages/s=22.19
+ack_str 524288 11631.62 kB/s (one direction)
+
+[2018-06-25 15:46:34.391 (UTC+0200)] info/client	-----Ending Networking Test-------------------
+
+

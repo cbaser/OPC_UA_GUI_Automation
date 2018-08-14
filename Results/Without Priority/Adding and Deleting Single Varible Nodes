@@ -1,0 +1,12 @@
+Adding 1 nodes took about 0.00001 seconds
+Deleting 1 nodes took about 0.00000 seconds
+Adding 10 nodes took about 0.00009 seconds
+Deleting 10 nodes took about 0.00002 seconds
+Adding 100 nodes took about 0.00077 seconds
+Deleting 100 nodes took about 0.00022 seconds
+Adding 1000 nodes took about 0.02002 seconds
+Deleting 1000 nodes took about 0.00469 seconds
+Adding 10000 nodes took about 1.50333 seconds
+Deleting 10000 nodes took about 0.31743 seconds
+Adding 100000 nodes took about 158.78005 seconds
+Deleting 100000 nodes took about 35.29155 seconds

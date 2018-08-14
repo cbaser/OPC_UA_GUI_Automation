@@ -1,0 +1,13 @@
+Raspberry Pi
+Adding 50000 single variable nodes took about 385.38214 seconds
+Deleting 50000 single variable nodes took about 86.42855 seconds
+Adding 50000 batch nodes took about 192.34228 seconds
+Deleting 50000 batch nodes took about 43.09007 seconds
+Time : 373218 
+Average milliseconds of Connecting 20 Clients : 18660
+
+Time : 305608139 
+Average milliseconds of Getting Single 100000 Values : 3056 
+
+Time : 313004701 
+Average milliseconds of Getting Batch 100000 Values : 3130 

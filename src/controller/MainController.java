@@ -171,18 +171,34 @@ public class MainController {
 	
 
 	public void appendToTextArea(String line) {
-		new Thread() {
+//		new Thread() {
+//			public void run() {
+//				SwingUtilities.invokeLater(new Runnable() {
+//					public void run() {
+//						if (firstOrSecondOutputArea)
+//							Gui.deployableTextArea.append(line);
+//						else
+//							Gui.nonDeployableTextArea.append(line);
+//					}
+//				});
+//			}
+//		}.start();
+//		
+	
+		
+		
+		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				SwingUtilities.invokeLater(new Runnable() {
-					public void run() {
-						if (firstOrSecondOutputArea)
-							Gui.deployableTextArea.append(line);
-						else
-							Gui.nonDeployableTextArea.append(line);
-					}
-				});
+				if (firstOrSecondOutputArea)
+					Gui.deployableTextArea.append(line);
+				else
+					Gui.nonDeployableTextArea.append(line);
 			}
-		}.start();
+			
+		});
+	
+		
+		
 	}
 
 
@@ -212,7 +228,7 @@ public class MainController {
 
 
 	public void startDeployment(String selectedTestType) {
-		DeployerMaker deployermaker = new DeployerMaker(connectionAddress, ansibleFilePath.getAbsolutePath(),
+		DeployerMaker deployermaker = new DeployerMaker(connectionAddress,password, ansibleFilePath.getAbsolutePath(),
 				dockerFilePath.getAbsolutePath(),selectedTestType);
 		deployermaker.startDeployment();
 

@@ -1,0 +1,99 @@
+Download size 15 mb Upload size 33.5 mb
+[2018-08-13 15:26:13.999 (UTC+0200)] info/client	-----Starting Networking Test-------------------
+testing............ (12 requests made)
+variable requests average rtt/request=0.01
+
+testing*** (2497 requests made)
+echo_str      2 average rtt/request=0.01
+echo_str      2 messages/s=83904.57
+echo_str      2 335.62 kB/s (bidirectional sum)
+
+testing*** (2167 requests made)
+echo_str      4 average rtt/request=0.01
+echo_str      4 messages/s=72048.41
+echo_str      4 576.39 kB/s (bidirectional sum)
+
+testing*** (2794 requests made)
+echo_str      8 average rtt/request=0.01
+echo_str      8 messages/s=91971.43
+echo_str      8 1471.54 kB/s (bidirectional sum)
+
+testing**** (3541 requests made)
+echo_str     16 average rtt/request=0.01
+echo_str     16 messages/s=120037.97
+echo_str     16 3841.21 kB/s (bidirectional sum)
+
+testing**** (3195 requests made)
+echo_str     32 average rtt/request=0.01
+echo_str     32 messages/s=106567.49
+echo_str     32 6820.32 kB/s (bidirectional sum)
+
+testing*** (2312 requests made)
+echo_str     64 average rtt/request=0.01
+echo_str     64 messages/s=76741.79
+echo_str     64 9822.95 kB/s (bidirectional sum)
+
+testing*** (2340 requests made)
+echo_str    128 average rtt/request=0.01
+echo_str    128 messages/s=78397.21
+echo_str    128 20069.69 kB/s (bidirectional sum)
+
+testing** (1770 requests made)
+echo_str    256 average rtt/request=0.02
+echo_str    256 messages/s=59033.45
+echo_str    256 30225.13 kB/s (bidirectional sum)
+
+testing** (1278 requests made)
+echo_str    512 average rtt/request=0.02
+echo_str    512 messages/s=42607.10
+echo_str    512 43629.67 kB/s (bidirectional sum)
+
+testing* (483 requests made)
+echo_str   1024 average rtt/request=0.06
+echo_str   1024 messages/s=16098.93
+echo_str   1024 32970.60 kB/s (bidirectional sum)
+
+
+
+[2018-08-13 15:26:13.999 (UTC+0200)] info/client	-----Ending Networking Test-------------------
+[2018-08-13 16:49:29.779 (UTC+0200)] info/client	-----Starting CPU Single Value Read Test-------------------
+Total duration of reading Single 10000 Value takes 64672
+Minimum milliseconds of reading one Single Value takes 2
+Maximum milliseconds of reading one Single Value takes 484
+Average milliseconds of reading Single 10000 Value takes 6
+Coefficient of this operations variation 339.708800
+Standard deviation of Total execution time 18.431191
+[2018-08-13 16:50:34.457 (UTC+0200)] info/client	-----Ending CPU Single Value Read Test-------------------
+[2018-08-13 16:57:11.825 (UTC+0200)] info/client	-----Starting CPU Page Variable Read Test-------------------
+Total duration of reading Page 10000 Value takes 62345
+Minimum milliseconds of reading one Page Value takes 3
+Maximum milliseconds of reading one Page Value takes 243
+Average milliseconds of reading Page 10000 Value takes 6
+Coefficient of this operations variation 129.986900
+Standard deviation of Total execution time 11.401180
+[2018-08-13 16:58:14.173 (UTC+0200)] info/client	-----Ending CPU Page Variable Read Test-------------------
+[2018-08-13 17:09:13.710 (UTC+0200)] info/client	-----Starting CPU Single Value from Node Test-------------------
+Total duration of reading Single 10000 Value from Node takes 60753
+Minimum milliseconds of reading one Single Value from Node takes 0
+Maximum milliseconds of reading one Single Value from Node takes 482
+Average milliseconds of reading Single 10000 Value from Node takes 6
+Coefficient of this operations variation 265.602300
+Standard deviation of Total execution time 16.297310
+[2018-08-13 17:10:14.469 (UTC+0200)] info/client	-----Ending CPU Single Value Node from Node Test-------------------
+[2018-08-13 17:10:14.469 (UTC+0200)] info/client	-----Starting CPU Page Value from Node Test-------------------
+Total duration of reading Page 10000 Value from Node takes 68418
+Minimum milliseconds of reading one Page Value from Node takes 0
+Maximum milliseconds of reading one Page Value from Node takes 390
+Average milliseconds of reading Page 10000 Value from Node takes 6
+Coefficient of this operations variation 242.983800
+Standard deviation of Total execution time 15.587938
+[2018-08-13 17:11:22.893 (UTC+0200)] info/client	-----Ending CPU Page Value from Test-------------------
+[2018-08-13 17:12:18.375 (UTC+0200)] info/client	-----Starting CPU Buffer Value from Node Test-------------------
+Total duration of reading Buffer 10000 Value from Node takes 431037
+Minimum milliseconds of reading one Buffer Value from Node takes 6
+Maximum milliseconds of reading one Buffer Value from Node takes 1504
+Average milliseconds of reading Buffer 10000 Value from Node takes 43
+Coefficient of this operations variation 8072.660100
+Standard deviation of Total execution time 89.847983
+[2018-08-13 17:19:29.416 (UTC+0200)] info/client	-----Ending CPU Buffer Value from Node Test-------------------
+

@@ -1,0 +1,164 @@
+Platform 192.168.0.29 Encryption 1GB
+3 endpoints found
+URL of endpoint 0 is opc.tcp://192.168.0.29:4840 / http://opcfoundation.org/UA/SecurityPolicy#None
+URL of endpoint 1 is opc.tcp://192.168.0.29:4840 / http://opcfoundation.org/UA/SecurityPolicy#Basic128Rsa15
+URL of endpoint 2 is opc.tcp://192.168.0.29:4840 / http://opcfoundation.org/UA/SecurityPolicy#Basic128Rsa15
+[2018-07-28 00:53:21.804 (UTC+0200)] warn/securitypolicy	No PKI plugin set. Accepting all certificates
+[2018-07-28 00:53:22.038 (UTC+0200)] info/userland	date is: 27-7-2018 22:53:22.052
+
+[2018-07-28 00:53:22.038 (UTC+0200)] info/client	-----Starting Networking Test-------------------
+testing............ (12 requests made)
+variable requests average rtt/request=0.00
+
+testing***************************************** (40471 requests made)
+echo_str      2 average rtt/request=0.00
+echo_str      2 messages/s=1365049.92
+echo_str      2 5460.20 kB/s (bidirectional sum)
+
+testing***************************************** (40749 requests made)
+echo_str      4 average rtt/request=0.00
+echo_str      4 messages/s=1362204.99
+echo_str      4 10897.64 kB/s (bidirectional sum)
+
+testing***************************************** (40951 requests made)
+echo_str      8 average rtt/request=0.00
+echo_str      8 messages/s=1368500.20
+echo_str      8 21896.00 kB/s (bidirectional sum)
+
+testing***************************************** (40629 requests made)
+echo_str     16 average rtt/request=0.00
+echo_str     16 messages/s=1358511.39
+echo_str     16 43472.36 kB/s (bidirectional sum)
+
+testing**************************************** (39970 requests made)
+echo_str     32 average rtt/request=0.00
+echo_str     32 messages/s=1336253.01
+echo_str     32 85520.19 kB/s (bidirectional sum)
+
+testing**************************************** (39400 requests made)
+echo_str     64 average rtt/request=0.00
+echo_str     64 messages/s=1317769.83
+echo_str     64 168674.54 kB/s (bidirectional sum)
+
+testing************************************* (36571 requests made)
+echo_str    128 average rtt/request=0.00
+echo_str    128 messages/s=1224215.85
+echo_str    128 313399.26 kB/s (bidirectional sum)
+
+testing********************************** (33865 requests made)
+echo_str    256 average rtt/request=0.00
+echo_str    256 messages/s=1132760.24
+echo_str    256 579973.24 kB/s (bidirectional sum)
+
+testing******************************* (30232 requests made)
+echo_str    512 average rtt/request=0.00
+echo_str    512 messages/s=1010799.42
+echo_str    512 1035058.61 kB/s (bidirectional sum)
+
+testing************************* (24120 requests made)
+echo_str   1024 average rtt/request=0.00
+echo_str   1024 messages/s=806311.43
+echo_str   1024 1651325.80 kB/s (bidirectional sum)
+
+testing********************** (21446 requests made)
+echo_str   2048 average rtt/request=0.00
+echo_str   2048 messages/s=717353.49
+echo_str   2048 2938279.90 kB/s (bidirectional sum)
+
+testing*************** (14797 requests made)
+echo_str   4096 average rtt/request=0.00
+echo_str   4096 messages/s=494304.33
+echo_str   4096 4049341.04 kB/s (bidirectional sum)
+
+testing********** (9668 requests made)
+echo_str   8192 average rtt/request=0.00
+echo_str   8192 messages/s=322707.70
+echo_str   8192 5287242.97 kB/s (bidirectional sum)
+
+testing****** (5434 requests made)
+echo_str  16384 average rtt/request=0.01
+echo_str  16384 messages/s=181326.75
+echo_str  16384 5941714.90 kB/s (bidirectional sum)
+
+testing*** (2891 requests made)
+echo_str  32768 average rtt/request=0.01
+echo_str  32768 messages/s=96608.19
+echo_str  32768 6331314.15 kB/s (bidirectional sum)
+
+testing........................................... (42308 requests made)
+ack_str      2 average rtt/request=0.00
+ack_str      2 messages/s=1414084.70
+ack_str      2 2828.17 kB/s (one direction)
+
+testing.......................................... (41962 requests made)
+ack_str      4 average rtt/request=0.00
+ack_str      4 messages/s=1402145.22
+ack_str      4 5608.58 kB/s (one direction)
+
+testing.......................................... (41782 requests made)
+ack_str      8 average rtt/request=0.00
+ack_str      8 messages/s=1396037.29
+ack_str      8 11168.30 kB/s (one direction)
+
+testing.......................................... (41259 requests made)
+ack_str     16 average rtt/request=0.00
+ack_str     16 messages/s=1379161.65
+ack_str     16 22066.59 kB/s (one direction)
+
+testing.......................................... (41403 requests made)
+ack_str     32 average rtt/request=0.00
+ack_str     32 messages/s=1384067.66
+ack_str     32 44290.17 kB/s (one direction)
+
+testing......................................... (40023 requests made)
+ack_str     64 average rtt/request=0.00
+ack_str     64 messages/s=1338606.64
+ack_str     64 85670.83 kB/s (one direction)
+
+testing........................................ (39540 requests made)
+ack_str    128 average rtt/request=0.00
+ack_str    128 messages/s=1321833.32
+ack_str    128 169194.66 kB/s (one direction)
+
+testing...................................... (37101 requests made)
+ack_str    256 average rtt/request=0.00
+ack_str    256 messages/s=1240462.74
+ack_str    256 317558.46 kB/s (one direction)
+
+testing................................... (34690 requests made)
+ack_str    512 average rtt/request=0.00
+ack_str    512 messages/s=1160394.71
+ack_str    512 594122.09 kB/s (one direction)
+
+testing............................... (30515 requests made)
+ack_str   1024 average rtt/request=0.00
+ack_str   1024 messages/s=1021046.64
+ack_str   1024 1045551.76 kB/s (one direction)
+
+testing.............................. (29484 requests made)
+ack_str   2048 average rtt/request=0.00
+ack_str   2048 messages/s=985098.56
+ack_str   2048 2017481.86 kB/s (one direction)
+
+testing...................... (21949 requests made)
+ack_str   4096 average rtt/request=0.00
+ack_str   4096 messages/s=734104.82
+ack_str   4096 3006893.34 kB/s (one direction)
+
+testing................ (15904 requests made)
+ack_str   8192 average rtt/request=0.00
+ack_str   8192 messages/s=530752.54
+ack_str   8192 4347924.85 kB/s (one direction)
+
+testing.......... (9806 requests made)
+ack_str  16384 average rtt/request=0.00
+ack_str  16384 messages/s=327292.15
+ack_str  16384 5362354.53 kB/s (one direction)
+
+testing...... (5499 requests made)
+ack_str  32768 average rtt/request=0.01
+ack_str  32768 messages/s=183471.24
+ack_str  32768 6011985.59 kB/s (one direction)
+
+[2018-07-28 01:08:51.152 (UTC+0200)] info/client	-----Ending Networking Test-------------------
+

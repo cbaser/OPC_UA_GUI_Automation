@@ -268,6 +268,7 @@ public class Gui extends JFrame {
 							if(chckbxDeploymentOfAnsible.isSelected() && chckbxDeploymentOfDocker.isSelected()) {
 								controller.setOutputOrder(false);
 								JOptionPane.showMessageDialog(mainFrame, "Deployment Started");	
+								controller.setOutputOrder(true);
 								controller.startDeployment(testTypeBox.getSelectedItem().toString());
 							}
 						}
@@ -501,7 +502,7 @@ public class Gui extends JFrame {
 				 deployableTextArea = new JTextArea();
 				 deployableTextArea.setEditable(false);
 				 deployableTextArea.setBackground(Color.LIGHT_GRAY);
-				 scrollPane.setViewportView(deployableTextArea);
+				 scrollPane = new JScrollPane(deployableTextArea);
 				 SSHdeployablePanel.setLayout(gl_SSHdeployablePanel);
 		
 		JPanel nonDeployablePanel = new JPanel();
@@ -568,11 +569,11 @@ public class Gui extends JFrame {
 		
 		JLabel lblSelectClientFiles = new JLabel("Select Client Files");
 		lblSelectClientFiles.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		JScrollPane scrollPaneNonDeployable = new JScrollPane((Component) null);
 		nonDeployableTextArea = new JTextArea();
 		nonDeployableTextArea.setEditable(false);
 		nonDeployableTextArea.setBackground(Color.LIGHT_GRAY);
-		scrollPaneNonDeployable.setViewportView(nonDeployableTextArea);
+		JScrollPane scrollPaneNonDeployable = new JScrollPane(nonDeployableTextArea);
+	//	scrollPaneNonDeployable.setViewportView(nonDeployableTextArea);
 		additionalParameters = new JTextField();
 		additionalParameters.setColumns(10);
 		
@@ -585,7 +586,7 @@ public class Gui extends JFrame {
 					return;
 				}
 				else {
-					controller.setOutputOrder(true);
+					controller.setOutputOrder(false);
 					MakefileDeployer makefileDeployer = new MakefileDeployer(makeFileDirectoryField.getText(),additionalParameters.getText(),String.valueOf(availableDevicesBox.getSelectedItem()));
 					makefileDeployer.startDeployment();	
 					
@@ -682,9 +683,9 @@ public class Gui extends JFrame {
 					return;
 				}
 				controller.setTestingType(String.valueOf(testTypeBox.getSelectedItem()));
-				    controller.setOutputOrder(true);
+				    controller.setOutputOrder(false);
 					JOptionPane.showMessageDialog(mainFrame, "Deployment Started");	
-					controller.startDeployment(testTypeBox.getSelectedItem().toString());
+					controller.startDeployment(testTypeBoxNonDeployable.getSelectedItem().toString());
 					
 				
 			}

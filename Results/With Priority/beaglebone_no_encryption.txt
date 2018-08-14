@@ -1,0 +1,82 @@
+Speedtest fortis 500 Mb Download, 525 Mb Upload
+[2018-08-13 12:08:08.934 (UTC+0200)] info/client	-----Starting CPU Single Value Read Test-------------------
+Total duration of reading Single 10000 Value takes 38576
+Minimum milliseconds of reading one Single Value takes 2
+Maximum milliseconds of reading one Single Value takes 76
+Average milliseconds of reading Single 10000 Value takes 3
+Coefficient of this operations variation 9
+Standard deviation of Total execution time 93268
+[2018-08-13 12:08:47.512 (UTC+0200)] info/client	-----Ending CPU Single Value Read Test-------------------
+[2018-08-13 12:08:47.512 (UTC+0200)] info/client	-----Starting CPU Page Variable Read Test-------------------
+Total duration of reading Page 10000 Value takes 40190
+Minimum milliseconds of reading one Page Value takes 2
+Maximum milliseconds of reading one Page Value takes 64
+Average milliseconds of reading Page 10000 Value takes 4
+Coefficient of this operations variation 7
+Standard deviation of Total execution time 76132
+[2018-08-13 12:09:27.706 (UTC+0200)] info/client	-----Ending CPU Page Variable Read Test-------------------
+[2018-08-13 12:09:27.706 (UTC+0200)] info/client	-----Starting CPU Buffer Variable Read Test-------------------
+Total duration of reading Buffer 10000 Value takes 43796
+Minimum milliseconds of reading one Buffer Value takes 2
+Maximum milliseconds of reading one Buffer Value takes 74
+Average milliseconds of reading Buffer 10000 Value takes 4
+Coefficient of this operations variation 9
+Standard deviation of Total execution time 98272
+[2018-08-13 12:10:11.506 (UTC+0200)] info/client	-----Ending CPU Buffer Variable Read Test-------------------
+[2018-08-13 12:10:11.506 (UTC+0200)] info/client	-----Starting CPU Image Variable Read Test-------------------
+Total duration of reading Image 10000 Value takes 148268
+Minimum milliseconds of reading one Image Value takes 9
+Maximum milliseconds of reading one Image Value takes 415
+Average milliseconds of reading Image 10000 Value takes 14
+Coefficient of this operations variation 120
+Standard deviation of Total execution time 1207664
+[2018-08-13 12:12:39.776 (UTC+0200)] info/client	-----Ending CPU Image Variable Read Test-------------------
+[2018-08-13 12:12:39.776 (UTC+0200)] info/client	-----Starting CPU Single Value from Node Test-------------------
+Total duration of reading Single 10000 Value from Node takes 34357
+Minimum milliseconds of reading one Single Value from Node takes 2
+Maximum milliseconds of reading one Single Value from Node takes 67
+Average milliseconds of reading Single 10000 Value from Node takes 3
+Coefficient of this operations variation 3
+Standard deviation of Total execution time 35185
+[2018-08-13 12:13:14.102 (UTC+0200)] info/client	-----Ending CPU Single Value Node from Node Test-------------------
+[2018-08-13 12:13:14.102 (UTC+0200)] info/client	-----Starting CPU Page Value from Node Test-------------------
+Total duration of reading Page 10000 Value from Node takes 34131
+Minimum milliseconds of reading one Page Value from Node takes 2
+Maximum milliseconds of reading one Page Value from Node takes 36
+Average milliseconds of reading Page 10000 Value from Node takes 3
+Coefficient of this operations variation 3
+Standard deviation of Total execution time 32141
+[2018-08-13 12:13:48.203 (UTC+0200)] info/client	-----Ending CPU Page Value from Test-------------------
+[2018-08-13 12:13:48.203 (UTC+0200)] info/client	-----Starting CPU Buffer Value from Node Test-------------------
+Total duration of reading Buffer 10000 Value from Node takes 41396
+Minimum milliseconds of reading one Buffer Value from Node takes 2
+Maximum milliseconds of reading one Buffer Value from Node takes 180
+Average milliseconds of reading Buffer 10000 Value from Node takes 4
+Coefficient of this operations variation 25
+Standard deviation of Total execution time 254888
+[2018-08-13 12:14:29.600 (UTC+0200)] info/client	-----Ending CPU Buffer Value from Node Test-------------------
+[2018-08-13 12:14:29.600 (UTC+0200)] info/client	-----Starting CPU Image Value from Node Test-------------------
+Total duration of reading Image 10000 Value from Node takes 277128
+Minimum milliseconds of reading one Image Value from Node takes 21
+Maximum milliseconds of reading one Image Value from Node takes 428
+Average milliseconds of reading Image 10000 Value from Node takes 27
+Coefficient of this operations variation 97
+Standard deviation of Total execution time 971736
+[2018-08-13 12:19:06.731 (UTC+0200)] info/client	-----Ending CPU Image Value from Node Test-------------------
+[2018-08-13 12:27:45.782 (UTC+0200)] info/client	-----Starting Writing Value Test-------------------
+Total duration of writing 10000 Value to Server takes 40499
+Minimum milliseconds of writing one Value to Server takes 0
+Maximum milliseconds of writing one Value to Server takes 643
+Average milliseconds of writing one 10000 Value to Server takes 4
+Coefficient of this operations variation 65
+Standard deviation of Total execution time 654477
+[2018-08-13 12:28:26.284 (UTC+0200)] info/client	-----Ending CPU Writing Value Test-------------------
+[2018-08-13 12:28:26.284 (UTC+0200)] info/client	-----Starting Updating Value Test-------------------
+Total duration of updating 10000 Value to Server takes 76450
+Minimum milliseconds of updating one Value to Server takes 5
+Maximum milliseconds of updating one Value to Server takes 113
+Average milliseconds of updating one 10000 Value to Server takes 7
+Coefficient of this operations variation 15
+Standard deviation of Total execution time 158336
+[2018-08-13 12:28:26.284 (UTC+0200)] info/client	-----Ending CPU Updating Value
+Test-------------------
