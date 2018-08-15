@@ -93,7 +93,7 @@ public class Gui extends JFrame {
 		
 		JPanel SSHdeployablePanel = new JPanel();
 		SSHdeployablePanel.setBackground(Color.WHITE);
-		tabbedPane.addTab("Deployable Devices", null, SSHdeployablePanel, null);
+		tabbedPane.addTab("Non-Restricted Devices", null, SSHdeployablePanel, null);
 		
 		JLabel label = new JLabel("Username");
 		label.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -507,7 +507,7 @@ public class Gui extends JFrame {
 		
 		JPanel nonDeployablePanel = new JPanel();
 		nonDeployablePanel.setBackground(Color.WHITE);
-		tabbedPane.addTab("Non Deployable Devices", null, nonDeployablePanel, null);
+		tabbedPane.addTab("Restricted Devices", null, nonDeployablePanel, null);
 		
 		JLabel lblMakefileDirectoryPath = new JLabel("Makefile Directory Path");
 		lblMakefileDirectoryPath.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -991,6 +991,9 @@ public class Gui extends JFrame {
 	}
 	public void getDevices(JComboBox<String> box) {
 		File files = new File(System.getProperty("user.dir")+File.separator+"devices");
+		//TODO: Change file name to NAME : bla in file
+		
+		
 		for(File file : files.listFiles()) {
 			String deviceName = file.getName().substring(0, file.getName().length()-4).toUpperCase();
 			if(((DefaultComboBoxModel<String>)box.getModel()).getIndexOf(deviceName) == -1) {
