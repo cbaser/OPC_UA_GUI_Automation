@@ -53,11 +53,11 @@ public class DockerDeployer {
 //			
 			//pb= new ProcessBuilder("/usr/bin/gcc"," -std=c99 "," open62541.c "," -lmbedtls "," -lmbedx509 "," -lmbedcrypto " ," -D_POSIX_C_SOURCE=199309L "," -lm "," -o "," MainClient "," MainClient.c ");
 			
-			Process compile = Runtime.getRuntime().exec(new String[] {"sh","execute.sh", "logfile.log", "MainClient"},null,baseDir);
+			Process compile = Runtime.getRuntime().exec(new String[] {"sh","execute.sh", "logfile.log","MainClient",hostIP,testingType,"GB" },null,baseDir);
 			compile.waitFor();
-			int exitValue = compile.exitValue();
-			System.out.println(exitValue);
-			Process execute = Runtime.getRuntime().exec(new String[] {"./MainClient",hostIP,testingType},null,baseDir);
+			//int exitValue = compile.exitValue();
+			//System.out.println(exitValue);
+		//	Process execute = Runtime.getRuntime().exec(new String[] {"./MainClient",hostIP,testingType},null,baseDir);
 		//	Process execute = new ProcessBuilder("./MainClient").directory(baseDir).start();
 
 			BufferedReader compileRead = new BufferedReader(new InputStreamReader(compile.getInputStream()));
