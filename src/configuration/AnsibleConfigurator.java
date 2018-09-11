@@ -80,7 +80,7 @@ public class AnsibleConfigurator {
 			break;
 		
 		case "Tasks":
-			text = initialTasksText()+selectiveTasksText()+restTasksText();
+			text = initialTasksText()+checklibmbedtlsText()+installlibmbedtlsText()+selectiveTasksText()+restTasksText();
 			break;
 		}
 		try {
@@ -103,65 +103,52 @@ public class AnsibleConfigurator {
 				"    owner: '{{ ansible_user }}'\n" 
 				+ "  become: true\n" ;
 	}
+	private String checklibmbedtlsText() {
+		return "-name: Check that libmbedtls is installed\n"
+				+"command: dpkg-query -l libmbedtls-dev \n"
+				+"register: deb_check\n";
+	}
+	
+	private String installlibmbedtlsText() {
+		return "\n"
+				+ "-name: Install libmbedtls is installed \n"
+				+"package: \n"
+				+"  name:libmbedtls-dev \n"
+				+"  state:present \n"
+				+"when:deb_check.stdout.find('no packages found') != -1\n";
+		
+		
+	}
 	
 	
 	private String selectiveTasksText() {
 		String text = 
 				 "\n"
 				+ "# https://open62541.org/releases/b916bd0611.zip\n"
-				+ "- name: Copy files extracted from the release https://open62541.org/releases/b916bd0611.zip 2017-11-16 11:07:56\n"
+				+ "- name: Copy files extracted from the release https://open62541.org/releases/b916bd0611.zip \n"
 				+ "  copy:\n" 
 				+ "    src: '{{ item }}'\n" 
 				+ "    dest: '/etc/opcua/{{ item }}'\n"
 				+ "    owner: '{{ ansible_user }}'\n"
 				+ "  with_items:\n" ;		
 		
-		switch(testingType) {
-		case "Read Tests":
-			text+= 	
-					"    - AccessControlServerClass.h\n"+
-					"    - commonServerMethods.h\n"+	
-					"    - MainServer.cpp\n" + 
-					"    - CpuServerClass.h\n" +
-					"    - EncryptionServerClass.h\n"+
-					"    - MonitoredItemsServerClass.h\n"+
-					"    - NetworkingServerClass.h\n"+
-					"    - open62541.c\n" + 
-					"    - open62541.h\n" + 
-					"\n" 									
-					+testStringBuilder("MainServer.cpp");
-			break;
-		case "Networking Tests":
-			text+= 	"    - NetworkingTestingServer.c\n" + 
-					"    - open62541.c\n" + 
-					"    - open62541.h\n" + 
-					"\n"  
-					+testStringBuilder("NetworkingTestingServer.c");			
-			break;
-		case "Encryption Tests":
-			
-			text+= 	"    - EncyrptionTestingServer.c\n" + 
-					"    - ./certificates\n" + 
-					"    - open62541.c\n" + 
-					"    - open62541.h\n" + 
-					"    - common_testing_methods.h\n" + 
-					"\n"  
-					+testStringBuilder("EncyrptionTestingServer.c");	
-			break;
-		case "Multi-Thread Tests":
-			text+= 	"    - MultiThreadingTestingServer.c\n" + 
-					"    - ./certificates\n" + 
-					"    - open62541.c\n" + 
-					"    - open62541.h\n" + 
-					"    - common_testing_methods.h\n" + 
-					"\n"
-					+testStringBuilder("MultiThreadingTestingServer.c");
-			break;
-				
-		
-		}
-		
-		
+		text+= 	
+				"    - AdditionalServerClass.h\n"+
+				"    - commonServerMethods.h\n"+	
+				"	 - DiscoveryServerClass.h\n"+
+				"    - PublisherServerClass.h\n"+
+				"    - ReadServerClass.h\n"+
+				"    - WriteServerClass.h\n"+
+				"    - server_key.der\n"+
+				"    - server_cert.der\n"+
+				"    - MainServer.c\n" + 
+				"    - EncryptionServerClass.h\n"+
+				"    - MonitoredItemsServerClass.h\n"+
+				"    - NetworkingServerClass.h\n"+
+				"    - open62541.c\n" + 
+				"    - open62541.h\n" + 
+				"\n" 									
+				+testStringBuilder("MainServer.c");
 		return text;
 	}
 	private String restTasksText() {
@@ -187,8 +174,8 @@ public class AnsibleConfigurator {
 		
 		
 		return 
-				"- name: Build using the command 'gcc -std=c99 open62541.c -D_POSIX_C_SOURCE=199309L " + fileName +" -o "+ rawName + "'\n" + 
-				"  shell: gcc -std=c99 open62541.c -lmbedtls -lmbedx509 -lmbedcrypto -D_POSIX_C_SOURCE=199309L "+fileName+ " -o " +rawName+ "\n" + 
+				"- name: Build using the command 'gcc -std=c99 open62541.c -D_POSIX_C_SOURCE=199309L " + fileName +" -lm -o "+ rawName + "'\n" + 
+				"  shell: gcc -std=c99 open62541.c -lmbedtls -lmbedx509 -lmbedcrypto -D_POSIX_C_SOURCE=199309L "+fileName+ " -lm -o " +rawName+ "\n" + 
 				"  args:\n" + 
 				"    chdir: /etc/opcua/ \n"+
 				"\n"+
@@ -196,46 +183,6 @@ public class AnsibleConfigurator {
 				"  shell: nohup ./"+ rawName +" >> log.txt &\n" + "  args:\n" + "    chdir: /etc/opcua/\n"+
 				"  when: (opcua_state == \"running\" and not port_check.failed) or\n"+
 				"        (opcua_state == \"restarted\")\n"+"\n";
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-//		"- name: Build using the command 'gcc -std=c99 open62541.c -D_POSIX_C_SOURCE=199309L CPUTestingServerAddingSingleVariableNode.c -o CPUTestingServerAddingSingleVariableNode'\n" + 
-//		"  shell: gcc -std=c99 open62541.c CPUTestingServerAddingSingleVariableNode.c -o CPUTestingServerAddingSingleVariableNode\n" + 
-//		"  args:\n" + 
-//		"    chdir: /etc/opcua/ \n"+
-//		"- name: Run CPUTestingServerAddingSingleVariableNode with nohup. output is forwarded to log.txt\n"+
-//		"  shell: nohup ./CPUTestingServerAddingSingleVariableNode > log.txt &\n" + "  args:\n" + "    chdir: /etc/opcua/\n"+
-//		"  when: (opcua_state == \"running\" and not port_check.failed) or\n"+
-//		"        (opcua_state == \"restarted\")"+
-//					
-//		
-//		
-//		
-//		
-//		"- name: Build using the command 'gcc -std=c99 open62541.c -D_POSIX_C_SOURCE=199309L CPUTestingServer.c -o CPUTestingServer'\n" + 
-//		"  shell: gcc -std=c99 open62541.c CPUServerGeneral.c -o CPUServerGeneral\n" + 
-//		"  args:\n" + 
-//		"    chdir: /etc/opcua/ \n"+
-//		"- name: Run myServer with nohup. output is forwarded to log.txt\n"+
-//		"  shell: nohup ./myServer > log.txt &\n" + "  args:\n" + "    chdir: /etc/opcua/\n"+
-//		"  when: (opcua_state == \"running\" and not port_check.failed) or\n"+
-//	    "        (opcua_state == \"restarted\")";
-//
-
-		
 	}
 	
 	

@@ -120,7 +120,8 @@ public class Gui extends JFrame {
 		JButton btnConnect = new JButton("Connect");
 		btnConnect.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnConnect.setForeground(Color.WHITE);
-		btnConnect.setBackground(new Color(0, 128, 0));
+		//btnConnect.setBackground(new Color(0, 128, 0));
+		btnConnect.setBackground(Color.GRAY);
 		JCheckBox chckbxConnect = new JCheckBox("Status");
 		chckbxConnect.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		chckbxConnect.setEnabled(false);
@@ -159,7 +160,8 @@ public class Gui extends JFrame {
 				JButton bthSelectAnsible = new JButton("Select");
 				bthSelectAnsible.setFont(new Font("Tahoma", Font.PLAIN, 14));
 				bthSelectAnsible.setForeground(Color.WHITE);
-				bthSelectAnsible.setBackground(new Color(0, 128, 0));
+				//bthSelectAnsible.setBackground(new Color(0, 128, 0));
+				bthSelectAnsible.setBackground(Color.GRAY);
 				bthSelectAnsible.addActionListener(new ActionListener() {
 
 					@Override
@@ -200,7 +202,8 @@ public class Gui extends JFrame {
 				JButton btnSelectDocker = new JButton("Select");
 				btnSelectDocker.setFont(new Font("Tahoma", Font.PLAIN, 14));
 				btnSelectDocker.setForeground(Color.WHITE);
-				btnSelectDocker.setBackground(new Color(0, 128, 0));
+			//	btnSelectDocker.setBackground(new Color(0, 128, 0));
+				btnSelectDocker.setBackground(Color.GRAY);
 				
 				btnSelectDocker.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
@@ -240,14 +243,15 @@ public class Gui extends JFrame {
 				testTypeBox.addItem("All Tests");
 				testTypeBox.addItem("Read Tests");
 				testTypeBox.addItem("Write Tests");
-				testTypeBox.addItem("CPU Tests");
 				testTypeBox.addItem("Networking Tests");
 				testTypeBox.addItem("Encryption Tests");
 				testTypeBox.addItem("PubSub Tests");
+				testTypeBox.addItem("Additional Tests");
 				
 				JButton btnStartTestingDeployable = new JButton("Start Testing");
 				btnStartTestingDeployable.setForeground(Color.WHITE);
-				btnStartTestingDeployable.setBackground(new Color(0, 128, 0));
+				btnStartTestingDeployable.setBackground(Color.GRAY);
+				//btnStartTestingDeployable.setBackground(new Color(0, 128, 0));
 				btnStartTestingDeployable.setFont(new Font("Tahoma", Font.PLAIN, 14));
 				outputPathDeployable = new JTextField();
 				outputPathDeployable.setColumns(10);
@@ -310,9 +314,10 @@ public class Gui extends JFrame {
 				});
 				selectReportPathBtn.setFont(new Font("Tahoma", Font.PLAIN, 14));
 				selectReportPathBtn.setForeground(Color.WHITE);
-				selectReportPathBtn.setBackground(new Color(0, 100, 0));
+				selectReportPathBtn.setBackground(Color.GRAY);
+				//selectReportPathBtn.setBackground(new Color(0, 100, 0));
 				
-				JLabel label_8 = new JLabel("Report Output Type");
+				JLabel label_8 = new JLabel("Output Type");
 				label_8.setFont(new Font("Tahoma", Font.PLAIN, 14));
 				
 				JComboBox<String> reportTypeBoxDeployable = new JComboBox<String>();
@@ -323,7 +328,8 @@ public class Gui extends JFrame {
 				getReportDeployable.setEnabled(false);
 				getReportDeployable.setFont(new Font("Tahoma", Font.PLAIN, 14));
 				getReportDeployable.setForeground(Color.WHITE);
-				getReportDeployable.setBackground(new Color(0, 100, 0));
+				getReportDeployable.setBackground(Color.GRAY);
+			//	getReportDeployable.setBackground(new Color(0, 100, 0));
 				
 				getReportDeployable.addActionListener(new ActionListener() {
 
@@ -363,7 +369,7 @@ public class Gui extends JFrame {
 									.addGap(32)
 									.addGroup(gl_SSHdeployablePanel.createParallelGroup(Alignment.LEADING)
 										.addComponent(chckbxDeploymentOfAnsible, GroupLayout.PREFERRED_SIZE, 233, GroupLayout.PREFERRED_SIZE)
-										.addComponent(chckbxDeploymentOfDocker, GroupLayout.PREFERRED_SIZE, 230, GroupLayout.PREFERRED_SIZE)
+										.addComponent(chckbxDeploymentOfDocker, GroupLayout.PREFERRED_SIZE, 233, GroupLayout.PREFERRED_SIZE)
 										.addGroup(gl_SSHdeployablePanel.createSequentialGroup()
 											.addGroup(gl_SSHdeployablePanel.createParallelGroup(Alignment.LEADING)
 												.addGroup(gl_SSHdeployablePanel.createSequentialGroup()
@@ -654,7 +660,7 @@ public class Gui extends JFrame {
 		outputTypeNonDeployable.addItem(".pdf");
 		outputTypeNonDeployable.addItem(".csv");
 		
-		JLabel lblOutputType = new JLabel("Report Output Type");
+		JLabel lblOutputType = new JLabel("Output Type");
 		lblOutputType.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JButton btnGetReportNonDeployable = new JButton("Get Report");
@@ -673,6 +679,7 @@ public class Gui extends JFrame {
 		testTypeBoxNonDeployable.addItem("Networking Tests");
 		testTypeBoxNonDeployable.addItem("Encryption Tests");
 		testTypeBoxNonDeployable.addItem("PubSub Tests");
+		testTypeBoxNonDeployable.addItem("Additional Tests");
 		
 		JButton btnStartTestingNonDeployable = new JButton("Start Testing");
 		btnStartTestingNonDeployable.addActionListener(new ActionListener() {

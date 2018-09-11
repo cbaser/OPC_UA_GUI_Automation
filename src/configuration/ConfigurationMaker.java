@@ -18,17 +18,4 @@ public class ConfigurationMaker {
 	
 		return true;
 	}
-//	closeConnection();
-//	public void closeConnection(){
-//		if(channel != null && session != null) {
-//			channel.disconnect();
-//		    session.disconnect();
-//		    System.out.println("Disconnected channel and session");
-//		}
-//	    
-//	}
-//	
-	
-	
-	
 }

@@ -26,10 +26,10 @@ public class DockerDeployer {
 	private String hostIP;
 	private String testingType;
 	private ResultMaker resultMaker;
+	private Process execute;
 	private ProcessBuilder pb;
-	private Process compile,execute;
-	private String args[];
 	private String outputline;
+	private String args[];
 	public DockerDeployer(String hostIP,String dockerPath,String testingType) {
 		this.hostIP = hostIP;
 		this.dockerPath = dockerPath;
@@ -38,29 +38,26 @@ public class DockerDeployer {
 	}
 	
 	public void startDeployment() {
-		
-		//docker build . -t opcua && docker run -it --network=host --add-host raspberrypi:10.200.2.8 opcua
-		try {
-			
-			File baseDir = new File(dockerPath);
-			resultMaker.showResults("---------------DOCKER---------------\n");
-			
-//			File commandDir = new File(dockerPath+File.separator+"commands.txt");
-//			pb = new ProcessBuilder("bash","-c");
-//			pb.redirectInput(commandDir);
-//			pb.directory(baseDir);
-//			pb.start();
-//			
-			//pb= new ProcessBuilder("/usr/bin/gcc"," -std=c99 "," open62541.c "," -lmbedtls "," -lmbedx509 "," -lmbedcrypto " ," -D_POSIX_C_SOURCE=199309L "," -lm "," -o "," MainClient "," MainClient.c ");
-			
-			Process compile = Runtime.getRuntime().exec(new String[] {"sh","execute.sh", "logfile.log","MainClient",hostIP,testingType,"GB" },null,baseDir);
-			compile.waitFor();
-			//int exitValue = compile.exitValue();
-			//System.out.println(exitValue);
-		//	Process execute = Runtime.getRuntime().exec(new String[] {"./MainClient",hostIP,testingType},null,baseDir);
-		//	Process execute = new ProcessBuilder("./MainClient").directory(baseDir).start();
+		args = new String[7];
 
-			BufferedReader compileRead = new BufferedReader(new InputStreamReader(compile.getInputStream()));
+		try {
+			resultMaker.showResults("---------------DOCKER---------------\n");
+			String[] testingParts = testingType.split(" ");
+			args[0]="sh";
+			args[1]="execute.sh";
+			args[2]="logfile.log";
+			args[3]="MainClient";
+			args[4]=hostIP;
+			args[5]=testingParts[0];
+			args[6]="GB";
+			pb = new ProcessBuilder(args);
+			pb.redirectErrorStream(true);
+			pb.directory(new File(dockerPath));
+			execute = pb.start();
+			InputStream errStream = execute.getErrorStream();
+			//Process compile = Runtime.getRuntime().exec(new String[] {"sh","execute.sh", "logfile.log","MainClient",hostIP,testingParts[0],"GB" },null,baseDir);
+			//compile.waitFor();
+			BufferedReader compileRead = new BufferedReader(new InputStreamReader(execute.getInputStream()));
 			 outputline = compileRead.readLine();
 			while(outputline != null) {
 				resultMaker.showResults(outputline+"\n");
@@ -75,7 +72,12 @@ public class DockerDeployer {
 				outputline = read.readLine();
 				resultMaker.writeToFile(outputline+System.getProperty("line.separator"));
 			}
-			
+			if(errStream!=null) {
+				BufferedReader errorReader = new BufferedReader(new InputStreamReader(errStream));
+				while((outputline = errorReader.readLine())!= null)
+					resultMaker.showResults(outputline+"\n");
+			}
+			//docker build . -t opcua && docker run -it --network=host --add-host raspberrypi:10.200.2.8 opcua	
 //			DockerClientConfig config = DefaultDockerClientConfig.createDefaultConfigBuilder()
 //					.withDockerHost("tcp://"+hostIP)
 //					.build();

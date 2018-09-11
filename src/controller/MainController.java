@@ -139,8 +139,8 @@ public class MainController {
 
 	public boolean controlDockerFiles(File incomingFile) {
 
-		// hasDockerFile = checkFolder(incomingFile,"Dockerfile");
-		hasDockerFile = checkFolder(incomingFile, ".cpp");
+		 hasDockerFile = checkFolder(incomingFile,"Dockerfile");
+	//	hasDockerFile = checkFolder(incomingFile, ".c");
 		return hasDockerFile;
 	}
 
@@ -171,33 +171,33 @@ public class MainController {
 	
 
 	public void appendToTextArea(String line) {
-//		new Thread() {
-//			public void run() {
-//				SwingUtilities.invokeLater(new Runnable() {
-//					public void run() {
-//						if (firstOrSecondOutputArea)
-//							Gui.deployableTextArea.append(line);
-//						else
-//							Gui.nonDeployableTextArea.append(line);
-//					}
-//				});
-//			}
-//		}.start();
-//		
-	
-		
-		
-		SwingUtilities.invokeLater(new Runnable() {
+		new Thread() {
 			public void run() {
-				if (firstOrSecondOutputArea)
-					Gui.deployableTextArea.append(line);
-				else
-					Gui.nonDeployableTextArea.append(line);
+				SwingUtilities.invokeLater(new Runnable() {
+					public void run() {
+						if (firstOrSecondOutputArea)
+							Gui.deployableTextArea.append(line);
+						else
+							Gui.nonDeployableTextArea.append(line);
+					}
+				});
 			}
-			
-		});
+		}.start();
+		
 	
 		
+		
+//		SwingUtilities.invokeLater(new Runnable() {
+//			public void run() {
+//				if (firstOrSecondOutputArea)
+//					Gui.deployableTextArea.append(line);
+//				else
+//					Gui.nonDeployableTextArea.append(line);
+//			}
+//			
+//		});
+//	
+//		
 		
 	}
 
