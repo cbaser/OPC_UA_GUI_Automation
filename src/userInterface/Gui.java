@@ -46,6 +46,7 @@ public class Gui extends JFrame {
 	private MainController controller;
 	public static JTextArea deployableTextArea,nonDeployableTextArea;
 	private static JFrame mainFrame;
+	private JScrollPane deployablePane,nonDeployablePane;
 	private JTextField makeFileDirectoryField;
 	private JTextField additionalParameters;
 	private JTextField clientFilesNonDeployablePath;
@@ -285,7 +286,7 @@ public class Gui extends JFrame {
 				JLabel label_12 = new JLabel("Output");
 				label_12.setFont(new Font("Tahoma", Font.PLAIN, 14));
 				
-				JScrollPane scrollPane = new JScrollPane((Component) null);
+				//JScrollPane scrollPane = new JScrollPane((Component) null);
 				
 				JLabel lblNotePleaseEnable = new JLabel("Note: Please enable SSH Connection with your device");
 				lblNotePleaseEnable.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -354,24 +355,26 @@ public class Gui extends JFrame {
 				deviceNameField = new JTextField();
 				deviceNameField.setColumns(10);
 				
+				 deployableTextArea = new JTextArea();
+				deployableTextArea.setEditable(false);
+				deployableTextArea.setBackground(Color.LIGHT_GRAY);
+
+				deployablePane = new JScrollPane(deployableTextArea);
 				
 				
 				
 				GroupLayout gl_SSHdeployablePanel = new GroupLayout(SSHdeployablePanel);
 				gl_SSHdeployablePanel.setHorizontalGroup(
-					gl_SSHdeployablePanel.createParallelGroup(Alignment.TRAILING)
+					gl_SSHdeployablePanel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_SSHdeployablePanel.createSequentialGroup()
 							.addGroup(gl_SSHdeployablePanel.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_SSHdeployablePanel.createSequentialGroup()
-									.addContainerGap()
-									.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 849, Short.MAX_VALUE))
 								.addGroup(gl_SSHdeployablePanel.createSequentialGroup()
 									.addGap(32)
 									.addGroup(gl_SSHdeployablePanel.createParallelGroup(Alignment.LEADING)
 										.addComponent(chckbxDeploymentOfAnsible, GroupLayout.PREFERRED_SIZE, 233, GroupLayout.PREFERRED_SIZE)
 										.addComponent(chckbxDeploymentOfDocker, GroupLayout.PREFERRED_SIZE, 233, GroupLayout.PREFERRED_SIZE)
 										.addGroup(gl_SSHdeployablePanel.createSequentialGroup()
-											.addGroup(gl_SSHdeployablePanel.createParallelGroup(Alignment.LEADING)
+											.addGroup(gl_SSHdeployablePanel.createParallelGroup(Alignment.TRAILING)
 												.addGroup(gl_SSHdeployablePanel.createSequentialGroup()
 													.addGroup(gl_SSHdeployablePanel.createParallelGroup(Alignment.LEADING)
 														.addGroup(gl_SSHdeployablePanel.createSequentialGroup()
@@ -380,7 +383,7 @@ public class Gui extends JFrame {
 															.addComponent(usernameField, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE)
 															.addPreferredGap(ComponentPlacement.RELATED)
 															.addComponent(label_1))
-														.addComponent(label_3, GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
+														.addComponent(label_3, GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
 														.addComponent(label_4))
 													.addPreferredGap(ComponentPlacement.RELATED)
 													.addGroup(gl_SSHdeployablePanel.createParallelGroup(Alignment.LEADING)
@@ -389,56 +392,52 @@ public class Gui extends JFrame {
 															.addComponent(passwordField, Alignment.LEADING)
 															.addComponent(ansiblePathField, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE))))
 												.addGroup(gl_SSHdeployablePanel.createSequentialGroup()
-													.addComponent(label_8, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
-													.addPreferredGap(ComponentPlacement.RELATED)
-													.addComponent(reportTypeBoxDeployable, 0, 227, Short.MAX_VALUE))
-												.addGroup(gl_SSHdeployablePanel.createSequentialGroup()
 													.addGroup(gl_SSHdeployablePanel.createParallelGroup(Alignment.LEADING)
 														.addComponent(label_5)
-														.addGroup(gl_SSHdeployablePanel.createParallelGroup(Alignment.TRAILING)
-															.addComponent(lblDeviceName, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-															.addComponent(label_6, Alignment.LEADING)))
+														.addComponent(lblDeviceName, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+														.addComponent(label_6)
+														.addComponent(label_8, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE))
 													.addPreferredGap(ComponentPlacement.RELATED)
 													.addGroup(gl_SSHdeployablePanel.createParallelGroup(Alignment.LEADING)
-														.addComponent(deviceNameField, GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
-														.addComponent(testTypeBox, 0, 243, Short.MAX_VALUE)
-														.addComponent(outputPathDeployable, GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE))))
+														.addComponent(reportTypeBoxDeployable, 0, 214, Short.MAX_VALUE)
+														.addComponent(deviceNameField, GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+														.addComponent(testTypeBox, 0, 214, Short.MAX_VALUE)
+														.addComponent(outputPathDeployable, GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE))))
 											.addPreferredGap(ComponentPlacement.RELATED)
 											.addGroup(gl_SSHdeployablePanel.createParallelGroup(Alignment.LEADING)
 												.addGroup(gl_SSHdeployablePanel.createSequentialGroup()
+													.addComponent(label_2)
+													.addPreferredGap(ComponentPlacement.RELATED)
+													.addComponent(ipField, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE))
+												.addGroup(gl_SSHdeployablePanel.createSequentialGroup()
 													.addGap(2)
-													.addGroup(gl_SSHdeployablePanel.createParallelGroup(Alignment.LEADING)
+													.addGroup(gl_SSHdeployablePanel.createParallelGroup(Alignment.TRAILING, false)
+														.addComponent(getReportDeployable, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+														.addComponent(selectReportPathBtn, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+														.addComponent(btnStartTestingDeployable, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 														.addGroup(gl_SSHdeployablePanel.createSequentialGroup()
 															.addComponent(btnSelectDocker)
 															.addPreferredGap(ComponentPlacement.UNRELATED)
-															.addComponent(chckbxHasDockerFile, GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))
-														.addGroup(gl_SSHdeployablePanel.createSequentialGroup()
+															.addComponent(chckbxHasDockerFile, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+														.addGroup(Alignment.LEADING, gl_SSHdeployablePanel.createSequentialGroup()
 															.addComponent(bthSelectAnsible)
 															.addPreferredGap(ComponentPlacement.UNRELATED)
-															.addComponent(chckbxHasAnsibleFiles, GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))
-														.addComponent(btnStartTestingDeployable, GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
-														.addComponent(selectReportPathBtn, GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
-														.addComponent(getReportDeployable, GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)))
-												.addGroup(gl_SSHdeployablePanel.createSequentialGroup()
-													.addComponent(label_2)
-													.addPreferredGap(ComponentPlacement.RELATED)
-													.addComponent(ipField, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)))
+															.addComponent(chckbxHasAnsibleFiles, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)))))
 											.addPreferredGap(ComponentPlacement.RELATED)
 											.addComponent(btnConnect, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(chckbxConnect)
-											.addGap(57)))))
+											.addComponent(chckbxConnect, GroupLayout.PREFERRED_SIZE, 221, GroupLayout.PREFERRED_SIZE)
+											.addGap(57))))
+								.addGroup(gl_SSHdeployablePanel.createSequentialGroup()
+									.addContainerGap()
+									.addComponent(label_12, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_SSHdeployablePanel.createSequentialGroup()
+									.addGap(261)
+									.addGroup(gl_SSHdeployablePanel.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblNotepleaseDownloadAnd)
+										.addComponent(lblNotePleaseEnable)))
+								.addComponent(deployableTextArea, GroupLayout.DEFAULT_SIZE, 711, Short.MAX_VALUE))
 							.addContainerGap())
-						.addGroup(gl_SSHdeployablePanel.createSequentialGroup()
-							.addContainerGap(413, Short.MAX_VALUE)
-							.addGroup(gl_SSHdeployablePanel.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblNotePleaseEnable)
-								.addComponent(lblNotepleaseDownloadAnd))
-							.addGap(90))
-						.addGroup(gl_SSHdeployablePanel.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(label_12, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(809, Short.MAX_VALUE))
 				);
 				gl_SSHdeployablePanel.setVerticalGroup(
 					gl_SSHdeployablePanel.createParallelGroup(Alignment.LEADING)
@@ -494,21 +493,20 @@ public class Gui extends JFrame {
 								.addComponent(label_8, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 								.addComponent(reportTypeBoxDeployable, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(getReportDeployable))
-							.addPreferredGap(ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-							.addComponent(lblNotepleaseDownloadAnd)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblNotePleaseEnable)
-							.addGap(25)
-							.addComponent(label_12)
 							.addGap(18)
-							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
-							.addContainerGap())
+							.addComponent(lblNotepleaseDownloadAnd)
+							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(lblNotePleaseEnable)
+							.addGap(13)
+							.addComponent(label_12)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(deployableTextArea, GroupLayout.PREFERRED_SIZE, 438, GroupLayout.PREFERRED_SIZE))
 				);
 				
-				 deployableTextArea = new JTextArea();
-				 deployableTextArea.setEditable(false);
-				 deployableTextArea.setBackground(Color.LIGHT_GRAY);
-				 scrollPane = new JScrollPane(deployableTextArea);
+			//	 deployableTextArea = new JTextArea();
+			//	 deployableTextArea.setEditable(false);
+			//	 deployableTextArea.setBackground(Color.LIGHT_GRAY);
+				// scrollPane = new JScrollPane(deployableTextArea);
 				 SSHdeployablePanel.setLayout(gl_SSHdeployablePanel);
 		
 		JPanel nonDeployablePanel = new JPanel();
@@ -578,8 +576,8 @@ public class Gui extends JFrame {
 		nonDeployableTextArea = new JTextArea();
 		nonDeployableTextArea.setEditable(false);
 		nonDeployableTextArea.setBackground(Color.LIGHT_GRAY);
-		JScrollPane scrollPaneNonDeployable = new JScrollPane(nonDeployableTextArea);
-	//	scrollPaneNonDeployable.setViewportView(nonDeployableTextArea);
+		nonDeployablePane = new JScrollPane(nonDeployableTextArea);
+	
 		additionalParameters = new JTextField();
 		additionalParameters.setColumns(10);
 		
@@ -699,19 +697,28 @@ public class Gui extends JFrame {
 	
 		});
 		btnStartTestingNonDeployable.setForeground(Color.WHITE);
-		btnStartTestingNonDeployable.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		btnStartTestingNonDeployable.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		btnStartTestingNonDeployable.setBackground(Color.BLUE);
 		
 		JLabel label_10 = new JLabel("Output");
 		label_10.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblExampleUsageType = new JLabel("Example Additional Parameter Type : VAR_NAME=var");
+		
+		JButton btnSerialPort = new JButton("Serial Port");
+		btnSerialPort.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SerialPortFrame frame = new SerialPortFrame();
+				frame.showDeviceFrame();
+				
+			}
+		});
 		GroupLayout gl_nonDeployablePanel = new GroupLayout(nonDeployablePanel);
 		gl_nonDeployablePanel.setHorizontalGroup(
 			gl_nonDeployablePanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_nonDeployablePanel.createSequentialGroup()
 					.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.LEADING)
-						.addGroup(Alignment.TRAILING, gl_nonDeployablePanel.createSequentialGroup()
+						.addGroup(gl_nonDeployablePanel.createSequentialGroup()
 							.addGap(83)
 							.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.LEADING, false)
@@ -721,7 +728,7 @@ public class Gui extends JFrame {
 									.addComponent(lblMakefileDirectoryPath, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 									.addComponent(lblAdditionalParameters, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 								.addComponent(lblAvailableDevices, GroupLayout.PREFERRED_SIZE, 155, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblSelectClientFiles, GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+								.addComponent(lblSelectClientFiles, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
 								.addComponent(lblSelectReportPath)
 								.addComponent(label_9, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.RELATED)
@@ -736,9 +743,9 @@ public class Gui extends JFrame {
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.LEADING)
 										.addComponent(btnStartTestingNonDeployable, GroupLayout.PREFERRED_SIZE, 98, Short.MAX_VALUE)
-										.addComponent(btnSelectClientNonDeployable, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE)
 										.addComponent(btnSelectReportPathNonDeployable, GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
-										.addComponent(btnGetReportNonDeployable, GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)))
+										.addComponent(btnGetReportNonDeployable, GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+										.addComponent(btnSelectClientNonDeployable, GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)))
 								.addComponent(additionalParameters, 259, 259, Short.MAX_VALUE)
 								.addComponent(makeFileDirectoryField, GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
 								.addComponent(lblExampleUsageType, GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE))
@@ -750,8 +757,13 @@ public class Gui extends JFrame {
 							.addGap(325))
 						.addGroup(gl_nonDeployablePanel.createSequentialGroup()
 							.addContainerGap()
-							.addComponent(label_10, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
-						.addComponent(nonDeployableTextArea, GroupLayout.PREFERRED_SIZE, 938, GroupLayout.PREFERRED_SIZE))
+							.addComponent(label_10, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+							.addGap(554)
+							.addComponent(btnSerialPort)
+							.addGap(246))
+						.addGroup(gl_nonDeployablePanel.createSequentialGroup()
+							.addGap(11)
+							.addComponent(nonDeployableTextArea, GroupLayout.PREFERRED_SIZE, 938, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap())
 		);
 		gl_nonDeployablePanel.setVerticalGroup(
@@ -773,31 +785,34 @@ public class Gui extends JFrame {
 						.addComponent(additionalParameters, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnDeployToDevice))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblExampleUsageType)
-					.addGap(102)
-					.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(clientFilesNonDeployablePath, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnSelectClientNonDeployable)
-						.addComponent(lblSelectClientFiles))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_nonDeployablePanel.createSequentialGroup()
-							.addComponent(btnStartTestingNonDeployable, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblExampleUsageType)
+							.addGap(102)
 							.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(outputPathNonDeployable, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnSelectReportPathNonDeployable)
-								.addComponent(lblSelectReportPath))
+								.addComponent(clientFilesNonDeployablePath, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnSelectClientNonDeployable)
+								.addComponent(lblSelectClientFiles))
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblOutputType)
-								.addComponent(outputTypeNonDeployable, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnGetReportNonDeployable)))
-						.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.BASELINE)
-							.addComponent(testTypeBoxNonDeployable, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-							.addComponent(label_9, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)))
-					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addComponent(label_10, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+							.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_nonDeployablePanel.createSequentialGroup()
+									.addComponent(btnStartTestingNonDeployable, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.BASELINE)
+										.addComponent(outputPathNonDeployable, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(btnSelectReportPathNonDeployable)
+										.addComponent(lblSelectReportPath))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblOutputType)
+										.addComponent(outputTypeNonDeployable, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(btnGetReportNonDeployable)))
+								.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.BASELINE)
+									.addComponent(testTypeBoxNonDeployable, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+									.addComponent(label_9, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)))
+							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(label_10, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
+						.addComponent(btnSerialPort))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(nonDeployableTextArea, GroupLayout.PREFERRED_SIZE, 438, GroupLayout.PREFERRED_SIZE)
 					.addGap(12))
