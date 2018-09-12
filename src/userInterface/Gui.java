@@ -531,9 +531,9 @@ public class Gui extends JFrame {
 					
 					if (returnValue == JFileChooser.APPROVE_OPTION) {
 						File selectedFile = fileChooser.getSelectedFile();		
-						if(!controller.controlMakeFiles(selectedFile)) {
+						if(!controller.controlMakeFiles(selectedFile) || !controller.controlExecuteFile(selectedFile) ) {
 							
-							JOptionPane.showMessageDialog(mainFrame, "Please Check CMakeLists.txt file in directory exists");	
+							JOptionPane.showMessageDialog(mainFrame, "Please Check CMakeLists.txt or execute.sh file in directory exists");	
 						}
 						else{
 							controller.setMakeFilePath(selectedFile);

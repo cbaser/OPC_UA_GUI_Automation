@@ -132,21 +132,20 @@ public class MainController {
 
 	}
 
-	public boolean controlAnsibleFiles(File incomingFile) {
-		hasAnsibleFile = checkFolder(incomingFile, ".yml");
-		return hasAnsibleFile;
+	public boolean controlAnsibleFiles(File incomingFile) { 
+		return checkFolder(incomingFile, ".yml");
 	}
 
 	public boolean controlDockerFiles(File incomingFile) {
-
-		 hasDockerFile = checkFolder(incomingFile,"Dockerfile");
-	//	hasDockerFile = checkFolder(incomingFile, ".c");
-		return hasDockerFile;
+		return  checkFolder(incomingFile,"Dockerfile");
 	}
 
 	public boolean controlMakeFiles(File incomingFile) {
-		hasMakeFile = checkFolder(incomingFile, "CMakeLists.txt");
-		return hasMakeFile;
+		 
+		return checkFolder(incomingFile, "CMakeLists.txt");
+	}
+	public boolean controlExecuteFile(File incomingFile) {
+		return checkFolder(incomingFile,"execute.sh");
 	}
 
 	public boolean checkFolder(File file, String fileExtension) {

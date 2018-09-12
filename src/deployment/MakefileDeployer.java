@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 
 import com.google.common.io.Files;
 
+import controller.MainController;
 import controller.ResultMaker;
 
 public class MakefileDeployer {
@@ -24,11 +25,14 @@ public class MakefileDeployer {
 	private String additionalParameters;
 	private String deviceName;
 	private String testing_type,memory_size;
+	private MainController controller;
+	private String command;
 	public MakefileDeployer(String path,String additionalParameters,String deviceName) {
 		this.path = path;
 		this.additionalParameters= additionalParameters;
 		this.deviceName = deviceName;
 		this.resultMaker = new ResultMaker();
+		controller = new MainController();
 	}
 	
 	
@@ -67,28 +71,38 @@ public class MakefileDeployer {
 	
 	public void startDeployment() {
 		try {
-			File file = new File(path+File.separator+"build");
+			if(controller.checkFolder(new File(path+File.separator), "CMakeLists.txt")) {
+				File file = new File(path+File.separator+"build");
+				
+				file.mkdir();
+				if(!additionalParameters.equals("")||!additionalParameters.isEmpty())
+				changeFileCommand();
+				
+				
+				
+				setDeviceMemory();
+				
+				
+				if(!additionalParameters.isEmpty()||additionalParameters.equals(""))
+					command = "cmake "+"-DTESTING_TYPE="+testing_type+"-DMEMORY_SIZE="+memory_size+additionalParameters+" ..";
+				else
+					command = "cmake ..";
+				Process proc = Runtime.getRuntime().exec(command,null,file);
+				proc.waitFor();
+				appendToOutputArea(proc);
+				String secondCommand = "make -j";
+				proc=Runtime.getRuntime().exec(secondCommand,null,file);
+				proc.waitFor();
+				appendToOutputArea(proc);
+			}
 			
-			file.mkdir();
-			if(!additionalParameters.equals("")||!additionalParameters.isEmpty())
-			changeFileCommand();
+			if(controller.checkFolder(new File(path+File.separator), ".sh")) {
+				String[] cmd = new String[]{"/bin/sh", path+File.separator+"execute.sh"};
+				Process proc = Runtime.getRuntime().exec(cmd);
+				proc.waitFor();
+				appendToOutputArea(proc);
+			}
 			
-			String command;
-			
-			setDeviceMemory();
-			
-			
-			if(!additionalParameters.isEmpty()||additionalParameters.equals(""))
-				command = "cmake "+"-DTESTING_TYPE="+testing_type+"-DMEMORY_SIZE="+memory_size+additionalParameters+" ..";
-			else
-				command = "cmake ..";
-			Process proc = Runtime.getRuntime().exec(command,null,file);
-			proc.waitFor();
-			appendToOutputArea(proc);
-			String secondCommand = "make -j";
-			proc=Runtime.getRuntime().exec(secondCommand,null,file);
-			proc.waitFor();
-			appendToOutputArea(proc);
 			
 			
 			
@@ -119,8 +133,8 @@ public class MakefileDeployer {
 				 fw = new FileWriter(file.getAbsolutePath(), true);
 			     bw = new BufferedWriter(fw);
 			     out = new PrintWriter(bw);
-			 //   String text = "target_compile_options(${PROJECT_NAME} PRIVATE -fno-exceptions -DWIFI_SSID=\"${WIFI_SSID}\" -DWIFI_PWD=\"${WIFI_PWD}\")";
-			    String text = "target_compile_options(${PROJECT_NAME} PRIVATE -fno-exceptions";
+			   String text = "target_compile_options(${PROJECT_NAME} PRIVATE -fno-exceptions -DWIFI_SSID=\"${WIFI_SSID}\" -DWIFI_PWD=\"${WIFI_PWD}\")";
+			  
 			    out.println(text);
 			    if(additionalParameters.contains(" ")) {
 			    	// Multiple Parameters 
