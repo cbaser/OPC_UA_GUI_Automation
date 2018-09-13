@@ -30,10 +30,12 @@ public class DockerDeployer {
 	private ProcessBuilder pb;
 	private String outputline;
 	private String args[];
-	public DockerDeployer(String hostIP,String dockerPath,String testingType) {
+	private boolean deploymentType;
+	public DockerDeployer(String hostIP,String dockerPath,String testingType,boolean deploymentType) {
 		this.hostIP = hostIP;
 		this.dockerPath = dockerPath;
 		this.testingType= testingType;
+		this.deploymentType = deploymentType;
 		resultMaker =new ResultMaker();
 	}
 	
@@ -41,7 +43,7 @@ public class DockerDeployer {
 		args = new String[7];
 
 		try {
-			resultMaker.showResults("---------------DOCKER---------------\n");
+			resultMaker.appendToTextArea("---------------DOCKER---------------\n");
 			String[] testingParts = testingType.split(" ");
 			args[0]="sh";
 			args[1]="execute.sh";
@@ -59,23 +61,24 @@ public class DockerDeployer {
 			//compile.waitFor();
 			BufferedReader compileRead = new BufferedReader(new InputStreamReader(execute.getInputStream()));
 			 outputline = compileRead.readLine();
+
 			while(outputline != null) {
-				resultMaker.showResults(outputline+"\n");
+				resultMaker.appendToTextArea(outputline+"\n");
 				outputline = compileRead.readLine();
 			}
 			
-			
+			resultMaker.setTextArea(deploymentType);
 			BufferedReader read = new BufferedReader(new InputStreamReader(execute.getInputStream()));
 			outputline = read.readLine();
 			while(outputline != null) {
-				resultMaker.showResults(outputline+System.getProperty("line.separator"));
+				resultMaker.appendToTextArea(outputline+System.getProperty("line.separator"));
 				outputline = read.readLine();
 				resultMaker.writeToFile(outputline+System.getProperty("line.separator"));
 			}
 			if(errStream!=null) {
 				BufferedReader errorReader = new BufferedReader(new InputStreamReader(errStream));
 				while((outputline = errorReader.readLine())!= null)
-					resultMaker.showResults(outputline+"\n");
+					resultMaker.appendToTextArea(outputline+"\n");
 			}
 			//docker build . -t opcua && docker run -it --network=host --add-host raspberrypi:10.200.2.8 opcua	
 //			DockerClientConfig config = DefaultDockerClientConfig.createDefaultConfigBuilder()
@@ -104,7 +107,7 @@ public class DockerDeployer {
 //			}
 	    	
 		}catch(Exception e) {
-			resultMaker.showResults(e.getMessage().toString());
+			resultMaker.appendToTextArea(e.getMessage().toString());
 			//e.printStackTrace();
 			
 		}

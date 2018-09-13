@@ -23,6 +23,8 @@ public class TxtParser {
 	
 	public void startReadingFile() {
 		try {
+			
+			/** TODO: Check file path instead of classloader */
 			ClassLoader classLoader = this.getClass().getClassLoader();
 			txtFile= new File(classLoader.getResource(path).getFile());
 			BufferedReader	bufferedReader = new BufferedReader(new FileReader(txtFile));

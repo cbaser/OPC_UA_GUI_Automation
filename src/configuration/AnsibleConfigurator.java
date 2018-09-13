@@ -31,15 +31,16 @@ public class AnsibleConfigurator {
 	}
 
 	private void changeTasksFile() {
-		File newDirectory = new File(mainDirectory.getAbsolutePath() + "//roles//opc.ua//tasks");
-		deleteFile(newDirectory,"main.yml");
-		createFile(newDirectory,"main.yml", "Tasks");
+		
+		File dir = new File(mainDirectory.getAbsolutePath() + File.separator+"roles" +File.separator+"opc.ua"+File.separator+"tasks");
+		deleteFile(dir,"main.yml");
+		createFile(dir,"main.yml", "Tasks");
 
 	}
 	private void changeTargetsFile() {
-		File newDirectory =  new File(mainDirectory.getAbsolutePath() + "//group_vars");
-		deleteFile(newDirectory,"targets.yml");
-		createFile(newDirectory,"targets.yml", "Targets");
+		File dir =  new File(mainDirectory.getAbsolutePath() + File.separator+"group_vars");
+		deleteFile(dir,"targets.yml");
+		createFile(dir,"targets.yml", "Targets");
 	}
 	
 	
@@ -67,8 +68,7 @@ public class AnsibleConfigurator {
 		
 		
 		String text=null;
-		File file = new File(directory.getAbsolutePath() + "//" + fileName);
-		
+		File file = new File(directory.getAbsolutePath() + File.separator+ fileName);
 		
 		switch(fileType) {
 		case "Hosts":
@@ -104,24 +104,25 @@ public class AnsibleConfigurator {
 				+ "  become: true\n" ;
 	}
 	private String checklibmbedtlsText() {
-		return "-name: Check that libmbedtls is installed\n"
-				+"command: dpkg-query -l libmbedtls-dev \n"
-				+"register: deb_check\n";
+		return "- name: Check that libmbedtls is installed\n"
+				+"  command: dpkg-query -l libmbedtls-dev \n"
+				+"  register: deb_check\n";
 	}
 	
 	private String installlibmbedtlsText() {
 		return "\n"
-				+ "-name: Install libmbedtls is installed \n"
-				+"package: \n"
-				+"  name:libmbedtls-dev \n"
-				+"  state:present \n"
-				+"when:deb_check.stdout.find('no packages found') != -1\n";
+				+ "- name: Install libmbedtls is installed \n"
+				+"  package: \n"
+				+"      name: libmbedtls-dev \n"
+				+"      state: present \n"
+				+"  when: deb_check.stdout.find('no packages found') != -1\n";
 		
 		
 	}
 	
 	
 	private String selectiveTasksText() {
+	
 		String text = 
 				 "\n"
 				+ "# https://open62541.org/releases/b916bd0611.zip\n"
@@ -135,7 +136,7 @@ public class AnsibleConfigurator {
 		text+= 	
 				"    - AdditionalServerClass.h\n"+
 				"    - commonServerMethods.h\n"+	
-				"	 - DiscoveryServerClass.h\n"+
+				"    - DiscoveryServerClass.h\n"+
 				"    - PublisherServerClass.h\n"+
 				"    - ReadServerClass.h\n"+
 				"    - WriteServerClass.h\n"+
@@ -149,6 +150,7 @@ public class AnsibleConfigurator {
 				"    - open62541.h\n" + 
 				"\n" 									
 				+testStringBuilder("MainServer.c");
+			
 		return text;
 	}
 	private String restTasksText() {
@@ -171,7 +173,12 @@ public class AnsibleConfigurator {
 		
 		
 		String rawName = fileName.substring(0, fileName.indexOf("."));
-		
+		String testType = testingType.substring(0,testingType.indexOf(" "));
+		String encryptionType="None";
+		if(testType.contains("Encryption"))
+		{
+			encryptionType="256sha256";
+		}
 		
 		return 
 				"- name: Build using the command 'gcc -std=c99 open62541.c -D_POSIX_C_SOURCE=199309L " + fileName +" -lm -o "+ rawName + "'\n" + 
@@ -180,7 +187,7 @@ public class AnsibleConfigurator {
 				"    chdir: /etc/opcua/ \n"+
 				"\n"+
 				"- name: Run "+ rawName+ " with nohup. output is forwarded to log.txt\n"+
-				"  shell: nohup ./"+ rawName +" >> log.txt &\n" + "  args:\n" + "    chdir: /etc/opcua/\n"+
+				"  shell: nohup ./"+ rawName +" " +encryptionType+" "+ testType +" GB"    +" > log.txt &\n" + "  args:\n" + "    chdir: /etc/opcua/\n"+
 				"  when: (opcua_state == \"running\" and not port_check.failed) or\n"+
 				"        (opcua_state == \"restarted\")\n"+"\n";
 	}

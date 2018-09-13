@@ -113,11 +113,11 @@ public class MakefileDeployer {
 	}
 	public void appendToOutputArea(Process proc) throws IOException {
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(proc.getInputStream()));
-	
+		resultMaker.setTextArea(false);
 		String outputline = bufferedReader.readLine();
 			while((outputline = bufferedReader.readLine()) != null) {
 			
-				resultMaker.showResults(outputline+"\n");
+				resultMaker.appendToTextArea(outputline+"\n");
 				outputline = bufferedReader.readLine();
 			}
 		

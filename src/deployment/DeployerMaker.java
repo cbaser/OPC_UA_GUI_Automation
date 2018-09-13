@@ -6,9 +6,9 @@ public class DeployerMaker {
 
 	
 	
-	public DeployerMaker(String hostIP,String password,String ansiblePath,String dockerPath,String testingType) {
+	public DeployerMaker(String hostIP,String password,String ansiblePath,String dockerPath,String testingType,boolean deploymentType) {
 		ansibleDeployer = new AnsibleDeployer(ansiblePath,password);
-		dockerDeployer = new DockerDeployer(hostIP,dockerPath,testingType);
+		dockerDeployer = new DockerDeployer(hostIP,dockerPath,testingType,deploymentType);
 	}
 	public void startDeployment() {
 		ansibleDeployer.startDeployment();

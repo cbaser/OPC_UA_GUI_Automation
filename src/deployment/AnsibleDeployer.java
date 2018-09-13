@@ -31,7 +31,8 @@ public class AnsibleDeployer {
 	
 	public void startDeployment() {
 		args = new String[5];
-		resultMaker.showResults("---------------ANSIBLE---------------\n");
+		 resultMaker.setTextArea(true);
+		resultMaker.appendToTextArea("---------------ANSIBLE---------------\n");
 		//Process p;
         try {
         	args[0] = "ansible-playbook";
@@ -56,13 +57,15 @@ public class AnsibleDeployer {
             
 		//	BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
             BufferedReader br = new BufferedReader(new InputStreamReader(inStream));
+            resultMaker.setTextArea(true);
 			while((outputline= br.readLine()) != null) {
-				resultMaker.showResults(outputline+"\n");	
+				
+				resultMaker.appendToTextArea(outputline+"\n");	
 			}
 			if(errStream!=null) {
 				BufferedReader errorReader = new BufferedReader(new InputStreamReader(errStream));
 				while((outputline = errorReader.readLine())!= null)
-					resultMaker.showResults(outputline+"\n");
+					resultMaker.appendToTextArea(outputline+"\n");
 			}
 
         //   process.destroy();

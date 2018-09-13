@@ -30,6 +30,7 @@ import javax.swing.JScrollPane;
 import java.awt.Component;
 import javax.swing.JTextArea;
 import java.awt.Font;
+import javax.swing.JScrollBar;
 
 public class Gui extends JFrame {
 
@@ -181,6 +182,7 @@ public class Gui extends JFrame {
 							else {
 								chckbxHasAnsibleFiles.setText("Confirmed");
 								chckbxHasAnsibleFiles.setSelected(true);
+								controller.setHasAnsibleFile(true);
 								controller.setAnsibleFilePath(selectedFile);
 							}
 						}								
@@ -222,6 +224,7 @@ public class Gui extends JFrame {
 							else {
 								chckbxHasDockerFile.setText("Confirmed");
 								chckbxHasDockerFile.setSelected(true);
+								controller.setHasDockerFile(true);
 								controller.setDockerFilePath(selectedFile);
 							}
 						}
@@ -271,10 +274,10 @@ public class Gui extends JFrame {
 								
 							}
 							if(chckbxDeploymentOfAnsible.isSelected() && chckbxDeploymentOfDocker.isSelected()) {
-								controller.setOutputOrder(false);
 								JOptionPane.showMessageDialog(mainFrame, "Deployment Started");	
-								controller.setOutputOrder(true);
+								controller.setDeploymentType(true);
 								controller.startDeployment(testTypeBox.getSelectedItem().toString());
+								
 							}
 						}
 					
@@ -341,7 +344,7 @@ public class Gui extends JFrame {
 						controller.setReportType(reportType);
 						if(deviceNameField.getText().equals("")|| deviceNameField.getText().isEmpty())
 						{
-							JOptionPane.showMessageDialog(mainFrame, "Please Write Device Name");
+							JOptionPane.showMessageDialog(mainFrame, "Please Input Device Name");
 							return;
 						}
 						controller.setDeviceName(deviceNameField.getText().toString());
@@ -355,11 +358,12 @@ public class Gui extends JFrame {
 				deviceNameField = new JTextField();
 				deviceNameField.setColumns(10);
 				
-				 deployableTextArea = new JTextArea();
+				deployableTextArea = new JTextArea();
 				deployableTextArea.setEditable(false);
-				deployableTextArea.setBackground(Color.LIGHT_GRAY);
-
-				deployablePane = new JScrollPane(deployableTextArea);
+				deployableTextArea.setBackground(Color.PINK);
+				
+				JScrollBar scrollBar = new JScrollBar();
+				
 				
 				
 				
@@ -383,7 +387,7 @@ public class Gui extends JFrame {
 															.addComponent(usernameField, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE)
 															.addPreferredGap(ComponentPlacement.RELATED)
 															.addComponent(label_1))
-														.addComponent(label_3, GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+														.addComponent(label_3, GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
 														.addComponent(label_4))
 													.addPreferredGap(ComponentPlacement.RELATED)
 													.addGroup(gl_SSHdeployablePanel.createParallelGroup(Alignment.LEADING)
@@ -394,15 +398,15 @@ public class Gui extends JFrame {
 												.addGroup(gl_SSHdeployablePanel.createSequentialGroup()
 													.addGroup(gl_SSHdeployablePanel.createParallelGroup(Alignment.LEADING)
 														.addComponent(label_5)
-														.addComponent(lblDeviceName, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+														.addComponent(lblDeviceName, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
 														.addComponent(label_6)
 														.addComponent(label_8, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE))
 													.addPreferredGap(ComponentPlacement.RELATED)
 													.addGroup(gl_SSHdeployablePanel.createParallelGroup(Alignment.LEADING)
-														.addComponent(reportTypeBoxDeployable, 0, 214, Short.MAX_VALUE)
-														.addComponent(deviceNameField, GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
-														.addComponent(testTypeBox, 0, 214, Short.MAX_VALUE)
-														.addComponent(outputPathDeployable, GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE))))
+														.addComponent(reportTypeBoxDeployable, 0, 226, Short.MAX_VALUE)
+														.addComponent(deviceNameField, GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+														.addComponent(testTypeBox, 0, 226, Short.MAX_VALUE)
+														.addComponent(outputPathDeployable, GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE))))
 											.addPreferredGap(ComponentPlacement.RELATED)
 											.addGroup(gl_SSHdeployablePanel.createParallelGroup(Alignment.LEADING)
 												.addGroup(gl_SSHdeployablePanel.createSequentialGroup()
@@ -411,15 +415,15 @@ public class Gui extends JFrame {
 													.addComponent(ipField, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE))
 												.addGroup(gl_SSHdeployablePanel.createSequentialGroup()
 													.addGap(2)
-													.addGroup(gl_SSHdeployablePanel.createParallelGroup(Alignment.TRAILING, false)
-														.addComponent(getReportDeployable, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-														.addComponent(selectReportPathBtn, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-														.addComponent(btnStartTestingDeployable, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+													.addGroup(gl_SSHdeployablePanel.createParallelGroup(Alignment.LEADING, false)
+														.addComponent(getReportDeployable, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+														.addComponent(selectReportPathBtn, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+														.addComponent(btnStartTestingDeployable, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 														.addGroup(gl_SSHdeployablePanel.createSequentialGroup()
 															.addComponent(btnSelectDocker)
 															.addPreferredGap(ComponentPlacement.UNRELATED)
 															.addComponent(chckbxHasDockerFile, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-														.addGroup(Alignment.LEADING, gl_SSHdeployablePanel.createSequentialGroup()
+														.addGroup(gl_SSHdeployablePanel.createSequentialGroup()
 															.addComponent(bthSelectAnsible)
 															.addPreferredGap(ComponentPlacement.UNRELATED)
 															.addComponent(chckbxHasAnsibleFiles, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)))))
@@ -436,7 +440,10 @@ public class Gui extends JFrame {
 									.addGroup(gl_SSHdeployablePanel.createParallelGroup(Alignment.LEADING)
 										.addComponent(lblNotepleaseDownloadAnd)
 										.addComponent(lblNotePleaseEnable)))
-								.addComponent(deployableTextArea, GroupLayout.DEFAULT_SIZE, 711, Short.MAX_VALUE))
+								.addGroup(gl_SSHdeployablePanel.createSequentialGroup()
+									.addComponent(deployableTextArea, GroupLayout.DEFAULT_SIZE, 1064, Short.MAX_VALUE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(scrollBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 							.addContainerGap())
 				);
 				gl_SSHdeployablePanel.setVerticalGroup(
@@ -500,13 +507,11 @@ public class Gui extends JFrame {
 							.addGap(13)
 							.addComponent(label_12)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(deployableTextArea, GroupLayout.PREFERRED_SIZE, 438, GroupLayout.PREFERRED_SIZE))
+							.addGroup(gl_SSHdeployablePanel.createParallelGroup(Alignment.LEADING)
+								.addComponent(scrollBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(deployableTextArea, GroupLayout.PREFERRED_SIZE, 438, GroupLayout.PREFERRED_SIZE)))
 				);
 				
-			//	 deployableTextArea = new JTextArea();
-			//	 deployableTextArea.setEditable(false);
-			//	 deployableTextArea.setBackground(Color.LIGHT_GRAY);
-				// scrollPane = new JScrollPane(deployableTextArea);
 				 SSHdeployablePanel.setLayout(gl_SSHdeployablePanel);
 		
 		JPanel nonDeployablePanel = new JPanel();
@@ -576,8 +581,7 @@ public class Gui extends JFrame {
 		nonDeployableTextArea = new JTextArea();
 		nonDeployableTextArea.setEditable(false);
 		nonDeployableTextArea.setBackground(Color.LIGHT_GRAY);
-		nonDeployablePane = new JScrollPane(nonDeployableTextArea);
-	
+		
 		additionalParameters = new JTextField();
 		additionalParameters.setColumns(10);
 		
@@ -590,7 +594,7 @@ public class Gui extends JFrame {
 					return;
 				}
 				else {
-					controller.setOutputOrder(false);
+					//controller.setOutputOrder(false);
 					MakefileDeployer makefileDeployer = new MakefileDeployer(makeFileDirectoryField.getText(),additionalParameters.getText(),String.valueOf(availableDevicesBox.getSelectedItem()));
 					makefileDeployer.startDeployment();	
 					
@@ -688,8 +692,9 @@ public class Gui extends JFrame {
 					return;
 				}
 				controller.setTestingType(String.valueOf(testTypeBox.getSelectedItem()));
-				    controller.setOutputOrder(false);
+				  //  controller.setOutputOrder(false);
 					JOptionPane.showMessageDialog(mainFrame, "Deployment Started");	
+					controller.setDeploymentType(false);
 					controller.startDeployment(testTypeBoxNonDeployable.getSelectedItem().toString());
 					
 				

@@ -2,7 +2,6 @@ package controller;
 
 import java.io.File;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
@@ -11,15 +10,13 @@ import configuration.ConfigurationMaker;
 import deployment.DeployerMaker;
 import merging.Merger;
 import reporting.ReportingMaker;
-import userInterface.Gui;
 
 public class MainController {
 	private File ansibleFilePath, dockerFilePath, makeFilePath, outputFilePath;
 
 	private String username, password, connectionAddress,deviceName;
-
-	private boolean connected = false, hasAnsibleFile = false, hasDockerFile = false, hasMakeFile = false,
-			firstOrSecondOutputArea = false;
+	private boolean connected = false, hasAnsibleFile = false, hasDockerFile = false, hasMakeFile = false;
+	private boolean deploymentType=false;
 	private Session session;
 	private String testingType,reportType;
 
@@ -29,7 +26,9 @@ public class MainController {
 	public String getDeviceName() {
 		return deviceName;
 	}
-
+	public void setDeploymentType(boolean deploymentType) {
+		this.deploymentType = deploymentType;
+	}
 	public void setDeviceName(String deviceName) {
 		this.deviceName = deviceName;
 	}
@@ -108,9 +107,6 @@ public class MainController {
 			return true;
 	}
 
-	public void setOutputOrder(boolean firstOrSecondOutputArea) {
-		this.firstOrSecondOutputArea = firstOrSecondOutputArea;
-	}
 
 	public boolean checkConnection() {
 		JSch jsch = new JSch();
@@ -140,6 +136,24 @@ public class MainController {
 		return  checkFolder(incomingFile,"Dockerfile");
 	}
 
+	public boolean isHasAnsibleFile() {
+		return hasAnsibleFile;
+	}
+	public void setHasAnsibleFile(boolean hasAnsibleFile) {
+		this.hasAnsibleFile = hasAnsibleFile;
+	}
+	public boolean isHasDockerFile() {
+		return hasDockerFile;
+	}
+	public void setHasDockerFile(boolean hasDockerFile) {
+		this.hasDockerFile = hasDockerFile;
+	}
+	public boolean isHasMakeFile() {
+		return hasMakeFile;
+	}
+	public void setHasMakeFile(boolean hasMakeFile) {
+		this.hasMakeFile = hasMakeFile;
+	}
 	public boolean controlMakeFiles(File incomingFile) {
 		 
 		return checkFolder(incomingFile, "CMakeLists.txt");
@@ -166,39 +180,7 @@ public class MainController {
 					return true;
 		return false;
 	}
-	
-	
 
-	public void appendToTextArea(String line) {
-		new Thread() {
-			public void run() {
-				SwingUtilities.invokeLater(new Runnable() {
-					public void run() {
-						if (firstOrSecondOutputArea)
-							Gui.deployableTextArea.append(line);
-						else
-							Gui.nonDeployableTextArea.append(line);
-					}
-				});
-			}
-		}.start();
-		
-	
-		
-		
-//		SwingUtilities.invokeLater(new Runnable() {
-//			public void run() {
-//				if (firstOrSecondOutputArea)
-//					Gui.deployableTextArea.append(line);
-//				else
-//					Gui.nonDeployableTextArea.append(line);
-//			}
-//			
-//		});
-//	
-//		
-		
-	}
 
 
 	public boolean startConfiguration() {
@@ -228,7 +210,7 @@ public class MainController {
 
 	public void startDeployment(String selectedTestType) {
 		DeployerMaker deployermaker = new DeployerMaker(connectionAddress,password, ansibleFilePath.getAbsolutePath(),
-				dockerFilePath.getAbsolutePath(),selectedTestType);
+				dockerFilePath.getAbsolutePath(),selectedTestType,deploymentType);
 		deployermaker.startDeployment();
 
 	}
