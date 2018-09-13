@@ -3,7 +3,6 @@ package controller;
 
 import java.io.File;
 import java.io.FileWriter;
-
 import javax.swing.SwingUtilities;
 
 import userInterface.Gui;
@@ -13,11 +12,13 @@ public class ResultMaker {
 	private MainController controller;
 	private String outputFilePath;
 	private boolean deployableOrNone;
+	
 
 	
 	public ResultMaker() {
 		controller = new MainController();
 	}
+
 	public void setTextArea(boolean deployableOrNone) {
 		this.deployableOrNone = deployableOrNone;
 	}
@@ -69,17 +70,5 @@ public class ResultMaker {
 			
 		});
 	}
-//	public void elapsedTime(String time) {
-//		new Thread() {
-//			public void run() {
-//				SwingUtilities.invokeLater(new Runnable() {
-//	                public void run() {
-//	                    GUI.resultTimelbl.setText(time);
-//	                }
-//				});
-//			}
-//		}.start();
-//		
-//	}
 
 }

@@ -33,7 +33,6 @@ public class AnsibleDeployer {
 		args = new String[5];
 		 resultMaker.setTextArea(true);
 		resultMaker.appendToTextArea("---------------ANSIBLE---------------\n");
-		//Process p;
         try {
         	args[0] = "ansible-playbook";
         	args[1] = "deploy_opc_ua.yml";
@@ -53,9 +52,6 @@ public class AnsibleDeployer {
             writer.write(password);
             writer.flush();
             writer.close();
-            
-            
-		//	BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
             BufferedReader br = new BufferedReader(new InputStreamReader(inStream));
             resultMaker.setTextArea(true);
 			while((outputline= br.readLine()) != null) {
@@ -67,23 +63,6 @@ public class AnsibleDeployer {
 				while((outputline = errorReader.readLine())!= null)
 					resultMaker.appendToTextArea(outputline+"\n");
 			}
-
-        //   process.destroy();
-            
-			
-			
-			
-			/** Version for ssh
-			String command = "ping -c 3 google.com";
-			channel = session.openChannel("exec");	
-			((ChannelExec) channel).setCommand(command);
-			  channel.setInputStream(null);
-			  ((ChannelExec) channel).setErrStream(System.err);
-			  channel.connect();
-			  resultmaker.setInputStream(channel.getInputStream());
-			  resultmaker.showOutput();
-			  channel.connect();
-			  */
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

@@ -111,7 +111,6 @@ public class MainController {
 	public boolean checkConnection() {
 		JSch jsch = new JSch();
 		try {
-			// 192.168.178.59
 			session = jsch.getSession(username, connectionAddress, 22);
 			java.util.Properties config = new java.util.Properties();
 			config.put("StrictHostKeyChecking", "no");

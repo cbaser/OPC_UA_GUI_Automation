@@ -3,7 +3,7 @@ package userInterface;
 import com.rm5248.serial.NoSuchPortException;
 import com.rm5248.serial.NotASerialPortException;
 import com.rm5248.serial.SerialPort;
-import com.rm5248.serial.SerialPort.BaudRate;
+
 
 import java.awt.EventQueue;
 
@@ -84,6 +84,11 @@ public class SerialPortFrame extends JFrame {
 		 textArea = new JTextArea();
 		
 		JLabel lblOutput = new JLabel("Output");
+		
+		JLabel lblBaurate = new JLabel("Baudrate");
+		
+		JComboBox<String> baurateBox = new JComboBox<String>();
+		getBaurates(baurateBox);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -92,17 +97,23 @@ public class SerialPortFrame extends JFrame {
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addComponent(textArea, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)
 						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(lblOutput)
+							.addContainerGap(411, Short.MAX_VALUE))
+						.addGroup(gl_contentPane.createSequentialGroup()
 							.addComponent(lblPort)
 							.addGap(18)
-							.addComponent(portBox, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnConnect)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(chckbxStatus)
-							.addContainerGap(170, Short.MAX_VALUE))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(lblOutput)
-							.addContainerGap(399, Short.MAX_VALUE))))
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(btnConnect)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(chckbxStatus))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(portBox, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(lblBaurate)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(baurateBox, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)))
+							.addGap(161))))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -111,9 +122,13 @@ public class SerialPortFrame extends JFrame {
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblPort)
 						.addComponent(portBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(chckbxStatus)
-						.addComponent(btnConnect))
-					.addGap(52)
+						.addComponent(lblBaurate)
+						.addComponent(baurateBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnConnect)
+						.addComponent(chckbxStatus))
+					.addGap(23)
 					.addComponent(lblOutput)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(textArea, GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE))
@@ -130,6 +145,16 @@ public class SerialPortFrame extends JFrame {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+	private void getBaurates(JComboBox<String> baurates) {
+		try {
+			for (SerialPort.BaudRate c : SerialPort.BaudRate.values())
+			    baurates.addItem(String.valueOf(c));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	private void startConnection(String portName) {
 		try {

@@ -63,9 +63,7 @@ public class Merger {
 	private String mergedFile;
 	private  Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
             Font.BOLD);
-  private  Font subFont = new Font(Font.FontFamily.TIMES_ROMAN, 16,
-            Font.BOLD);
- private  Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,
+  private  Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,
             Font.BOLD);
 	
 	

@@ -7,13 +7,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.google.common.io.Files;
 
 import controller.MainController;
 import controller.ResultMaker;
@@ -38,14 +35,12 @@ public class MakefileDeployer {
 	
 	public void setDeviceMemory() throws Exception {
 		File file = new File(System.getProperty("user.dir")+File.separator+"devices"+File.separator+deviceName+".txt");
-		String contents = new Scanner(file).useDelimiter("\\Z").next();
-		//CPU : (\d+)(\s+)(\w+)
-		//String regex = "(echo|ack)_str\\s+(?<size>\\d+)\\s+average rtt\\/request=(?<val>.*)";
+		Scanner scanner = new Scanner(file).useDelimiter("\\Z");
+		String contents = scanner.next();
 		String regex = "CPU : (?<size>\\d+)(\\s+)(?<val>\\w+)";
 		Pattern titlePattern = Pattern.compile(regex);
 		Matcher matcher = titlePattern.matcher(contents);
 		while(matcher.find()) {
-		//	dataset.addValue(Double.valueOf(matcher.group("size")), "rtt", matcher.group("val"));,
 			this.testing_type ="r";
 			switch(matcher.group("val")) {
 			case "KB":
@@ -64,7 +59,7 @@ public class MakefileDeployer {
 		}
 
 		
-		
+		scanner.close();
 		
 	}
 	
