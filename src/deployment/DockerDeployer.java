@@ -64,26 +64,19 @@ public class DockerDeployer {
 			//Process compile = Runtime.getRuntime().exec(new String[] {"sh","execute.sh", "logfile.log","MainClient",hostIP,testingParts[0],"GB" },null,baseDir);
 			//compile.waitFor();
 			BufferedReader compileRead = new BufferedReader(new InputStreamReader(execute.getInputStream()));
-			 outputline = compileRead.readLine();
+			 resultMaker.setTextArea(deploymentType);
 
-			while(outputline != null) {
-				resultMaker.appendToTextArea(outputline+"\n");
-				outputline = compileRead.readLine();
-			}
+			 while((outputline= compileRead.readLine()) != null) {
+					resultMaker.appendToTextArea(outputline+System.getProperty("line.separator"));
+					resultMaker.writeToFile(outputline+System.getProperty("line.separator"));
+				}
 			
-			resultMaker.setTextArea(deploymentType);
-			
-			BufferedReader read = new BufferedReader(new InputStreamReader(execute.getInputStream()));
-			
-			while((outputline= read.readLine()) != null) {
-				resultMaker.appendToTextArea(outputline+System.getProperty("line.separator"));
-				resultMaker.writeToFile(outputline+System.getProperty("line.separator"));
-			}
 			if(errStream!=null) {
 				BufferedReader errorReader = new BufferedReader(new InputStreamReader(errStream));
 				while((outputline = errorReader.readLine())!= null)
 					resultMaker.appendToTextArea(outputline+"\n");
 			}
+			resultMaker.closeStream();
 			//docker build . -t opcua && docker run -it --network=host --add-host raspberrypi:10.200.2.8 opcua	
 //			DockerClientConfig config = DefaultDockerClientConfig.createDefaultConfigBuilder()
 //					.withDockerHost("tcp://"+hostIP)
@@ -102,7 +95,7 @@ public class DockerDeployer {
 //			ExecStartCmd startCmd = dockerClient.execStartCmd(imageId);
 //			ExecStartResultCallback resultCallback = startCmd.exec(new ExecStartResultCallback(System.out, System.err));
 //			resultCallback.awaitCompletion();
-////			resultMaker.elapsedTime(String.valueOf( (after-before)/100000 ));
+//			resultMaker.elapsedTime(String.valueOf( (after-before)/100000 ));
 //			InputStream inputStream = startCmd.getStdin();
 //			BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
 //			while((outputline= br.readLine()) != null) {

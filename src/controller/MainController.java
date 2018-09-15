@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.File;
+
 import javax.swing.JOptionPane;
 
 import com.jcraft.jsch.JSch;
@@ -19,6 +20,7 @@ public class MainController {
 	private boolean deploymentType=false;
 	private Session session;
 	private String testingType,reportType;
+
 
 	public MainController() {
 
@@ -186,9 +188,7 @@ public class MainController {
 
 		if (connected && hasAnsibleFile && hasDockerFile) {
 			ConfigurationMaker configurationMaker = new ConfigurationMaker(username, connectionAddress,
-					ansibleFilePath.getAbsolutePath(), dockerFilePath.getAbsolutePath(), testingType);
-			JOptionPane.showMessageDialog(null, "Configuration started", "Configuration",
-					JOptionPane.INFORMATION_MESSAGE);
+					ansibleFilePath.getAbsolutePath(), dockerFilePath.getAbsolutePath(), testingType);			
 			if (configurationMaker.startConfiguration())
 				return true;
 			else {

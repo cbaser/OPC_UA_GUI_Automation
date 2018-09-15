@@ -11,6 +11,7 @@ public class ResultMaker {
 	private String outputFilePath;
 	private boolean deployableOrNone;
 	private BufferedWriter buffwriter;
+	private FileWriter writer;
 
 	public ResultMaker() {
 		
@@ -41,7 +42,7 @@ public class ResultMaker {
 					System.out.println("prompt for error");
 				}
 			}
-			FileWriter	writer = new FileWriter(outputFilePath+ "opc_ua_automated_test_tool_output.txt");
+			writer = new FileWriter(outputFilePath+File.separator+ "opc_ua_automated_test_tool_output.txt");
 			buffwriter = new BufferedWriter(writer);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -50,23 +51,21 @@ public class ResultMaker {
 	}
 
 	public void writeToFile(String line) {
-		try {
-
+		
+		try {		
 			buffwriter.write(line);
-		//	writer.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-//		finally {
-//			try{
-//		      if(buffwriter!=null)
-//		    	  buffwriter.close();
-//		 	   }catch(Exception ex){
-//		 	       System.out.println("Error in closing the BufferedWriter"+ex);
-//		 	    }
-//			
-//		}
 
+	}
+	public void closeStream() {
+		try{
+		      if(buffwriter!=null)
+		    	  buffwriter.close();
+		 	   }catch(Exception ex){
+		 	       System.out.println("Error in closing the BufferedWriter"+ex);
+		 	    }
 	}
 
 	public void appendToTextArea(String line) {
