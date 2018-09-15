@@ -80,7 +80,7 @@ public class AnsibleConfigurator {
 			break;
 		
 		case "Tasks":
-			text = initialTasksText()+checklibmbedtlsText()+installlibmbedtlsText()+selectiveTasksText()+restTasksText();
+			text = initialTasksText()+checklibmbedtlsText()+installlibmbedtlsText()+selectiveTasksText()+buildServerText("MainServer.c")+portText()+runServerText("MainServer.c");
 			break;
 		}
 		try {
@@ -104,7 +104,8 @@ public class AnsibleConfigurator {
 				+ "  become: true\n" ;
 	}
 	private String checklibmbedtlsText() {
-		return "- name: Check that libmbedtls is installed\n"
+		return  "\n"
+				+"- name: Check that libmbedtls is installed\n"
 				+"  command: dpkg-query -l libmbedtls-dev \n"
 				+"  register: deb_check\n";
 	}
@@ -122,8 +123,7 @@ public class AnsibleConfigurator {
 	
 	
 	private String selectiveTasksText() {
-	
-		String text = 
+		return 
 				 "\n"
 				+ "# https://open62541.org/releases/b916bd0611.zip\n"
 				+ "- name: Copy files extracted from the release https://open62541.org/releases/b916bd0611.zip \n"
@@ -131,10 +131,8 @@ public class AnsibleConfigurator {
 				+ "    src: '{{ item }}'\n" 
 				+ "    dest: '/etc/opcua/{{ item }}'\n"
 				+ "    owner: '{{ ansible_user }}'\n"
-				+ "  with_items:\n" ;		
-		
-		text+= 	
-				"    - AdditionalServerClass.h\n"+
+				+ "  with_items:\n" 
+				+ "    - AdditionalServerClass.h\n"+
 				"    - commonServerMethods.h\n"+	
 				"    - DiscoveryServerClass.h\n"+
 				"    - PublisherServerClass.h\n"+
@@ -148,50 +146,87 @@ public class AnsibleConfigurator {
 				"    - NetworkingServerClass.h\n"+
 				"    - open62541.c\n" + 
 				"    - open62541.h\n" + 
-				"\n" 									
-				+testStringBuilder("MainServer.c");
-			
-		return text;
-	}
-	private String restTasksText() {
-		
-		return  
-				"\n- name: Check if port 4840 is used\n" + "  wait_for:\n"
-				+ "    port: 4840\n" + "    state: stopped\n" + "    timeout: 2\n" + "  ignore_errors: yes\n"
-				+ "  register: port_check\n" + "  when: opcua_state == \"running\"\n" + "\n"
-				+ "- name: If server is running, kill it (when opcua_state == \"restarted\" or \"stopped\")\n"
-				+ "  shell: fuser -k -n tcp 4840\n" + "  ignore_errors: yes\n"
-				+ "  when: opcua_state == \"restarted\" or opcua_state == \"stopped\"\n" + "\n"
-				+ "- name: Wait for the server to be closed\n" + "  wait_for:\n" + "    port: 4840\n"
-				+ "    state: stopped\n" + "    timeout: 10\n"
-				+ "  when: opcua_state == \"restarted\" or opcua_state == \"stopped\"\n" + "\n"
-				;
+				"\n";							
 				
+		
 	}
-	
-	private String testStringBuilder(String fileName) {
-		
-		
+	private String buildServerText(String fileName) {
 		String rawName = fileName.substring(0, fileName.indexOf("."));
-		String testType = testingType.substring(0,testingType.indexOf(" "));
-		String encryptionType="None";
-		if(testType.contains("Encryption"))
-		{
-			encryptionType="256sha256";
-		}
-		
 		return 
 				"- name: Build using the command 'gcc -std=c99 open62541.c -D_POSIX_C_SOURCE=199309L " + fileName +" -lm -o "+ rawName + "'\n" + 
 				"  shell: gcc -std=c99 open62541.c -lmbedtls -lmbedx509 -lmbedcrypto -D_POSIX_C_SOURCE=199309L "+fileName+ " -lm -o " +rawName+ "\n" + 
 				"  args:\n" + 
 				"    chdir: /etc/opcua/ \n"+
-				"\n"+
-				"- name: Run "+ rawName+ " with nohup. output is forwarded to log.txt\n"+
-				"  shell: nohup ./"+ rawName +" " +encryptionType+" "+ testType +" GB"    +" > log.txt &\n" + "  args:\n" + "    chdir: /etc/opcua/\n"+
-				"  when: (opcua_state == \"running\" and not port_check.failed) or\n"+
-				"        (opcua_state == \"restarted\")\n"+"\n";
+				"\n";
+	}
+	private String portText() {
+		
+		return  
+				"\n- name: Check if port 4840 is used\n" 
+				+ "  wait_for:\n"
+				+ "    port: 4840\n" 
+				+ "    state: stopped\n" 
+				+ "    timeout: 2\n" 
+				+ "  ignore_errors: yes\n"
+				+ "  register: port_check\n" 
+				+ "  when: opcua_state == \"running\"\n"
+				+ "\n"
+				+ "- name: If server is running, kill it (when opcua_state == \"restarted\" or \"stopped\")\n"
+				+ "  shell: fuser -k -n tcp 4840\n" 
+				+ "  ignore_errors: yes\n"
+				+ "  when: opcua_state == \"restarted\" or opcua_state == \"stopped\"\n" 
+				+ "\n"
+				+ "- name: Wait for the server to be closed\n" 
+				+ "  wait_for:\n" 
+				+ "    port: 4840\n"
+				+ "    state: stopped\n" 
+				+ "    timeout: 10\n"
+				+ "  when: opcua_state == \"restarted\" or opcua_state == \"stopped\"\n" + "\n";
+			//	+testStringBuilder("MainServer.c");
+				
+				
+	}
+
+	private String runServerText(String fileName) {
+		String rawName = fileName.substring(0, fileName.indexOf("."));
+		String testType = testingType.substring(0,testingType.indexOf(" "));
+		String encryptionType="None";
+		if(testType.contains("Encryption"))
+			encryptionType="256sha256";
+		return 
+		"- name: Run "+ rawName+ " with nohup. output is forwarded to log.txt\n"+
+		"  shell: nohup ./"+ rawName +" " +encryptionType+" "+ testType +" GB > log.txt &\n"
+		+ "  args:\n" 
+		+ "    chdir: /etc/opcua/\n"+
+		"  when: (opcua_state == \"running\" and not port_check.failed) or\n"+
+		"        (opcua_state == \"restarted\")\n"+"\n";
+		
+		
 	}
 	
+//	private String testStringBuilder(String fileName) {
+//		
+//		
+//		String rawName = fileName.substring(0, fileName.indexOf("."));
+//		String testType = testingType.substring(0,testingType.indexOf(" "));
+//		String encryptionType="None";
+//		if(testType.contains("Encryption"))
+//		{
+//			encryptionType="256sha256";
+//		}
+//		
+//		return 
+//				"- name: Build using the command 'gcc -std=c99 open62541.c -D_POSIX_C_SOURCE=199309L " + fileName +" -lm -o "+ rawName + "'\n" + 
+//				"  shell: gcc -std=c99 open62541.c -lmbedtls -lmbedx509 -lmbedcrypto -D_POSIX_C_SOURCE=199309L "+fileName+ " -lm -o " +rawName+ "\n" + 
+//				"  args:\n" + 
+//				"    chdir: /etc/opcua/ \n"+
+//				"\n"+
+//				"- name: Run "+ rawName+ " with nohup. output is forwarded to log.txt\n"+
+//				"  shell: nohup ./"+ rawName +" " +encryptionType+" "+ testType +" GB"    +" > log.txt &\n" + "  args:\n" + "    chdir: /etc/opcua/\n"+
+//				"  when: (opcua_state == \"running\" and not port_check.failed) or\n"+
+//				"        (opcua_state == \"restarted\")\n"+"\n";
+//	}
+//	
 	
 	
 	

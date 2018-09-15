@@ -1,64 +1,74 @@
 package controller;
 
-
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import javax.swing.SwingUtilities;
 
 import userInterface.Gui;
 
-
 public class ResultMaker {
-	private MainController controller;
 	private String outputFilePath;
 	private boolean deployableOrNone;
-	
+	private BufferedWriter buffwriter;
 
-	
 	public ResultMaker() {
-		controller = new MainController();
+		
 	}
 
 	public void setTextArea(boolean deployableOrNone) {
 		this.deployableOrNone = deployableOrNone;
 	}
-	
-	
-	public void createOutputFile() {
-		outputFilePath = controller.getOutputFilePath().getAbsolutePath()+File.separator+"opc_ua_automated_test_tool_output.txt";
-		File directory =new File(outputFilePath);
-		    if (directory.exists() && directory.isFile())
-		    {
-		        System.out.println("The dir with name could not be" +
-		        " created as it is a normal file");
-		    }
-		    else
-		    {
-		        try
-		        {
-		            if (!directory.exists())
-		                directory.mkdir();
-		        }
-		        catch (Exception e)
-		        {
-		            System.out.println("prompt for error");
-		        }
-		    }
+	public void setOutputPath(String outputFilePath) {
+		this.outputFilePath = outputFilePath;
 	}
+
+	public void createOutputFile() {
+		try {
+			File file = new File(outputFilePath+File.separator
+					+ "opc_ua_automated_test_tool_output.txt");
+			
+			if (file.exists() && file.isFile()) {
+				file.delete();
+				file.createNewFile();
+			} else {
+				try {
+					if (!file.exists()) {
+						file.createNewFile();
+					}
+						
+				} catch (Exception e) {
+					System.out.println("prompt for error");
+				}
+			}
+			FileWriter	writer = new FileWriter(outputFilePath+ "opc_ua_automated_test_tool_output.txt");
+			buffwriter = new BufferedWriter(writer);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
 	public void writeToFile(String line) {
 		try {
-			FileWriter writer = new FileWriter(outputFilePath);
-			writer.write(line);
-			writer.close();
-	}catch(Exception e) {
-		e.printStackTrace();
-	}
-		
-		
+
+			buffwriter.write(line);
+		//	writer.close();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-	
-	
-	
+//		finally {
+//			try{
+//		      if(buffwriter!=null)
+//		    	  buffwriter.close();
+//		 	   }catch(Exception ex){
+//		 	       System.out.println("Error in closing the BufferedWriter"+ex);
+//		 	    }
+//			
+//		}
+
+	}
+
 	public void appendToTextArea(String line) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
@@ -67,7 +77,7 @@ public class ResultMaker {
 				else
 					Gui.nonDeployableTextArea.append(line);
 			}
-			
+
 		});
 	}
 

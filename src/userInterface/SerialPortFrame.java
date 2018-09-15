@@ -72,11 +72,12 @@ public class SerialPortFrame extends JFrame {
 		contentPane.revalidate();
 		 chckbxStatus = new JCheckBox("Status");
 		chckbxStatus.setEnabled(false);
-		
+		JComboBox<String> baurateBox = new JComboBox<String>();
+		getBaurates(baurateBox);
 		JButton btnConnect = new JButton("Connect");
 		btnConnect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				startConnection(String.valueOf(portBox.getSelectedItem()));
+				startConnection(String.valueOf(portBox.getSelectedItem()),String.valueOf(baurateBox));
 				startGettingInformation();
 			}
 		});
@@ -87,8 +88,7 @@ public class SerialPortFrame extends JFrame {
 		
 		JLabel lblBaurate = new JLabel("Baudrate");
 		
-		JComboBox<String> baurateBox = new JComboBox<String>();
-		getBaurates(baurateBox);
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -156,9 +156,11 @@ public class SerialPortFrame extends JFrame {
 		}
 		
 	}
-	private void startConnection(String portName) {
+	private void startConnection(String portName,String bauRate) {
 		try {
+
 			port = new SerialPort(portName,SerialPort.NO_CONTROL_LINE_CHANGE);
+			
 			chckbxStatus.setSelected(true);
 			chckbxStatus.setText("Connected");
 		} catch (NoSuchPortException | NotASerialPortException | IOException e) {

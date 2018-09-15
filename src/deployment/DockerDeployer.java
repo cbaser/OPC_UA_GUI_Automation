@@ -25,17 +25,19 @@ public class DockerDeployer {
 	private String dockerPath;
 	private String hostIP;
 	private String testingType;
+	private String outputPath;
 	private ResultMaker resultMaker;
 	private Process execute;
 	private ProcessBuilder pb;
 	private String outputline;
 	private String args[];
 	private boolean deploymentType;
-	public DockerDeployer(String hostIP,String dockerPath,String testingType,boolean deploymentType) {
+	public DockerDeployer(String hostIP,String dockerPath,String testingType,boolean deploymentType,String outputPath) {
 		this.hostIP = hostIP;
 		this.dockerPath = dockerPath;
 		this.testingType= testingType;
 		this.deploymentType = deploymentType;
+		this.outputPath = outputPath;
 		resultMaker =new ResultMaker();
 	}
 	
@@ -52,6 +54,8 @@ public class DockerDeployer {
 			args[4]=hostIP;
 			args[5]=testingParts[0];
 			args[6]="GB";
+			resultMaker.setOutputPath(outputPath);
+			resultMaker.createOutputFile();
 			pb = new ProcessBuilder(args);
 			pb.redirectErrorStream(true);
 			pb.directory(new File(dockerPath));
@@ -68,11 +72,11 @@ public class DockerDeployer {
 			}
 			
 			resultMaker.setTextArea(deploymentType);
+			
 			BufferedReader read = new BufferedReader(new InputStreamReader(execute.getInputStream()));
-			outputline = read.readLine();
-			while(outputline != null) {
+			
+			while((outputline= read.readLine()) != null) {
 				resultMaker.appendToTextArea(outputline+System.getProperty("line.separator"));
-				outputline = read.readLine();
 				resultMaker.writeToFile(outputline+System.getProperty("line.separator"));
 			}
 			if(errStream!=null) {

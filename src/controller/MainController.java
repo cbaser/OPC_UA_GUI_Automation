@@ -209,7 +209,7 @@ public class MainController {
 
 	public void startDeployment(String selectedTestType) {
 		DeployerMaker deployermaker = new DeployerMaker(connectionAddress,password, ansibleFilePath.getAbsolutePath(),
-				dockerFilePath.getAbsolutePath(),selectedTestType,deploymentType);
+				dockerFilePath.getAbsolutePath(),selectedTestType,deploymentType,outputFilePath.getAbsolutePath());
 		deployermaker.startDeployment();
 
 	}
