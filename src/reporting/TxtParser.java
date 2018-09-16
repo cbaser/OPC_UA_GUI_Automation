@@ -14,6 +14,7 @@ public class TxtParser {
 	private PdfParser pdfParser;
 	private ExcelParser excelParser;
 	private File txtFile;
+	private String rawFileName="opc_ua_automated_test_tool_raw.txt";
 	
 	public TxtParser(String path,String deviceName,String reportType) {
 		this.path=path;
@@ -23,10 +24,7 @@ public class TxtParser {
 	
 	public void startReadingFile() {
 		try {
-			
-			/** TODO: Check file path instead of classloader */
-			ClassLoader classLoader = this.getClass().getClassLoader();
-			txtFile= new File(classLoader.getResource(path).getFile());
+			txtFile= new File(path+File.separator+rawFileName);
 			BufferedReader	bufferedReader = new BufferedReader(new FileReader(txtFile));
 			StringBuilder stringBuilder = new StringBuilder();
 			

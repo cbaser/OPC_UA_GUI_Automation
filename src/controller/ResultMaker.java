@@ -42,7 +42,7 @@ public class ResultMaker {
 					System.out.println("prompt for error");
 				}
 			}
-			writer = new FileWriter(outputFilePath+File.separator+ "opc_ua_automated_test_tool_output.txt");
+			writer = new FileWriter(outputFilePath+File.separator+ "opc_ua_automated_test_tool_raw.txt");
 			buffwriter = new BufferedWriter(writer);
 		} catch (Exception e) {
 			e.printStackTrace();
