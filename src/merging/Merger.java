@@ -105,7 +105,7 @@ public class Merger {
 
 	public void createResultFile() {
 		try {
-			mergedFile = path + File.separator + "merged-result-opcua" + String.join("-", fileNames) + todaysDate
+			mergedFile = path + File.separator + "merged-result-opcua" + String.join("-", fileNames) +"-"+todaysDate
 					+ ".pdf";
 			File file = new File(mergedFile);
 			file.createNewFile();
