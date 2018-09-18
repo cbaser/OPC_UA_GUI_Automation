@@ -39,11 +39,6 @@ public class PdfParser {
 	            Font.BOLD);
 	 private  Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,
 	            Font.BOLD);
-//	private String dest = System.getProperty("user.dir")+File.separator+"output/result.pdf";
-//	private String output=System.getProperty("user.dir")+File.separator+"output/";
-
-		
-	 
 	 
 	 public void setDeviceName(String deviceName) {
 		 this.deviceName = deviceName;
@@ -63,9 +58,11 @@ public class PdfParser {
 	
 private void startCreatingPdf() {
 		 try {
-			 String dest = path+File.separator+
-					 deviceName+"-"+LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-					 +".pdf";
+			 String dest="";
+			 if(deviceName != null)
+			 dest = path+File.separator+deviceName+"-"+LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))+".pdf";
+			 else
+			 dest = path+File.separator+"Device-Name-Not-Found"+"-"+LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))+".pdf";	 
 		File file = new File(dest);
 		file.createNewFile();
 		document = new Document();
@@ -201,7 +198,6 @@ private void startCreatingPdf() {
 			ChartUtils.saveChartAsJPEG(file, chart, 500, 300);	
 			Image image = Image.getInstance(file.getAbsolutePath());
 			document.add(image);
-		//	file.delete();
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

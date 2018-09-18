@@ -30,15 +30,9 @@ public class SerialPortFrame extends JFrame {
 	private SerialPort port;
 	private JCheckBox chckbxStatus;
 	private JTextArea textArea;
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
-	/**
-	 * Launch the application.
-	 */
 	
 	public void showDeviceFrame() {
 		EventQueue.invokeLater(new Runnable() {
@@ -54,9 +48,6 @@ public class SerialPortFrame extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public SerialPortFrame() {
 		setTitle("Serial Port");
 		setBounds(100, 100, 597, 488);
@@ -151,7 +142,6 @@ public class SerialPortFrame extends JFrame {
 			for (SerialPort.BaudRate c : SerialPort.BaudRate.values())
 			    baurates.addItem(String.valueOf(c));
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

@@ -248,7 +248,6 @@ public class Gui extends JFrame {
 		JButton btnStartTestingDeployable = new JButton("Start Testing");
 		btnStartTestingDeployable.setForeground(Color.WHITE);
 		btnStartTestingDeployable.setBackground(Color.GRAY);
-		// btnStartTestingDeployable.setBackground(new Color(0, 128, 0));
 		btnStartTestingDeployable.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		outputPathDeployable = new JTextField();
 		outputPathDeployable.setColumns(10);
@@ -553,7 +552,7 @@ public class Gui extends JFrame {
 		nonDeployablePanel.setBackground(Color.WHITE);
 		tabbedPane.addTab("Restricted Devices", null, nonDeployablePanel, null);
 
-		JLabel lblMakefileDirectoryPath = new JLabel("Makefile Directory Path");
+		JLabel lblMakefileDirectoryPath = new JLabel("Makefile or .sh Directory Path");
 		lblMakefileDirectoryPath.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
 		makeFileDirectoryField = new JTextField();
@@ -591,6 +590,7 @@ public class Gui extends JFrame {
 		getDevices(availableDevicesBox);
 
 		JButton btnAddNewDevice = new JButton("Add new Device");
+		btnAddNewDevice.setFont(new Font("Dialog", Font.BOLD, 11));
 		btnAddNewDevice.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				AdditionalDeviceFrame frame = new AdditionalDeviceFrame();
@@ -600,6 +600,7 @@ public class Gui extends JFrame {
 				contentPane.repaint();
 				availableDevicesBox.revalidate();
 				availableDevicesBox.repaint();
+				
 
 			}
 		});
@@ -615,28 +616,11 @@ public class Gui extends JFrame {
 		additionalParameters = new JTextField();
 		additionalParameters.setColumns(10);
 
-		JButton btnDeployToDevice = new JButton("Deploy To Device");
-		btnDeployToDevice.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				if (makeFileDirectoryField.getText().equals("") || makeFileDirectoryField.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(mainFrame, "Please select makefile directory first");
-					return;
-				} else {
-					// controller.setOutputOrder(false);
-					MakefileDeployer makefileDeployer = new MakefileDeployer(makeFileDirectoryField.getText(),
-							additionalParameters.getText(), String.valueOf(availableDevicesBox.getSelectedItem()));
-					makefileDeployer.startDeployment();
-
-				}
-
-			}
-		});
-		btnDeployToDevice.setForeground(Color.WHITE);
-		btnDeployToDevice.setBackground(Color.BLUE);
-
 		clientFilesNonDeployablePath = new JTextField();
 		clientFilesNonDeployablePath.setColumns(10);
-
+		outputPathNonDeployable = new JTextField();
+		outputPathNonDeployable.setColumns(10);
+		
 		JButton btnSelectReportPathNonDeployable = new JButton("Select");
 		btnSelectReportPathNonDeployable.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -646,7 +630,7 @@ public class Gui extends JFrame {
 
 				if (returnValue == JFileChooser.APPROVE_OPTION) {
 					File selectedFile = fileChooser.getSelectedFile();
-					outputPathDeployable.setText(selectedFile.getAbsolutePath());
+					outputPathNonDeployable.setText(selectedFile.getAbsolutePath());
 					controller.setOutputFilePath(selectedFile);
 				}
 			}
@@ -657,8 +641,7 @@ public class Gui extends JFrame {
 		JLabel lblSelectReportPath = new JLabel("Select Report Path");
 		lblSelectReportPath.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
-		outputPathNonDeployable = new JTextField();
-		outputPathNonDeployable.setColumns(10);
+
 
 		JButton btnSelectClientNonDeployable = new JButton("Select");
 		btnSelectClientNonDeployable.addActionListener(new ActionListener() {
@@ -670,10 +653,12 @@ public class Gui extends JFrame {
 
 				if (returnValue == JFileChooser.APPROVE_OPTION) {
 					File selectedFile = fileChooser.getSelectedFile();
-					outputPathNonDeployable.setText(selectedFile.getAbsolutePath());
+			
 					if (!controller.controlDockerFiles(selectedFile)) {
 						JOptionPane.showMessageDialog(mainFrame, "Please Check Single Client file in directory exists");
+						return;
 					} else {
+						clientFilesNonDeployablePath.setText(selectedFile.getAbsolutePath());
 						chckbxHasDockerFile.setText("Confirmed");
 						chckbxHasDockerFile.setSelected(true);
 						controller.setDockerFilePath(selectedFile);
@@ -693,9 +678,43 @@ public class Gui extends JFrame {
 		lblOutputType.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
 		JButton btnGetReportNonDeployable = new JButton("Get Report");
-		btnGetReportNonDeployable.setEnabled(false);
 		btnGetReportNonDeployable.setForeground(Color.WHITE);
 		btnGetReportNonDeployable.setBackground(Color.BLUE);
+		
+		btnGetReportNonDeployable.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String reportType = String.valueOf(outputTypeNonDeployable.getSelectedItem());
+
+				controller.setReportType(reportType);
+				if (outputPathNonDeployable.getText().equals("") || outputPathNonDeployable.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(mainFrame, "Please Input Output Path of Raw File");
+					return;
+				}
+				//TODO: Add deviceNameNoneDeployable
+				
+//				if (deviceNameField.getText().equals("") || deviceNameField.getText().isEmpty()) {
+//					JOptionPane.showMessageDialog(mainFrame, "Please Input Device Name");
+//					return;
+//				}
+//				controller.setDeviceName(deviceNameField.getText().toString());
+
+				if (controller.checkFolder(new File(outputPathNonDeployable.getText().toString()),
+						"opc_ua_automated_test_tool_raw.txt")) {
+					controller.startReporting();
+					JOptionPane.showMessageDialog(mainFrame, "Reporting completed");
+				}
+
+				else {
+					JOptionPane.showMessageDialog(mainFrame, "Raw File of Testing Results could not found");
+					return;
+				}
+				
+			}
+			
+		});
+		
 
 		JLabel label_9 = new JLabel("Select test type");
 		label_9.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -703,14 +722,10 @@ public class Gui extends JFrame {
 		JComboBox<String> testTypeBoxNonDeployable = new JComboBox<String>();
 		testTypeBoxNonDeployable.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		testTypeBoxNonDeployable.addItem("Read Tests");
-		testTypeBoxNonDeployable.addItem("Write Tests");
-		testTypeBoxNonDeployable.addItem("CPU Tests");
 		testTypeBoxNonDeployable.addItem("Networking Tests");
-		testTypeBoxNonDeployable.addItem("Encryption Tests");
 		testTypeBoxNonDeployable.addItem("PubSub Tests");
-		testTypeBoxNonDeployable.addItem("Additional Tests");
 
-		JButton btnStartTestingNonDeployable = new JButton("Start Testing");
+		JButton btnStartTestingNonDeployable = new JButton("Start Restricted Testing");
 		btnStartTestingNonDeployable.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -718,11 +733,23 @@ public class Gui extends JFrame {
 					JOptionPane.showMessageDialog(mainFrame, "Please Select Output Path");
 					return;
 				}
-				controller.setTestingType(String.valueOf(testTypeBox.getSelectedItem()));
-				// controller.setOutputOrder(false);
-				JOptionPane.showMessageDialog(mainFrame, "Deployment Started");
-				controller.setDeploymentType(false);
-				controller.startDeployment(testTypeBoxNonDeployable.getSelectedItem().toString());
+				if (makeFileDirectoryField.getText().equals("") || makeFileDirectoryField.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(mainFrame, "Please select makefile directory first");
+					return;
+				} else {
+					JOptionPane.showMessageDialog(mainFrame, "Deployment Started");
+					controller.setDeploymentType(false);
+					MakefileDeployer makefileDeployer = new MakefileDeployer(makeFileDirectoryField.getText(),
+							additionalParameters.getText(), String.valueOf(availableDevicesBox.getSelectedItem()),String.valueOf(testTypeBoxNonDeployable.getSelectedItem()));
+					makefileDeployer.startDeployment();
+					makefileDeployer.startTesting(clientFilesNonDeployablePath.getText().toString(), outputPathNonDeployable.getText().toString());
+					
+
+				}
+
+				
+
+				
 
 			}
 
@@ -749,138 +776,108 @@ public class Gui extends JFrame {
 		nonDeployableScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
 		GroupLayout gl_nonDeployablePanel = new GroupLayout(nonDeployablePanel);
-		gl_nonDeployablePanel.setHorizontalGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.LEADING).addGroup(
-				gl_nonDeployablePanel.createSequentialGroup().addGroup(gl_nonDeployablePanel.createParallelGroup(
-						Alignment.LEADING).addGroup(
-								gl_nonDeployablePanel.createSequentialGroup().addGap(83).addGroup(gl_nonDeployablePanel
-										.createParallelGroup(Alignment.LEADING).addGroup(
-												gl_nonDeployablePanel.createParallelGroup(Alignment.LEADING, false)
-														.addGroup(gl_nonDeployablePanel.createSequentialGroup()
-																.addComponent(lblOutputType).addGap(35))
-														.addComponent(lblMakefileDirectoryPath,
-																GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
-																Short.MAX_VALUE)
-														.addComponent(lblAdditionalParameters, GroupLayout.DEFAULT_SIZE,
-																GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-										.addComponent(lblAvailableDevices, GroupLayout.PREFERRED_SIZE, 155,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblSelectClientFiles, GroupLayout.DEFAULT_SIZE, 161,
-												Short.MAX_VALUE)
-										.addComponent(lblSelectReportPath).addComponent(label_9,
-												GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE))
-										.addPreferredGap(ComponentPlacement.RELATED).addGroup(gl_nonDeployablePanel
-												.createParallelGroup(Alignment.LEADING).addComponent(
-														availableDevicesBox, 0, 265, Short.MAX_VALUE)
-												.addGroup(gl_nonDeployablePanel.createSequentialGroup().addGroup(
-														gl_nonDeployablePanel.createParallelGroup(Alignment.LEADING)
-																.addComponent(outputTypeNonDeployable, 0, 158,
-																		Short.MAX_VALUE)
-																.addComponent(outputPathNonDeployable,
-																		GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
-																.addComponent(testTypeBoxNonDeployable, 0, 158,
-																		Short.MAX_VALUE)
-																.addComponent(
-																		clientFilesNonDeployablePath,
-																		Alignment.TRAILING, 155, 158, Short.MAX_VALUE))
-														.addPreferredGap(ComponentPlacement.RELATED)
-														.addGroup(gl_nonDeployablePanel
-																.createParallelGroup(Alignment.LEADING)
-																.addComponent(btnStartTestingNonDeployable,
-																		GroupLayout.PREFERRED_SIZE, 101,
-																		Short.MAX_VALUE)
-																.addComponent(btnSelectReportPathNonDeployable,
-																		GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
-																.addComponent(btnGetReportNonDeployable,
-																		GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
-																.addComponent(btnSelectClientNonDeployable,
-																		GroupLayout.DEFAULT_SIZE, 101,
-																		Short.MAX_VALUE)))
-												.addComponent(additionalParameters, 259, 265, Short.MAX_VALUE)
-												.addComponent(makeFileDirectoryField, GroupLayout.DEFAULT_SIZE, 265,
-														Short.MAX_VALUE)
-												.addComponent(lblExampleUsageType, GroupLayout.DEFAULT_SIZE, 265,
-														Short.MAX_VALUE))
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.LEADING, false)
-												.addComponent(btnDeployToDevice, GroupLayout.DEFAULT_SIZE,
-														GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-												.addComponent(btnSelectMakefile, GroupLayout.DEFAULT_SIZE,
-														GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-												.addComponent(btnAddNewDevice, GroupLayout.DEFAULT_SIZE, 114,
-														Short.MAX_VALUE))
-										.addGap(325))
-						.addGroup(gl_nonDeployablePanel.createSequentialGroup().addContainerGap()
-								.addComponent(label_10, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-								.addGap(554).addComponent(btnSerialPort).addGap(246))
-						.addGroup(gl_nonDeployablePanel.createSequentialGroup().addContainerGap().addComponent(
-								nonDeployableScrollPane, GroupLayout.PREFERRED_SIZE, 750, GroupLayout.PREFERRED_SIZE)))
-						.addContainerGap()));
-		gl_nonDeployablePanel.setVerticalGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_nonDeployablePanel.createSequentialGroup().addGap(72)
-						.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblAvailableDevices)
-								.addComponent(availableDevicesBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnAddNewDevice))
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblMakefileDirectoryPath)
-								.addComponent(makeFileDirectoryField, GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnSelectMakefile))
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblAdditionalParameters)
-								.addComponent(additionalParameters, GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnDeployToDevice))
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.TRAILING)
+		gl_nonDeployablePanel.setHorizontalGroup(
+			gl_nonDeployablePanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_nonDeployablePanel.createSequentialGroup()
+					.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_nonDeployablePanel.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(nonDeployableScrollPane, GroupLayout.PREFERRED_SIZE, 750, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_nonDeployablePanel.createSequentialGroup()
+							.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_nonDeployablePanel.createSequentialGroup()
-										.addComponent(lblExampleUsageType).addGap(102)
-										.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.BASELINE)
-												.addComponent(clientFilesNonDeployablePath, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addComponent(btnSelectClientNonDeployable)
-												.addComponent(lblSelectClientFiles))
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.LEADING)
-												.addGroup(gl_nonDeployablePanel.createSequentialGroup()
-														.addComponent(btnStartTestingNonDeployable,
-																GroupLayout.PREFERRED_SIZE, 25,
-																GroupLayout.PREFERRED_SIZE)
-														.addPreferredGap(ComponentPlacement.RELATED)
-														.addGroup(gl_nonDeployablePanel
-																.createParallelGroup(Alignment.BASELINE)
-																.addComponent(outputPathNonDeployable,
-																		GroupLayout.PREFERRED_SIZE,
-																		GroupLayout.DEFAULT_SIZE,
-																		GroupLayout.PREFERRED_SIZE)
-																.addComponent(btnSelectReportPathNonDeployable)
-																.addComponent(lblSelectReportPath))
-														.addPreferredGap(ComponentPlacement.RELATED)
-														.addGroup(gl_nonDeployablePanel
-																.createParallelGroup(Alignment.BASELINE)
-																.addComponent(lblOutputType)
-																.addComponent(outputTypeNonDeployable,
-																		GroupLayout.PREFERRED_SIZE,
-																		GroupLayout.DEFAULT_SIZE,
-																		GroupLayout.PREFERRED_SIZE)
-																.addComponent(btnGetReportNonDeployable)))
-												.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.BASELINE)
-														.addComponent(testTypeBoxNonDeployable,
-																GroupLayout.PREFERRED_SIZE, 25,
-																GroupLayout.PREFERRED_SIZE)
-														.addComponent(label_9, GroupLayout.PREFERRED_SIZE, 17,
-																GroupLayout.PREFERRED_SIZE)))
-										.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE,
-												Short.MAX_VALUE)
-										.addComponent(label_10, GroupLayout.PREFERRED_SIZE, 17,
-												GroupLayout.PREFERRED_SIZE))
+									.addGap(83)
+									.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.LEADING, false)
+											.addGroup(gl_nonDeployablePanel.createSequentialGroup()
+												.addComponent(lblOutputType)
+												.addGap(35))
+											.addComponent(lblMakefileDirectoryPath, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+											.addComponent(lblAdditionalParameters, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+										.addComponent(lblAvailableDevices, GroupLayout.PREFERRED_SIZE, 155, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblSelectClientFiles, GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+										.addComponent(lblSelectReportPath)
+										.addComponent(label_9, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.LEADING)
+										.addComponent(availableDevicesBox, 0, 368, Short.MAX_VALUE)
+										.addGroup(gl_nonDeployablePanel.createSequentialGroup()
+											.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.LEADING)
+												.addComponent(outputTypeNonDeployable, 0, 204, Short.MAX_VALUE)
+												.addComponent(outputPathNonDeployable, GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+												.addComponent(testTypeBoxNonDeployable, 0, 204, Short.MAX_VALUE)
+												.addComponent(clientFilesNonDeployablePath, Alignment.TRAILING, 155, 204, Short.MAX_VALUE))
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.LEADING)
+												.addComponent(btnStartTestingNonDeployable, GroupLayout.PREFERRED_SIZE, 158, Short.MAX_VALUE)
+												.addComponent(btnSelectReportPathNonDeployable, GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+												.addComponent(btnGetReportNonDeployable, GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+												.addComponent(btnSelectClientNonDeployable, GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)))
+										.addComponent(additionalParameters, 259, 368, Short.MAX_VALUE)
+										.addComponent(makeFileDirectoryField, GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
+										.addComponent(lblExampleUsageType, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+								.addGroup(gl_nonDeployablePanel.createSequentialGroup()
+									.addContainerGap()
+									.addComponent(label_10, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+									.addGap(607)))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.LEADING)
+								.addComponent(btnSelectMakefile)
+								.addComponent(btnAddNewDevice, GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE)
 								.addComponent(btnSerialPort))
-						.addPreferredGap(ComponentPlacement.RELATED).addComponent(nonDeployableScrollPane,
-								GroupLayout.PREFERRED_SIZE, 350, GroupLayout.PREFERRED_SIZE)
-						.addGap(88)));
+							.addGap(302)))
+					.addContainerGap())
+		);
+		gl_nonDeployablePanel.setVerticalGroup(
+			gl_nonDeployablePanel.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_nonDeployablePanel.createSequentialGroup()
+					.addGap(72)
+					.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblAvailableDevices)
+						.addComponent(availableDevicesBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnAddNewDevice))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblMakefileDirectoryPath)
+						.addComponent(makeFileDirectoryField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnSelectMakefile))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_nonDeployablePanel.createSequentialGroup()
+							.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblAdditionalParameters)
+								.addComponent(additionalParameters, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblExampleUsageType)
+							.addGap(102)
+							.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(clientFilesNonDeployablePath, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnSelectClientNonDeployable)
+								.addComponent(lblSelectClientFiles))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_nonDeployablePanel.createSequentialGroup()
+									.addComponent(btnStartTestingNonDeployable, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.BASELINE)
+										.addComponent(outputPathNonDeployable, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(btnSelectReportPathNonDeployable)
+										.addComponent(lblSelectReportPath))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblOutputType)
+										.addComponent(outputTypeNonDeployable, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(btnGetReportNonDeployable)))
+								.addGroup(gl_nonDeployablePanel.createParallelGroup(Alignment.BASELINE)
+									.addComponent(testTypeBoxNonDeployable, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+									.addComponent(label_9, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)))
+							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(label_10, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
+						.addComponent(btnSerialPort))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(nonDeployableScrollPane, GroupLayout.PREFERRED_SIZE, 350, GroupLayout.PREFERRED_SIZE)
+					.addGap(88))
+		);
 
 		nonDeployableTextArea = new JTextArea();
 		nonDeployableTextArea.setEditable(false);
@@ -1080,15 +1077,16 @@ public class Gui extends JFrame {
 
 	public void getDevices(JComboBox<String> box) {
 		try {
-			File files = new File(System.getProperty("user.dir") + File.separator + "devices");
-			// TODO: Change file name to NAME : bla in file
-
-			for (File file : files.listFiles()) {
-				String deviceName = file.getName().substring(0, file.getName().length() - 4).toUpperCase();
-				if (((DefaultComboBoxModel<String>) box.getModel()).getIndexOf(deviceName) == -1) {
-					box.addItem(deviceName);
+			File files = new File(System.getProperty("user.home") + File.separator + "opc-ua-deployment-tool-devices");
+			if(files.exists()) {
+				for (File file : files.listFiles()) {
+					String deviceName = file.getName().substring(0, file.getName().length() - 4);
+					if (((DefaultComboBoxModel<String>) box.getModel()).getIndexOf(deviceName) == -1) {
+						box.addItem(deviceName);
+					}
 				}
 			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

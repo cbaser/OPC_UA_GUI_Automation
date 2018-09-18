@@ -92,10 +92,13 @@ public class AdditionalDeviceFrame extends JFrame {
 				String cpuSize = (cpuNameField.getText()+" "+String.valueOf(cpuBox.getSelectedItem())).toUpperCase();
 				String encryptionSupport = "NO";
 				String deviceName = deviceNameField.getText().toLowerCase().replaceAll(" ", "").toUpperCase();
+				File file = new File(System.getProperty("user.home")+File.separator+"opc-ua-deployment-tool-devices");
+				if(!file.exists())
+					file.mkdir();
 				if(chckbxEncryptionSupport.isSelected())
 					encryptionSupport="YES";
 				try {
-					FileWriter filewriter = new FileWriter(System.getProperty("user.dir")+File.separator+"devices"+File.separator+deviceName+".txt");
+					FileWriter filewriter = new FileWriter(System.getProperty("user.home")+File.separator+"opc-ua-deployment-tool-devices"+File.separator+deviceName+".txt");
 					filewriter.write("NAME : "+deviceName);
 					filewriter.write("\nCPU : "+cpuSize);
 					filewriter.write("\nRAM : "+memorySize);
